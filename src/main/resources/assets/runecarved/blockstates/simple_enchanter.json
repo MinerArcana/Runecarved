@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "enchanting_table_base" },
+        "inventory": [{ "model": "enchanting_table_base" }]
+    }
+}
