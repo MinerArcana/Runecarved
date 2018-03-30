@@ -1,0 +1,16 @@
+[
+{
+  "modid": "runecarved",
+  "name": "Runecarved",
+  "description": "Curious is the trapmaker's art, his efficacy unwitnessed by his own eyes",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["warlordjones", "SkySom", "DivineAspect"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
