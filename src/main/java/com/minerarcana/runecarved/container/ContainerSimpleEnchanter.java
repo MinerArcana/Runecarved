@@ -1,8 +1,9 @@
-package com.minerarcana.runecarved;
+package com.minerarcana.runecarved.container;
 
 import java.util.List;
 import java.util.Random;
 
+import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.player.*;

@@ -1,9 +1,11 @@
-package com.minerarcana.runecarved;
+package com.minerarcana.runecarved.gui;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
+import com.minerarcana.runecarved.container.ContainerSimpleEnchanter;
+import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
 import org.lwjgl.util.glu.Project;
 
 import com.google.common.collect.Lists;

@@ -1,5 +1,8 @@
 package com.minerarcana.runecarved;
 
+import com.minerarcana.runecarved.container.ContainerSimpleEnchanter;
+import com.minerarcana.runecarved.gui.GuiSimpleEnchanter;
+import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

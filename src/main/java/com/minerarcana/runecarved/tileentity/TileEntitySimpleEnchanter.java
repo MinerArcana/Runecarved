@@ -1,4 +1,4 @@
-package com.minerarcana.runecarved;
+package com.minerarcana.runecarved.tileentity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

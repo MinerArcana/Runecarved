@@ -1,7 +1,9 @@
-package com.minerarcana.runecarved;
+package com.minerarcana.runecarved.block;
 
 import javax.annotation.Nonnull;
 
+import com.minerarcana.runecarved.Runecarved;
+import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

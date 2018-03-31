@@ -1,5 +1,7 @@
 package com.minerarcana.runecarved;
 
+import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
+import com.minerarcana.runecarved.item.ItemScroll;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;

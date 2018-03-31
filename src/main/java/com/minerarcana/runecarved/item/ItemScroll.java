@@ -1,4 +1,4 @@
-package com.minerarcana.runecarved;
+package com.minerarcana.runecarved.item;
 
 import net.minecraft.item.Item;
 
