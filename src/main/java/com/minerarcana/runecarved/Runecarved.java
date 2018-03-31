@@ -12,18 +12,21 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import static com.minerarcana.runecarved.Runecarved.*;
+
 @EventBusSubscriber
-@Mod(modid = Runecarved.MODID, name = Runecarved.NAME, version = Runecarved.VERSION)
+@Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 public class Runecarved extends BaseModFoundation<Runecarved> {
     public static final String MODID = "runecarved";
     public static final String NAME = "Runecarved";
-    public static final String VERSION = "0.0.0";
+    public static final String VERSION = "@VERSION@";
+    public static final String DEPENDENCIES = "required-after:base@[0.0.0,);";
 
-    @Instance(Runecarved.MODID)
+    @Instance(MODID)
     public static Runecarved instance;
 
-    public Runecarved(String modid, String name, String version, CreativeTabs creativeTab) {
-        super(modid, name, version, creativeTab);
+    public Runecarved() {
+        super(MODID, NAME, VERSION, CreativeTabs.MISC);
     }
 
     @Override
