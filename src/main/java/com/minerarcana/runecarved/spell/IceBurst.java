@@ -7,12 +7,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
+import static com.minerarcana.runecarved.Runecarved.MODID;
+
 public class IceBurst extends ProjectileSpell {
+    public IceBurst() {
+        setRegistryName(new ResourceLocation(MODID, "ice_burst"));
+    }
+
     @Override
     public EntityProjectileSpell getEntityProjectileSpell(World world) {
         return new EntityIceBurst(world);
