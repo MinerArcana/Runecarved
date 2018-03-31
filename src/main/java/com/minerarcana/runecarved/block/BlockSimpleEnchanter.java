@@ -1,30 +1,28 @@
 package com.minerarcana.runecarved.block;
 
-import javax.annotation.Nonnull;
-
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
-import net.minecraft.block.Block;
+import com.teamacronymcoders.base.blocks.BlockTEBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockSimpleEnchanter extends Block {
+import javax.annotation.Nonnull;
+
+public class BlockSimpleEnchanter extends BlockTEBase<TileEntitySimpleEnchanter> {
 
 	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
 
 	public BlockSimpleEnchanter() {
-		super(Material.ROCK);
-		this.setUnlocalizedName("simple_enchanter");
-		this.setRegistryName("simple_enchanter");
-		this.setCreativeTab(CreativeTabs.MISC);
+		super(Material.ROCK, "simple_enchanter");
 	}
 
 	@Override
@@ -40,25 +38,27 @@ public class BlockSimpleEnchanter extends Block {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
-	/**
-	 * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
-	 * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
-	 */
 	@Override
+	@Nonnull
+	@SuppressWarnings("deprecation")
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}
 
 	@Override
+	@Nonnull
+	@SuppressWarnings("deprecation")
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return AABB;
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
@@ -72,5 +72,10 @@ public class BlockSimpleEnchanter extends Block {
 	@Nonnull
 	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState blockState) {
 		return new TileEntitySimpleEnchanter();
+	}
+
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntitySimpleEnchanter.class;
 	}
 }
