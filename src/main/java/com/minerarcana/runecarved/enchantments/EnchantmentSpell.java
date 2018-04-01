@@ -25,7 +25,11 @@ public class EnchantmentSpell extends Enchantment {
 
     @Override
     public String getTranslatedName(int level) {
-        return this.spell.getRegistryName().getResourcePath();
+        return this.spell.getRegistryName().getResourcePath(); // TODO
+    }
+
+    public Spell getEnchantmentSpell() {
+        return spell;
     }
 
 }
