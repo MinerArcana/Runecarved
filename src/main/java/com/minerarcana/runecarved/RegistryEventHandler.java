@@ -20,7 +20,7 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void createSpellEnchantments(RegistryEvent.Register<Enchantment> event) {
         RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values()
-                .forEach(spell -> event.getRegistry().register(new EnchantmentSpell()
+                .forEach(spell -> event.getRegistry().register(new EnchantmentSpell(spell)
                         .setRegistryName(spell.getRegistryName()).setName(spell.getRegistryName().getResourcePath())));
     }
 

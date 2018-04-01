@@ -6,7 +6,6 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
-import com.teamacronymcoders.base.util.ItemStackUtils;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.enchantment.*;
@@ -19,7 +18,6 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.*;
@@ -135,9 +133,8 @@ public class ContainerSimpleEnchanter extends Container {
     public void onCraftMatrixChanged(IInventory dummy) {
 
         ItemStack itemstack = tableInventory.getStackInSlot(0);
-        FMLLog.warning(itemstack.getDisplayName());
-        if (!itemstack.isEmpty()
-                && (itemstack.isItemEnchantable() || ItemStackUtils.doItemsMatch(itemstack, Items.PAPER))) {
+
+        if (!itemstack.isEmpty() && itemstack.isItemEnchantable()) {
             if (!this.worldPointer.isRemote) {
                 float power = 3;
 
