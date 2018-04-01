@@ -1,12 +1,12 @@
 package com.minerarcana.runecarved.item;
 
-import net.minecraft.item.Item;
+import com.teamacronymcoders.base.items.ItemBase;
 
-public class ItemScroll extends Item {
+public class ItemScroll extends ItemBase {
 
     public ItemScroll() {
-        super();
-        this.setRegistryName("scroll");
-        this.setUnlocalizedName("scroll");
+        super("scroll");
+        this.setMaxStackSize(1);
+        this.setMaxDamage(8);
     }
 }

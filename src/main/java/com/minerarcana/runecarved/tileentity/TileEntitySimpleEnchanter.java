@@ -1,9 +1,13 @@
 package com.minerarcana.runecarved.tileentity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.minerarcana.runecarved.container.ContainerSimpleEnchanter;
 import com.minerarcana.runecarved.gui.GuiSimpleEnchanter;
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntityBase;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -14,9 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileEntitySimpleEnchanter extends TileEntityBase implements IHasGui {
     private ItemStackHandler inventory = new ItemStackHandler();
@@ -65,6 +66,6 @@ public class TileEntitySimpleEnchanter extends TileEntityBase implements IHasGui
 
     @Override
     public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        return new ContainerSimpleEnchanter(entityPlayer.inventory, world,this);
+        return new ContainerSimpleEnchanter(entityPlayer.inventory, world, this);
     }
 }

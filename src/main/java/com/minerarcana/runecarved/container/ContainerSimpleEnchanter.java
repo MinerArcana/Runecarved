@@ -1,34 +1,28 @@
 package com.minerarcana.runecarved.container;
 
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
+import com.teamacronymcoders.base.util.ItemStackUtils;
+
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentData;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.enchantment.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemEnchantedBook;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
+import net.minecraftforge.items.*;
 
 public class ContainerSimpleEnchanter extends Container {
     /**
@@ -54,8 +48,8 @@ public class ContainerSimpleEnchanter extends Container {
                 .cast(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
         this.rand = new Random();
         this.enchantLevels = new int[3];
-        this.enchantClue = new int[]{-1, -1, -1};
-        this.worldClue = new int[]{-1, -1, -1};
+        this.enchantClue = new int[] { -1, -1, -1 };
+        this.worldClue = new int[] { -1, -1, -1 };
         this.worldPointer = world;
         this.position = tile.getPos();
         this.xpSeed = playerInv.player.getXPSeed();
@@ -68,6 +62,11 @@ public class ContainerSimpleEnchanter extends Container {
             @Override
             public int getSlotStackLimit() {
                 return 1;
+            }
+
+            @Override
+            public void onSlotChanged() {
+                ContainerSimpleEnchanter.this.onCraftMatrixChanged(null);
             }
         });
 
@@ -132,18 +131,21 @@ public class ContainerSimpleEnchanter extends Container {
     /**
      * Callback for when the crafting matrix is changed.
      */
-    public void onCraftMatrixChanged(ItemStackHandler tableInventory2) {
-        ItemStack itemstack = tableInventory2.getStackInSlot(0);
+    @Override
+    public void onCraftMatrixChanged(IInventory dummy) {
 
-        if (!itemstack.isEmpty() && itemstack.isItemEnchantable()) {
+        ItemStack itemstack = tableInventory.getStackInSlot(0);
+        FMLLog.warning(itemstack.getDisplayName());
+        if (!itemstack.isEmpty()
+                && (itemstack.isItemEnchantable() || ItemStackUtils.doItemsMatch(itemstack, Items.PAPER))) {
             if (!this.worldPointer.isRemote) {
                 float power = 3;
 
                 this.rand.setSeed(this.xpSeed);
 
                 for (int i1 = 0; i1 < 3; ++i1) {
-                    this.enchantLevels[i1] =
-                            EnchantmentHelper.calcItemStackEnchantability(this.rand, i1, (int) power, itemstack);
+                    this.enchantLevels[i1] = EnchantmentHelper.calcItemStackEnchantability(this.rand, i1, (int) power,
+                            itemstack);
                     this.enchantClue[i1] = -1;
                     this.worldClue[i1] = -1;
 
@@ -178,19 +180,17 @@ public class ContainerSimpleEnchanter extends Container {
     }
 
     /**
-     * Handles the given Button-click on the server, currently only used by enchanting. Name is for legacy.
+     * Handles the given Button-click on the server, currently only used by
+     * enchanting. Name is for legacy.
      */
     @Override
     public boolean enchantItem(EntityPlayer playerIn, int id) {
         ItemStack itemstack = this.tableInventory.getStackInSlot(0);
-        ItemStack itemstack1 = this.tableInventory.getStackInSlot(1);
         int i = id + 1;
 
-        if ((itemstack1.isEmpty() || itemstack1.getCount() < i) && !playerIn.capabilities.isCreativeMode) {
-            return false;
-        } else if (this.enchantLevels[id] > 0 && !itemstack.isEmpty()
+        if (this.enchantLevels[id] > 0 && !itemstack.isEmpty()
                 && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= this.enchantLevels[id]
-                || playerIn.capabilities.isCreativeMode)) {
+                        || playerIn.capabilities.isCreativeMode)) {
             if (!this.worldPointer.isRemote) {
                 List<EnchantmentData> list = this.getEnchantmentList(itemstack, id, this.enchantLevels[id]);
 
@@ -223,10 +223,9 @@ public class ContainerSimpleEnchanter extends Container {
                     }
 
                     this.xpSeed = playerIn.getXPSeed();
-                    this.onCraftMatrixChanged(this.tableInventory);
-                    this.worldPointer.playSound(null, this.position,
-                            SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F,
-                            this.worldPointer.rand.nextFloat() * 0.1F + 0.9F);
+                    this.onCraftMatrixChanged(null);
+                    this.worldPointer.playSound(null, this.position, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE,
+                            SoundCategory.BLOCKS, 1.0F, this.worldPointer.rand.nextFloat() * 0.1F + 0.9F);
                 }
             }
 
@@ -282,8 +281,8 @@ public class ContainerSimpleEnchanter extends Container {
     }
 
     /**
-     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-     * inventory and the other inventory(s).
+     * Handle when the stack in slot {@code index} is shift-clicked. Normally this
+     * moves the stack between the player inventory and the other inventory(s).
      */
     @Override
     @Nonnull
