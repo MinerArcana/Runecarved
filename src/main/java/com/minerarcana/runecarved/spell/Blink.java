@@ -4,11 +4,13 @@ import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.spell.Spell;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 import static com.minerarcana.runecarved.Runecarved.MODID;
 
-public class Fireball extends Spell {
-    public Fireball() {
-        super(new ResourceLocation(MODID, "fire"));
+public class Blink extends Spell {
+    public Blink() {
+        super(new ResourceLocation(MODID, "blink"));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.minerarcana.runecarved.enchantments;
 
-import com.minerarcana.runecarved.api.RunecarvedRegistries;
+import com.minerarcana.runecarved.Runecarved;
+import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.Spell;
 
 import net.minecraft.enchantment.Enchantment;
@@ -19,9 +20,9 @@ public class EnchantmentHandler {
 
     @SubscribeEvent
     public static void registerEnchantments(Register<Enchantment> event) {
-        for (Spell spell : RunecarvedRegistries.SPELLS) {
+        for (Spell spell : RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values()) {
 
-            FMLLog.warning(spell.getRegistryName().getResourcePath());
+            Runecarved.instance.getLogger().devInfo(spell.getRegistryName().getResourcePath());
         }
     }
 

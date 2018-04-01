@@ -6,9 +6,9 @@ import net.minecraft.util.ResourceLocation;
 
 import static com.minerarcana.runecarved.Runecarved.MODID;
 
-public class Fireball extends Spell {
-    public Fireball() {
-        super(new ResourceLocation(MODID, "fire"));
+public class ManifestTool extends Spell {
+    public ManifestTool() {
+        super(new ResourceLocation(MODID, "manifest_tool"));
     }
 
     @Override

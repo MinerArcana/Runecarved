@@ -2,7 +2,6 @@ package com.minerarcana.runecarved.spell;
 
 import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
 import com.minerarcana.runecarved.api.spell.ProjectileSpell;
-import com.minerarcana.runecarved.entity.EntityIceBurst;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.util.DamageSource;
@@ -17,12 +16,12 @@ import static com.minerarcana.runecarved.Runecarved.MODID;
 
 public class IceBurst extends ProjectileSpell {
     public IceBurst() {
-        setRegistryName(new ResourceLocation(MODID, "ice_burst"));
+        super(new ResourceLocation(MODID, "ice_burst"));
     }
 
     @Override
     public EntityProjectileSpell getEntityProjectileSpell(World world) {
-        return new EntityIceBurst(world);
+        return new EntityProjectileSpell(world, this);
     }
 
     @Override
