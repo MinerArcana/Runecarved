@@ -9,6 +9,7 @@ import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.client.models.IHasModel;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
@@ -32,6 +33,7 @@ public class ItemRuneStone extends ItemBlock implements IHasModel {
     public ItemRuneStone(Spell spell) {
         super(runestone);
         this.spell = spell;
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new RunestoneDispenserBehavior());
     }
 
     @Override
@@ -89,5 +91,9 @@ public class ItemRuneStone extends ItemBlock implements IHasModel {
     @Override
     public void setMod(IBaseMod mod) {
         this.mod = mod;
+    }
+
+    public Spell getSpell() {
+        return spell;
     }
 }
