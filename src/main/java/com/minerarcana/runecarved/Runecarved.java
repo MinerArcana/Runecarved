@@ -1,22 +1,22 @@
 package com.minerarcana.runecarved;
 
+import static com.minerarcana.runecarved.Runecarved.*;
+
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
+import com.minerarcana.runecarved.block.BlockRunestone;
 import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
 import com.minerarcana.runecarved.item.ItemScroll;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import static com.minerarcana.runecarved.Runecarved.*;
+import net.minecraftforge.fml.common.event.*;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 public class Runecarved extends BaseModFoundation<Runecarved> {
@@ -54,6 +54,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @Override
     public void registerBlocks(BlockRegistry registry) {
         registry.register(new BlockSimpleEnchanter());
+        registry.register(new BlockRunestone());
     }
 
     @Override

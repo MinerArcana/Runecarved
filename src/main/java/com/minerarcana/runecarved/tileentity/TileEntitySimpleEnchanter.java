@@ -37,17 +37,17 @@ public class TileEntitySimpleEnchanter extends TileEntityBase implements IHasGui
         return super.getCapability(capability, facing);
     }
 
-    @Override
-    public void readFromNBT(NBTTagCompound data) {
-        inventory.deserializeNBT(data.getCompoundTag("Items"));
-    }
-
-    @Override
-    @Nonnull
-    public NBTTagCompound writeToNBT(NBTTagCompound data) {
-        data.setTag("Items", inventory.serializeNBT());
-        return data;
-    }
+    // @Override
+    // public void readFromNBT(NBTTagCompound data) {
+    // inventory.deserializeNBT(data.getCompoundTag("Items"));
+    // }
+    //
+    // @Override
+    // @Nonnull
+    // public NBTTagCompound writeToNBT(NBTTagCompound data) {
+    // data.setTag("Items", inventory.serializeNBT());
+    // return data;
+    // }
 
     @Override
     protected void readFromDisk(NBTTagCompound data) {
