@@ -2,6 +2,7 @@ package com.minerarcana.runecarved.api.spell;
 
 import javax.annotation.Nonnull;
 
+import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
 
@@ -22,8 +23,11 @@ public abstract class ProjectileSpell extends Spell {
         Vec3d castPosition = caster.getCastPosition();
         entityProjectileSpell.setPosition(castPosition.x, castPosition.y, castPosition.z);
         Vec3d castDirection = caster.getCastDirection();
-        entityProjectileSpell.setVelocity(castDirection.x, castDirection.y, castDirection.z);
+        entityProjectileSpell.motionX = castDirection.x;
+        entityProjectileSpell.motionY = castDirection.y;
+        entityProjectileSpell.motionZ = castDirection.z;
         caster.getWorld().spawnEntity(entityProjectileSpell);
+        Runecarved.instance.getLogger().devInfo(entityProjectileSpell.toString());
         // entityProjectileSpell.shoot();
     }
 
