@@ -10,7 +10,9 @@ import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -50,5 +52,11 @@ public class RegistryEventHandler {
         event.registerSpell(new ManifestTool());
         event.registerSpell(new RaiseDead());
         event.registerSpell(new Sight());
+    }
+
+    @SubscribeEvent
+    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        event.getRegistry().register(
+                new RecipesScrollToStone().setRegistryName(new ResourceLocation(Runecarved.MODID, "scroll_to_stone")));
     }
 }
