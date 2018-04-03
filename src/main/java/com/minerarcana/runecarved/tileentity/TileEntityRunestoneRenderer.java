@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -28,7 +27,7 @@ public class TileEntityRunestoneRenderer extends FastTESR<TileEntityRunestone> {
     public void renderTileEntityFast(TileEntityRunestone te, double x, double y, double z, float partialTicks,
             int destroyStage, float partial, BufferBuilder renderer) {
         if (mc.player.getActivePotionEffect(PotionSeeInvisible.SEE_INVISIBLE) != null
-                || mc.player.getHeldItemMainhand().getItem() == Items.GOLD_INGOT) {
+        /* || mc.player.getHeldItemMainhand().getItem() == Items.GOLD_INGOT */) {
 
             if (blockRenderer == null)
                 blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();

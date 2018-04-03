@@ -66,9 +66,14 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
         int networkID = 0;
+        // EntityEntry spell_projectile =
+        // EntityEntryBuilder.create().entity(EntityProjectileSpell.class)
+        // .id(new ResourceLocation(Runecarved.MODID, "projectile_spell"),
+        // networkID++).name("projectile_spell")
+        // .tracker(64, 4, true).build();
         EntityEntry bound_zombie = EntityEntryBuilder.create().entity(EntityBoundZombie.class)
                 .id(new ResourceLocation(Runecarved.MODID, "bound_zombie"), networkID++).name("bound_zombie")
                 .egg(0xFFFFFF, 0xAAAAAA).tracker(64, 8, false).build();
-        event.getRegistry().register(bound_zombie);
+        event.getRegistry().registerAll(bound_zombie);
     }
 }

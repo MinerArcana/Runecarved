@@ -14,13 +14,12 @@ public class CasterEntityPlayer implements ICaster {
 
     @Override
     public Vec3d getCastDirection() {
-        // TODO Auto-generated method stub
         return getPlayer().getLookVec();
     }
 
     @Override
     public Vec3d getCastPosition() {
-        return getPlayer().getPositionVector();
+        return getPlayer().getPositionVector().add(new Vec3d(0, getPlayer().getEyeHeight(), 0));
     }
 
     @Override
