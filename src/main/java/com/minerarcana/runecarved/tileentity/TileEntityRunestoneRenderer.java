@@ -1,23 +1,17 @@
 package com.minerarcana.runecarved.tileentity;
 
-import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.animation.FastTESR;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
 public class TileEntityRunestoneRenderer extends FastTESR<TileEntityRunestone> {
-
-    @ObjectHolder(value = Runecarved.MODID + ":runestone.runecarved.ice_burst")
-    public static final Item runestone = null;
 
     protected static BlockRendererDispatcher blockRenderer;
     private static Minecraft mc = Minecraft.getMinecraft();
