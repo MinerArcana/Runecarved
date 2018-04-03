@@ -7,6 +7,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
@@ -25,7 +26,9 @@ public class EnchantmentSpell extends Enchantment {
 
     @Override
     public String getTranslatedName(int level) {
-        return this.spell.getRegistryName().getResourcePath(); // TODO
+        String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath());
+        String[] splitTooltip = rawTooltip.split("/");
+        return splitTooltip[1];
     }
 
     public Spell getEnchantmentSpell() {

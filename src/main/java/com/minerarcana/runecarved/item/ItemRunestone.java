@@ -45,13 +45,14 @@ public class ItemRunestone extends ItemBlock implements IHasModel {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        String rawTooltip = I18n.translateToLocal(this.getUnlocalizedName() + ".desc");
+        String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath());
         String[] splitTooltip = rawTooltip.split("/");
-        for (int i = 0; i < splitTooltip.length; i++) {
+        for (int i = 1; i < splitTooltip.length; i++) {
             String format = "";
-            if (i == 0) {
+            if (i == 1) {
                 format = TextFormatting.BLUE.toString();
             }
+
             tooltip.add(format + splitTooltip[i]);
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -63,6 +64,12 @@ public class ItemRunestone extends ItemBlock implements IHasModel {
         if (this.isInCreativeTab(tab)) {
             items.add(new ItemStack(this));
         }
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        return I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath()).split("/")[0] + " "
+                + I18n.translateToLocal("item.runecarved.runestone.name");
     }
 
     @Override

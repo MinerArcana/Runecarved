@@ -9,6 +9,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ItemScroll extends ItemBase {
@@ -43,6 +44,22 @@ public class ItemScroll extends ItemBase {
             }
         }
         return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+    }
+
+    @Override
+    public String getItemStackDisplayName(ItemStack stack) {
+        if (stack.isItemEnchanted()) {
+            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+                if (enchantment instanceof EnchantmentSpell) {
+                    EnchantmentSpell spellEnchantment = (EnchantmentSpell) enchantment;
+                    return I18n
+                            .translateToLocal("spell."
+                                    + spellEnchantment.getEnchantmentSpell().getRegistryName().getResourcePath())
+                            .split("/")[0] + " " + I18n.translateToLocal("item.runecarved.scroll.name");
+                }
+            }
+        }
+        return super.getItemStackDisplayName(stack);
     }
 
     @Override

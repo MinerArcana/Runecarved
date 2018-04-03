@@ -1,20 +1,14 @@
-item.scroll.name=Scroll
-item.runestone.blink.name=Raido
-item.runestone.blink.desc=Rune of Blink/Move to where you look
-item.runestone.fire.name=Sowilo
-item.runestone.fire.desc=Rune of Fire/Wield the power of flame
-item.runestone.ice_burst.name=Isaz
-item.runestone.ice_burst.desc=Rune of Ice/Cast freezing shards
-item.runestone.lightning_bolt.name=Thurisaz
-item.runestone.lightning_bolt.desc=Rune of Lightning/Thor's power
-item.runestone.manifest_armor.name=Gyfu
-item.runestone.manifest_armor.desc=Rune of Armor/Magical protection
-item.runestone.manifest_tool.name=Fehu
-item.runestone.manifest_tool.desc=Rune of Tools/Use it for anything.../While it lasts
-item.runestone.raise_dead.name=Ear
-item.runestone.raise_dead.desc=Rune of Undeath/Raise corpses and bind them to your will!
-item.runestone.sight.name=Tiwaz
-item.runestone.sight.desc=Rune of Sight/See what's really there
+spell.blink=Raido/Rune of Blink/Move to where you look
+spell.fire=Sowilo/Rune of Fire/Wield the power of flame
+spell.ice_burst=Isaz/Rune of Ice/Cast freezing shards
+spell.lightning_bolt=Thurisaz/Rune of Lightning/Thor's power
+spell.manifest_armor=Gyfu/Rune of Armor/Magical protection
+spell.manifest_tool=Fehu/Rune of Tools/Use it for anything.../While it lasts
+spell.raise_dead=Ear/Rune of Undeath/Raise corpses/and bind them to your will!
+spell.sight=Tiwaz/Rune of Sight/See what's really there
+
+item.runecarved.scroll.name=Scroll
+item.runecarved.runestone.name=Runestone
 
 
 potion.see_invisible=Omniscience
