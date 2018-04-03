@@ -16,6 +16,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
@@ -27,6 +28,9 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 
     @Instance(MODID)
     public static Runecarved instance;
+
+    @SidedProxy(clientSide = "com.minerarcana.runecarved.ClientProxy", serverSide = "com.minerarcana.runecarved.CommonProxy")
+    public static com.minerarcana.runecarved.CommonProxy proxy;
 
     public Runecarved() {
         super(MODID, NAME, VERSION, CreativeTabs.MISC);
@@ -43,6 +47,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         super.init(event);
+        proxy.bindTESRs();
     }
 
     @Override

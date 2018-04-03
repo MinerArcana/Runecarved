@@ -21,4 +21,9 @@ public class TileEntityRunestone extends TileEntityBase {
         data.setString("spell", spell.getRegistryName().toString());
         return data;
     }
+
+    @Override
+    public boolean hasFastRenderer() {
+        return true;
+    }
 }

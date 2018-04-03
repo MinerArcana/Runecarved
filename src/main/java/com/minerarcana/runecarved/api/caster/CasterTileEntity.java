@@ -34,6 +34,8 @@ public class CasterTileEntity implements ICaster {
     @Override
     public Vec3d getCastPosition() {
         BlockPos pos = tile.getPos();
+        // Half block offset added to prevent projectiles spawning inside dispenser TODO
+        // Directional offset
         Vec3d position = new Vec3d(pos.getX() + 0.5F, pos.getY() + 0.5, pos.getZ() + 0.5);
         // if (facing != null) {
         // position.add(new Vec3d(facing.getDirectionVec()));
