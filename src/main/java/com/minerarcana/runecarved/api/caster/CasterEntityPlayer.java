@@ -6,26 +6,34 @@ import net.minecraft.world.World;
 
 public class CasterEntityPlayer implements ICaster {
 
-    EntityPlayer player;
+    private EntityPlayer player;
 
     public CasterEntityPlayer(EntityPlayer player) {
-        this.player = player;
+        this.setPlayer(player);
     }
 
     @Override
     public Vec3d getCastDirection() {
         // TODO Auto-generated method stub
-        return player.getLookVec();
+        return getPlayer().getLookVec();
     }
 
     @Override
     public Vec3d getCastPosition() {
-        return player.getPositionVector();
+        return getPlayer().getPositionVector();
     }
 
     @Override
     public World getWorld() {
         // TODO Auto-generated method stub
-        return player.getEntityWorld();
+        return getPlayer().getEntityWorld();
+    }
+
+    public EntityPlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(EntityPlayer player) {
+        this.player = player;
     }
 }

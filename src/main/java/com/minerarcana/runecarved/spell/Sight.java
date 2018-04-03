@@ -1,10 +1,15 @@
 package com.minerarcana.runecarved.spell;
 
+import static com.minerarcana.runecarved.Runecarved.MODID;
+
+import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.spell.Spell;
-import net.minecraft.util.ResourceLocation;
+import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 
-import static com.minerarcana.runecarved.Runecarved.MODID;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
 
 public class Sight extends Spell {
     public Sight() {
@@ -13,6 +18,11 @@ public class Sight extends Spell {
 
     @Override
     public void cast(ICaster caster) {
-
+        // TODO Make rune work from world
+        if (caster instanceof CasterEntityPlayer) {
+            CasterEntityPlayer playerCaster = (CasterEntityPlayer) caster;
+            EntityPlayer playerEntity = playerCaster.getPlayer();
+            playerEntity.addPotionEffect(new PotionEffect(PotionSeeInvisible.SEE_INVISIBLE, 600));
+        }
     }
 }

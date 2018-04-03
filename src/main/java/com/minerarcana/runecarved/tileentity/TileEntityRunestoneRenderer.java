@@ -1,6 +1,7 @@
 package com.minerarcana.runecarved.tileentity;
 
 import com.minerarcana.runecarved.Runecarved;
+import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -8,7 +9,6 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -27,8 +27,8 @@ public class TileEntityRunestoneRenderer extends FastTESR<TileEntityRunestone> {
     @Override
     public void renderTileEntityFast(TileEntityRunestone te, double x, double y, double z, float partialTicks,
             int destroyStage, float partial, BufferBuilder renderer) {
-        if (mc.player.getHeldItemMainhand().getItem() == Items.GOLD_INGOT) {
-            ItemStack item = new ItemStack(runestone);
+        if (mc.player.getActivePotionEffect(PotionSeeInvisible.SEE_INVISIBLE) != null
+                || mc.player.getHeldItemMainhand().getItem() == Items.GOLD_INGOT) {
 
             if (blockRenderer == null)
                 blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();

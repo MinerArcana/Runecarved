@@ -4,11 +4,13 @@ import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
 import com.minerarcana.runecarved.item.ItemRuneStone;
+import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 import com.minerarcana.runecarved.spell.*;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -30,6 +32,11 @@ public class RegistryEventHandler {
 
         RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values().stream().map(ItemRuneStone::new)
                 .forEach(itemRegistry::register);
+    }
+
+    @SubscribeEvent
+    public static void createSpellPotions(RegistryEvent.Register<Potion> potionRegistryEvent) {
+        potionRegistryEvent.getRegistry().register(PotionSeeInvisible.SEE_INVISIBLE);
     }
 
     @SubscribeEvent
