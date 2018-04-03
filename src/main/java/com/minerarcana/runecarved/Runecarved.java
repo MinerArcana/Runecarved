@@ -65,6 +65,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public void registerBlocks(BlockRegistry registry) {
         registry.register(new BlockSimpleEnchanter());
         registry.register(new BlockRunestone());
+        super.registerBlocks(registry);
     }
 
     @Override
@@ -76,6 +77,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
         registry.register(new ItemMagicPickaxe("magic_pickaxe"));
         registry.register(new ItemMagicShovel("magic_shovel"));
         registry.register(new ItemMagicSword("magic_sword"));
+        super.registerItems(registry);
     }
 
     @Override
