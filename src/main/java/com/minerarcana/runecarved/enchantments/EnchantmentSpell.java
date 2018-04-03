@@ -25,6 +25,11 @@ public class EnchantmentSpell extends Enchantment {
     }
 
     @Override
+    protected boolean canApplyTogether(Enchantment ench) {
+        return false;
+    }
+
+    @Override
     public boolean isAllowedOnBooks() {
         return false;
     }
