@@ -7,6 +7,8 @@ spell.manifest_tool=Fehu/Rune of Tools/Use it for anything.../While it lasts
 spell.raise_dead=Ear/Rune of Undeath/Raise corpses/and bind them to your will!
 spell.sight=Tiwaz/Rune of Sight/See what's really there
 
+item.runecarved.ember.name=Brightflame Ember
+item.runecarved.ember.desc=It radiates searing heat...
 item.runecarved.scroll.name=Scroll
 item.runecarved.runestone.name=Runestone
 item.runecarved.magic_tool.name=Manifested Tool (Formless)

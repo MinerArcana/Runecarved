@@ -6,8 +6,8 @@ import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.block.BlockRunestone;
 import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
+import com.minerarcana.runecarved.item.ItemEmber;
 import com.minerarcana.runecarved.item.ItemScroll;
-import com.minerarcana.runecarved.item.tool.*;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
@@ -72,12 +72,14 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @Override
     public void registerItems(ItemRegistry registry) {
         registry.register(new ItemScroll());
-        registry.register(new ItemMagicTool());
-        registry.register(new ItemMagicAxe("magic_axe"));
-        registry.register(new ItemMagicHoe("magic_hoe"));
-        registry.register(new ItemMagicPickaxe("magic_pickaxe"));
-        registry.register(new ItemMagicShovel("magic_shovel"));
-        registry.register(new ItemMagicSword("magic_sword"));
+        registry.register(new ItemEmber());
+        /*
+         * registry.register(new ItemMagicTool()); registry.register(new
+         * ItemMagicAxe("magic_axe")); registry.register(new ItemMagicHoe("magic_hoe"));
+         * registry.register(new ItemMagicPickaxe("magic_pickaxe"));
+         * registry.register(new ItemMagicShovel("magic_shovel")); registry.register(new
+         * ItemMagicSword("magic_sword"));
+         */
         super.registerItems(registry);
     }
 
