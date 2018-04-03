@@ -9,6 +9,12 @@ spell.sight=Tiwaz/Rune of Sight/See what's really there
 
 item.runecarved.scroll.name=Scroll
 item.runecarved.runestone.name=Runestone
+item.runecarved.magic_tool.name=Manifested Tool (Formless)
+item.runecarved.magic_hoe.name=Manifested Tool (Hoe)
+item.runecarved.magic_axe.name=Manifested Tool (Axe)
+item.runecarved.magic_pickaxe.name=Manifested Tool (Pickaxe)
+item.runecarved.magic_shovel.name=Manifested Tool (Shovel)
+item.runecarved.magic_sworld.name=Manifested Tool (Sword)
 
 
 potion.see_invisible=Omniscience
