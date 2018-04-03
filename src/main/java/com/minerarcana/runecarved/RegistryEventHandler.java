@@ -3,7 +3,7 @@ package com.minerarcana.runecarved;
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
-import com.minerarcana.runecarved.item.ItemRuneStone;
+import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 import com.minerarcana.runecarved.spell.*;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
@@ -30,7 +30,7 @@ public class RegistryEventHandler {
     public static void createSpellItems(RegistryEvent.Register<Item> itemRegisterEvent) {
         ItemRegistry itemRegistry = Runecarved.instance.getRegistry(ItemRegistry.class, "ITEM");
 
-        RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values().stream().map(ItemRuneStone::new)
+        RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values().stream().map(ItemRunestone::new)
                 .forEach(itemRegistry::register);
     }
 

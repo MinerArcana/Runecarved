@@ -11,7 +11,7 @@ public class RunestoneDispenserBehavior implements IBehaviorDispenseItem {
 
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
-        ItemRuneStone stone = (ItemRuneStone) stack.getItem();
+        ItemRunestone stone = (ItemRunestone) stack.getItem();
         stone.getSpell().cast(new CasterTileEntity(source.getBlockTileEntity(),
                 source.getBlockState().getValue(BlockDispenser.FACING)));
         stack.shrink(1);

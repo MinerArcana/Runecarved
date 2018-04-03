@@ -2,6 +2,8 @@ package com.minerarcana.runecarved.item;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
@@ -11,17 +13,20 @@ import com.teamacronymcoders.base.client.models.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemRuneStone extends ItemBlock implements IHasModel {
+public class ItemRunestone extends ItemBlock implements IHasModel {
 
     private IBaseMod mod;
 
@@ -30,10 +35,34 @@ public class ItemRuneStone extends ItemBlock implements IHasModel {
 
     private Spell spell;
 
-    public ItemRuneStone(Spell spell) {
+    public ItemRunestone(Spell spell) {
         super(runestone);
+        this.setCreativeTab(CreativeTabs.MISC);
+        this.setUnlocalizedName("runestone." + spell.getRegistryName().getResourcePath());
         this.spell = spell;
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new RunestoneDispenserBehavior());
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        String rawTooltip = I18n.translateToLocal(this.getUnlocalizedName() + ".desc");
+        String[] splitTooltip = rawTooltip.split("/");
+        for (int i = 0; i < splitTooltip.length; i++) {
+            String format = "";
+            if (i == 0) {
+                format = TextFormatting.BLUE.toString();
+            }
+            tooltip.add(format + splitTooltip[i]);
+        }
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    // Override default behaviour of ItemBlock which is fall back to the block
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (this.isInCreativeTab(tab)) {
+            items.add(new ItemStack(this));
+        }
     }
 
     @Override
@@ -41,12 +70,9 @@ public class ItemRuneStone extends ItemBlock implements IHasModel {
         return this.getUnlocalizedName();
     }
 
-    /**
-     * Returns the unlocalized name of this item.
-     */
     @Override
     public String getUnlocalizedName() {
-        return "item.runestone." + spell.getRegistryName().toString().replace(":", ".");
+        return "item.runestone." + spell.getRegistryName().getResourcePath();
     }
 
     @Override
