@@ -23,6 +23,18 @@ public class ItemEmber extends ItemBase {
     }
 
     @Override
+    public boolean hasCustomEntity(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    @Nullable
+    // Feeding the item entity back to itself means the vanilla handling destroys it
+    public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+        return location;
+    }
+
+    @Override
     public int getItemBurnTime(ItemStack itemStack) {
         return 200;
     }
