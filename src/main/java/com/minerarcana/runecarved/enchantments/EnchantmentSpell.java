@@ -25,6 +25,11 @@ public class EnchantmentSpell extends Enchantment {
     }
 
     @Override
+    public boolean isAllowedOnBooks() {
+        return false;
+    }
+
+    @Override
     public String getTranslatedName(int level) {
         String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath());
         String[] splitTooltip = rawTooltip.split("/");
