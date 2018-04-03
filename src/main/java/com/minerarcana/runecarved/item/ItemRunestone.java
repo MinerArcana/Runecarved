@@ -43,6 +43,7 @@ public class ItemRunestone extends ItemBlock implements IHasModel {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new RunestoneDispenserBehavior());
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath());

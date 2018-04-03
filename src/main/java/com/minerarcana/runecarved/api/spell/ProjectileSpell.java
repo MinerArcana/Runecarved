@@ -18,6 +18,7 @@ public abstract class ProjectileSpell extends Spell {
         super(name);
     }
 
+    @Override
     public void cast(ICaster caster) {
         EntityProjectileSpell entityProjectileSpell = getEntityProjectileSpell(caster.getWorld());
         Vec3d castPosition = caster.getCastPosition();
