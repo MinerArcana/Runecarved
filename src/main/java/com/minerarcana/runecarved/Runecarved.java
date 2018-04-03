@@ -45,6 +45,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        proxy.bindEntityRenderers();
         MinecraftForge.EVENT_BUS.post(new SpellRegistryEvent(RunecarvedAPI.getInstance().getSpellRegistry()));
     }
 

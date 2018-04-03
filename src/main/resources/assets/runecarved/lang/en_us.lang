@@ -19,3 +19,5 @@ item.runecarved.magic_sworld.name=Manifested Tool (Sword)
 tile.simple_enchanter.name=Elementary Enchanter
 
 potion.see_invisible=Omniscience
+
+entity.bound_zombie.name=Raised Corpse

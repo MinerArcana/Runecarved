@@ -3,6 +3,7 @@ package com.minerarcana.runecarved;
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
+import com.minerarcana.runecarved.entity.EntityBoundZombie;
 import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 import com.minerarcana.runecarved.spell.*;
@@ -17,6 +18,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
 @EventBusSubscriber(modid = Runecarved.MODID)
 public class RegistryEventHandler {
@@ -58,5 +61,14 @@ public class RegistryEventHandler {
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         event.getRegistry().register(
                 new RecipesScrollToStone().setRegistryName(new ResourceLocation(Runecarved.MODID, "scroll_to_stone")));
+    }
+
+    @SubscribeEvent
+    public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
+        int networkID = 0;
+        EntityEntry bound_zombie = EntityEntryBuilder.create().entity(EntityBoundZombie.class)
+                .id(new ResourceLocation(Runecarved.MODID, "bound_zombie"), networkID++).name("bound_zombie")
+                .egg(0xFFFFFF, 0xAAAAAA).tracker(64, 8, false).build();
+        event.getRegistry().register(bound_zombie);
     }
 }

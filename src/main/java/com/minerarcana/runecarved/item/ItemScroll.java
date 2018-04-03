@@ -38,7 +38,9 @@ public class ItemScroll extends ItemBase {
                                         playerIn.getPosition().getY(), playerIn.getPosition().getZ() + 0.5F, 0, 0, 0);
                         }
                     }
-                    stack.damageItem(1, playerIn);
+                    if (!playerIn.capabilities.isCreativeMode) {
+                        stack.damageItem(1, playerIn);
+                    }
                     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
                 }
             }
