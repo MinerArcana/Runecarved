@@ -8,6 +8,9 @@ import com.teamacronymcoders.base.blocks.BlockTEBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
@@ -22,19 +25,29 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     protected static final AxisAlignedBB UNPRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.0625D,
             0.9375D);
     // public static final PropertySpell SPELL = new PropertySpell();
+    public static final PropertyBool DO_RENDER = PropertyBool.create("render");
 
     public BlockRunestone() {
         super(Material.ROCK, "runestone");
+        this.setDefaultState(this.blockState.getBaseState().withProperty(DO_RENDER, false));
     }
 
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
+        if (state.getValue(DO_RENDER)) {
+            return EnumBlockRenderType.MODEL;
+        }
         return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return UNPRESSED_AABB;
+    }
+
+    @Override
+    public boolean isTranslucent(IBlockState state) {
+        return true;
     }
 
     @Override
@@ -107,6 +120,16 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     @Override
     public TileEntity createTileEntity(World world, IBlockState blockState) {
         return new TileEntityRunestone();
+    }
+
+    @Override
+    public BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, new IProperty[] { DO_RENDER });
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return 0;
     }
 
 }

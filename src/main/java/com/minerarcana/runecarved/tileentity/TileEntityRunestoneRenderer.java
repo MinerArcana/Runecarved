@@ -1,11 +1,12 @@
 package com.minerarcana.runecarved.tileentity;
 
+import com.minerarcana.runecarved.block.BlockRunestone;
+import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -22,7 +23,7 @@ public class TileEntityRunestoneRenderer extends FastTESR<TileEntityRunestone> {
             int destroyStage, float partial, BufferBuilder renderer) {
         if (mc.player.getActivePotionEffect(PotionSeeInvisible.SEE_INVISIBLE) != null
         /* || mc.player.getHeldItemMainhand().getItem() == Items.GOLD_INGOT */) {
-
+            // renderer.pos(x, y, z);
             if (blockRenderer == null)
                 blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
             BlockPos pos = te.getPos();
@@ -32,9 +33,10 @@ public class TileEntityRunestoneRenderer extends FastTESR<TileEntityRunestone> {
             renderer.lightmap(lightX, lightY);
             renderer.setTranslation(x - pos.getX(), y - pos.getY(), z - pos.getZ());
             IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
-            mc.getBlockRendererDispatcher().renderBlock(Blocks.BEDROCK.getDefaultState()/* TODO */, pos, world,
-                    renderer);
-            renderer.putPosition(x, y, z);
+            mc.getBlockRendererDispatcher().renderBlock(
+                    ItemRunestone.runestone.getDefaultState().withProperty(BlockRunestone.DO_RENDER, true)/* TODO */,
+                    pos, world, renderer);
+
         }
     }
 
