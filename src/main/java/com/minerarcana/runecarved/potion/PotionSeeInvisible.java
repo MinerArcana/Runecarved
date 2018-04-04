@@ -14,7 +14,7 @@ public class PotionSeeInvisible extends Potion {
     public static final PotionSeeInvisible SEE_INVISIBLE = new PotionSeeInvisible();
 
     private static final ResourceLocation texture = new ResourceLocation(Runecarved.MODID,
-            "textures/potion/see_invisible.png");
+            "textures/gui/potion_icons.png");
 
     public PotionSeeInvisible() {
         super(false, Color.YELLOW.getRGB());
