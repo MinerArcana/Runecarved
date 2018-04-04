@@ -18,6 +18,7 @@
     }
   },
   "result": {
-    "item": "runecarved:simple_enchanter"
+    "item": "runecarved:simple_enchanter",
+    "data": 0
   }
 }
