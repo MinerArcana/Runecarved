@@ -22,8 +22,6 @@ import net.minecraft.world.World;
 
 public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 
-    protected static final AxisAlignedBB UNPRESSED_AABB = new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.0625D,
-            0.9375D);
     // public static final PropertySpell SPELL = new PropertySpell();
     public static final PropertyBool DO_RENDER = PropertyBool.create("render");
 
@@ -41,8 +39,8 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return UNPRESSED_AABB;
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+        return NULL_AABB;
     }
 
     @Override
