@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
+import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.enchantment.*;
@@ -13,7 +14,8 @@ import net.minecraft.entity.player.*;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.*;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemEnchantedBook;
+import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.*;
 
-public class ContainerSimpleEnchanter extends Container {
+public class ContainerSimpleEnchanter extends ContainerBase {
     /**
      * current world (for bookshelf counting)
      */
@@ -40,6 +42,8 @@ public class ContainerSimpleEnchanter extends Container {
     public int[] enchantLevels;
     public int[] enchantClue;
     public int[] worldClue;
+
+    int playerInventoryStart;
 
     public ContainerSimpleEnchanter(InventoryPlayer playerInv, World world, TileEntitySimpleEnchanter tile) {
         this.tableInventory = CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
@@ -67,16 +71,7 @@ public class ContainerSimpleEnchanter extends Container {
                 ContainerSimpleEnchanter.this.onCraftMatrixChanged(null);
             }
         });
-
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-
-        for (int k = 0; k < 9; ++k) {
-            this.addSlotToContainer(new Slot(playerInv, k, 8 + k * 18, 142));
-        }
+        this.createPlayerSlots(playerInv);
     }
 
     protected void broadcastData(IContainerListener crafting) {
@@ -277,6 +272,13 @@ public class ContainerSimpleEnchanter extends Container {
                 this.position.getZ() + 0.5D) <= 64.0D;
     }
 
+    // Aquired from SlimeKnights/Mantle. TODO move to BASE
+    @Override
+    public void createPlayerSlots(InventoryPlayer player) {
+        playerInventoryStart = this.inventorySlots.size();
+        super.createPlayerSlots(player);
+    }
+
     /**
      * Handle when the stack in slot {@code index} is shift-clicked. Normally this
      * moves the stack between the player inventory and the other inventory(s).
@@ -287,36 +289,22 @@ public class ContainerSimpleEnchanter extends Container {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
 
+        // slot that was clicked on not empty?
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
+            int end = this.inventorySlots.size();
 
-            if (index == 0) {
-                if (!this.mergeItemStack(itemstack1, 2, 38, true)) {
+            // Is it a slot in the main inventory? (aka not player inventory)
+            if (index < playerInventoryStart) {
+                // try to put it into the player inventory (if we have a player inventory)
+                if (!this.mergeItemStack(itemstack1, playerInventoryStart, end, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (index == 1) {
-                if (!this.mergeItemStack(itemstack1, 2, 38, true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else if (itemstack1.getItem() == Items.DYE
-                    && EnumDyeColor.byDyeDamage(itemstack1.getMetadata()) == EnumDyeColor.BLUE) {
-                if (!this.mergeItemStack(itemstack1, 1, 2, true)) {
-                    return ItemStack.EMPTY;
-                }
-            } else {
-                if (this.inventorySlots.get(0).getHasStack() || !this.inventorySlots.get(0).isItemValid(itemstack1)) {
-                    return ItemStack.EMPTY;
-                }
-
-                if (itemstack1.hasTagCompound())// Forge: Fix MC-17431
-                {
-                    this.inventorySlots.get(0).putStack(itemstack1.splitStack(1));
-                } else if (!itemstack1.isEmpty()) {
-                    this.inventorySlots.get(0)
-                            .putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
-                    itemstack1.shrink(1);
-                }
+            }
+            // Slot is in the player inventory (if it exists), transfer to main inventory
+            else if (!this.mergeItemStack(itemstack1, 0, playerInventoryStart, false)) {
+                return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty()) {
@@ -324,12 +312,6 @@ public class ContainerSimpleEnchanter extends Container {
             } else {
                 slot.onSlotChanged();
             }
-
-            if (itemstack1.getCount() == itemstack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTake(playerIn, itemstack1);
         }
 
         return itemstack;
