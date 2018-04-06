@@ -1,8 +1,16 @@
 package com.minerarcana.runecarved.gui;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+
+import org.lwjgl.util.glu.Project;
+
 import com.google.common.collect.Lists;
+import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.container.ContainerSimpleEnchanter;
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -20,24 +28,20 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.util.glu.Project;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class GuiSimpleEnchanter extends GuiContainer {
     /**
      * The ResourceLocation containing the Enchantment GUI texture location
      */
-    private static final ResourceLocation ENCHANTMENT_TABLE_GUI_TEXTURE =
-            new ResourceLocation("runecarved", "textures/gui/enchanting_table.png");
+    private static final ResourceLocation ENCHANTMENT_TABLE_GUI_TEXTURE = new ResourceLocation(Runecarved.MODID,
+            "textures/gui/enchanting_table.png");
     /**
-     * The ResourceLocation containing the texture for the Book rendered above the enchantment table
+     * The ResourceLocation containing the texture for the Book rendered above the
+     * enchantment table
      */
-    private static final ResourceLocation ENCHANTMENT_TABLE_BOOK_TEXTURE =
-            new ResourceLocation("textures/entity/enchanting_table_book.png");
+    private static final ResourceLocation ENCHANTMENT_TABLE_BOOK_TEXTURE = new ResourceLocation(Runecarved.MODID,
+            "textures/entity/simple_enchanter_book.png");
     /**
      * The ModelBook instance used for rendering the book on the Enchantment table
      */
@@ -67,7 +71,8 @@ public class GuiSimpleEnchanter extends GuiContainer {
     }
 
     /**
-     * Draw the foreground layer for the GuiContainer (everything in front of the items)
+     * Draw the foreground layer for the GuiContainer (everything in front of the
+     * items)
      */
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
