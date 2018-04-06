@@ -18,7 +18,8 @@ public class TileEntityRunestone extends TileEntityBase {
 
     @Override
     protected NBTTagCompound writeToDisk(NBTTagCompound data) {
-        data.setString("spell", spell.getRegistryName().toString());
+        if (spell != null)
+            data.setString("spell", spell.getRegistryName().toString());
         return data;
     }
 

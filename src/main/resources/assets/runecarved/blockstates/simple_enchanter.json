@@ -1,8 +1,7 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "model": "enchanting_table_base",
-        "textures": { "top": "runecarved:blocks/simple_enchanter_top", "bottom": "runecarved:blocks/simple_enchanter_bottom", "side": "runecarved:blocks/simple_enchanter_side", "particle": "#bottom" },
+        "model": "runecarved:simple_enchanter",
         "transform": "forge:default-block"
     },
     "variants": {

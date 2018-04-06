@@ -104,6 +104,8 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
         if (!worldIn.isRemote) {
             if (getTileEntity(worldIn, pos).isPresent()) {
                 TileEntityRunestone tile = getTileEntity(worldIn, pos).get();
+                if (tile.spell == null)
+                    return;
                 Runecarved.instance.getLogger().devInfo(tile.spell.getRegistryName().toString());
                 tile.spell.cast(new CasterTileEntity(tile));
                 // TODO Change caster type
