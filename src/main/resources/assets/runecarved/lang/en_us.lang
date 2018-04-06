@@ -23,3 +23,5 @@ tile.runecarved.simple_enchanter.name=Elementary Enchanter
 potion.see_invisible=Omniscience
 
 entity.bound_zombie.name=Raised Corpse
+
+itemGroup.runecarved=Runecarved

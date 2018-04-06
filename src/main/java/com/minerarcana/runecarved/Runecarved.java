@@ -13,7 +13,9 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +23,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 public class Runecarved extends BaseModFoundation<Runecarved> {
@@ -37,8 +40,11 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 
     public static final ToolMaterial MAGIC_TOOL = EnumHelper.addToolMaterial("TOOL_MAGIC", 2, -1, 12.0F, 3.0F, 0);
 
+    @ObjectHolder(value = Runecarved.MODID + ":runestone.ice_burst")
+    public static final Item tabIcon = null;
+
     public Runecarved() {
-        super(MODID, NAME, VERSION, CreativeTabs.MISC);
+        super(MODID, NAME, VERSION, new RunecarvedTab());
     }
 
     @Override
@@ -86,5 +92,17 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @Override
     public Runecarved getInstance() {
         return this;
+    }
+
+    public static class RunecarvedTab extends CreativeTabs {
+
+        public RunecarvedTab() {
+            super(MODID);
+        }
+
+        @Override
+        public ItemStack getTabIconItem() {
+            return new ItemStack(tabIcon);
+        }
     }
 }
