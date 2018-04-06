@@ -16,11 +16,11 @@ public class EnchantmentSpell extends Enchantment {
     @ObjectHolder(value = Runecarved.MODID + ":scroll")
     public static final Item scroll = null;
 
-    public static final EnumEnchantmentType SPELL = EnumHelper.addEnchantmentType("spells", item -> item == scroll);
+    public static final EnumEnchantmentType SPELL_TYPE = EnumHelper.addEnchantmentType("spells", item -> item == scroll);
     private Spell spell;
 
     public EnchantmentSpell(Spell spell) {
-        super(Enchantment.Rarity.RARE, SPELL, new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
+        super(Enchantment.Rarity.RARE, SPELL_TYPE, new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
         this.spell = spell;
     }
 

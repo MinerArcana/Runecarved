@@ -1,9 +1,13 @@
 package com.minerarcana.runecarved.item;
 
+import java.util.Map;
+
+import com.google.common.collect.Maps;
 import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
 import com.teamacronymcoders.base.items.ItemBase;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +22,22 @@ public class ItemScroll extends ItemBase {
         super("scroll");
         this.setMaxStackSize(1);
         this.setMaxDamage(8);
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (tab == CreativeTabs.SEARCH || tab == this.getCreativeTab()) {
+            items.add(new ItemStack(this));
+            for (Enchantment enchantment : Enchantment.REGISTRY) {
+                if (enchantment.type.equals(EnchantmentSpell.SPELL_TYPE)) {
+                    ItemStack stack = new ItemStack(this);
+                    Map<Enchantment, Integer> map = Maps.<Enchantment, Integer>newLinkedHashMap();
+                    map.put(enchantment, Enchantment.getEnchantmentID(enchantment));
+                    EnchantmentHelper.setEnchantments(map, stack);
+                    items.add(stack);
+                }
+            }
+        }
     }
 
     @Override
@@ -71,6 +91,6 @@ public class ItemScroll extends ItemBase {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
-        return enchantment.type.equals(EnchantmentSpell.SPELL);
+        return enchantment.type.equals(EnchantmentSpell.SPELL_TYPE);
     }
 }
