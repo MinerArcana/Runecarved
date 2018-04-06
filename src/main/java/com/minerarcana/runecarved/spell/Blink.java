@@ -8,7 +8,7 @@ import com.minerarcana.runecarved.api.spell.Spell;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class Blink extends Spell {
     public Blink() {
@@ -20,18 +20,11 @@ public class Blink extends Spell {
         if (caster instanceof CasterEntityPlayer) {
             CasterEntityPlayer playerCaster = (CasterEntityPlayer) caster;
             EntityPlayer playerEntity = playerCaster.getPlayer();
-            BlockPos last = null;
-            BlockPos current;
-            for (int i = 0; i < 8; i++) {
-                current = new BlockPos(caster.getCastDirection().x + i, caster.getCastDirection().y + i,
-                        caster.getCastDirection().z + i);
-                if (!playerEntity.getEntityWorld().isAirBlock(current)) {
+            for (int dist = 8; dist > 0; dist--) {
+                Vec3d teleportPosition = caster.getCastPosition().add(playerCaster.getCastDirection().scale(dist));
+                if (playerEntity.attemptTeleport(teleportPosition.x, teleportPosition.y, teleportPosition.z)) {
                     break;
                 }
-                last = current;
-            }
-            if (last != null) {
-                playerEntity.attemptTeleport(last.getX(), last.getY(), last.getZ());
             }
         }
     }

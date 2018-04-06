@@ -46,7 +46,7 @@ public class RegistryEventHandler {
 
     @SubscribeEvent
     public static void createSpells(SpellRegistryEvent event) {
-        // event.registerSpell(new Blink());
+        event.registerSpell(new Blink());
         event.registerSpell(new Fireball());
         event.registerSpell(new IceBurst());
         event.registerSpell(new LightningBolt());
