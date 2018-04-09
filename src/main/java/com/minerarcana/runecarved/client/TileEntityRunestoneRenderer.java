@@ -1,8 +1,9 @@
-package com.minerarcana.runecarved.tileentity;
+package com.minerarcana.runecarved.client;
 
 import com.minerarcana.runecarved.block.BlockRunestone;
 import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
+import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;

@@ -6,13 +6,13 @@ import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.block.BlockRunestone;
 import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
-import com.minerarcana.runecarved.item.ItemEmber;
-import com.minerarcana.runecarved.item.ItemScroll;
+import com.minerarcana.runecarved.item.*;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -35,7 +35,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @Instance(MODID)
     public static Runecarved instance;
 
-    @SidedProxy(clientSide = "com.minerarcana.runecarved.ClientProxy", serverSide = "com.minerarcana.runecarved.CommonProxy")
+    @SidedProxy(clientSide = "com.minerarcana.runecarved.client.ClientProxy", serverSide = "com.minerarcana.runecarved.CommonProxy")
     public static com.minerarcana.runecarved.CommonProxy proxy;
 
     public static final ToolMaterial MAGIC_TOOL = EnumHelper.addToolMaterial("TOOL_MAGIC", 2, -1, 12.0F, 3.0F, 0);
@@ -86,6 +86,11 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
          * registry.register(new ItemMagicShovel("magic_shovel")); registry.register(new
          * ItemMagicSword("magic_sword"));
          */
+        registry.register(new ItemRunicArmor(EntityEquipmentSlot.HEAD, "runic_helmet"));
+        registry.register(new ItemRunicArmor(EntityEquipmentSlot.CHEST, "runic_chestplate"));
+        registry.register(new ItemRunicArmor(EntityEquipmentSlot.LEGS, "runic_leggings"));
+        registry.register(new ItemRunicArmor(EntityEquipmentSlot.FEET, "runic_boots"));
+
         super.registerItems(registry);
     }
 
