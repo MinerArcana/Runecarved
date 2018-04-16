@@ -2,23 +2,27 @@ package com.minerarcana.runecarved.api.caster;
 
 import com.minerarcana.runecarved.Runecarved;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public class CasterTileEntity implements ICaster {
 
-    TileEntity tile;
-    EnumFacing facing;
+    private TileEntity tile;
+    private EnumFacing facing;
 
     public CasterTileEntity(TileEntity tile) {
-        this.tile = tile;
+        this(tile, null);
     }
 
     public CasterTileEntity(TileEntity tile, EnumFacing facing) {
-        this(tile);
+        this.tile = tile;
         this.facing = facing;
     }
 
@@ -46,6 +50,13 @@ public class CasterTileEntity implements ICaster {
     @Override
     public World getWorld() {
         return tile.getWorld();
+    }
+
+    @Override
+    @Nullable
+    public NonNullList<ItemStack> getArmor() {
+        //TODO find player it's being cast on
+        return null;
     }
 
 }

@@ -3,6 +3,7 @@ package com.minerarcana.runecarved.item;
 import javax.annotation.Nullable;
 
 import com.minerarcana.runecarved.Runecarved;
+import com.minerarcana.runecarved.client.ModelRunicArmor;
 import com.teamacronymcoders.base.items.ItemArmorBase;
 
 import net.minecraft.client.model.ModelBiped;
@@ -21,6 +22,9 @@ public class ItemRunicArmor extends ItemArmorBase {
     public static final ArmorMaterial RUNIC = EnumHelper.addArmorMaterial("runic", Runecarved.MODID, -1,
             new int[] { rV, rV, rV, rV }, 0, SoundEvents.BLOCK_ANVIL_PLACE, ArmorMaterial.DIAMOND.getToughness());
 
+    @SideOnly(Side.CLIENT)
+    private ModelRunicArmor modelRunicArmor;
+
     public ItemRunicArmor(EntityEquipmentSlot equipmentSlotIn, String name) {
         super(RUNIC, equipmentSlotIn, name);
     }
@@ -30,9 +34,11 @@ public class ItemRunicArmor extends ItemArmorBase {
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase living, ItemStack stack, EntityEquipmentSlot slot,
             ModelBiped defaultModel) {
-        ModelBiped armorModel = Runecarved.proxy.getArmorModel(slot);
-        armorModel.setModelAttributes(defaultModel);
-        return armorModel;
+        if (modelRunicArmor == null) {
+            modelRunicArmor = new ModelRunicArmor(slot);
+        }
+        modelRunicArmor.setModelAttributes(defaultModel);
+        return modelRunicArmor;
     }
 
     @Nullable

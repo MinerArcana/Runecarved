@@ -1,8 +1,12 @@
 package com.minerarcana.runecarved.api.caster;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class CasterEntityPlayer implements ICaster {
 
@@ -26,6 +30,12 @@ public class CasterEntityPlayer implements ICaster {
     public World getWorld() {
         // TODO Auto-generated method stub
         return getPlayer().getEntityWorld();
+    }
+
+    @Override
+    @Nullable
+    public NonNullList<ItemStack> getArmor() {
+        return player.inventory.armorInventory;
     }
 
     public EntityPlayer getPlayer() {

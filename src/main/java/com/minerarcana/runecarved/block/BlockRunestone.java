@@ -28,7 +28,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 
     // public static final PropertySpell SPELL = new PropertySpell();
     public static final PropertyBool DO_RENDER = PropertyBool.create("render");
-
+    public static final AxisAlignedBB FLAT = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.0, 1.0);
     public BlockRunestone() {
         super(Material.ROCK, "runestone");
         this.setDefaultState(this.blockState.getBaseState().withProperty(DO_RENDER, false));
@@ -45,11 +45,11 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     @SuppressWarnings("deprecation")
     @ParametersAreNonnullByDefault
     public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
-        return NULL_AABB;
+        return FLAT;
     }
 
     @Override
@@ -83,20 +83,11 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
         return true;
     }
 
-    /**
-     * Checks if this block can be placed exactly at the given position.
-     */
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return this.canBePlacedOn(worldIn, pos.down());
+    public boolean canPlaceBlockAt(World world, BlockPos pos) {
+        return this.canBePlacedOn(world, pos.down());
     }
 
-    /**
-     * Called when a neighboring block was changed and marks that this state should
-     * perform any checks during a neighbor change. Cases may include when redstone
-     * power is updated, cactus blocks popping off due to a neighboring solid block,
-     * etc.
-     */
     @Override
     @SuppressWarnings("deprecation")
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {

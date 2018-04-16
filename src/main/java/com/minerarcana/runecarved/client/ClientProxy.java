@@ -15,12 +15,6 @@ import net.minecraftforge.fml.client.registry.*;
 
 @SuppressWarnings("rawtypes")
 public class ClientProxy extends CommonProxy {
-
-    @Override
-    public ModelRunicArmor getArmorModel(EntityEquipmentSlot slot) {
-        return new ModelRunicArmor(slot);
-    }
-
     @Override
     public void bindTESRs() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRunestone.class, new TileEntityRunestoneRenderer());

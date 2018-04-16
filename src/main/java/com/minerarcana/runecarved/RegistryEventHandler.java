@@ -23,7 +23,6 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
 @EventBusSubscriber(modid = Runecarved.MODID)
 public class RegistryEventHandler {
-
     @SubscribeEvent
     public static void createSpellEnchantments(RegistryEvent.Register<Enchantment> event) {
         RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values()
@@ -50,7 +49,7 @@ public class RegistryEventHandler {
         event.registerSpell(new Fireball());
         event.registerSpell(new IceBurst());
         event.registerSpell(new LightningBolt());
-        // event.registerSpell(new ManifestArmor());
+        event.registerSpell(new ManifestArmor());
         // event.registerSpell(new ManifestTool());
         event.registerSpell(new RaiseDead());
         event.registerSpell(new Sight());
