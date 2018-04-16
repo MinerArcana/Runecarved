@@ -5,9 +5,9 @@ import java.util.Map;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.collect.Maps;
-import com.minerarcana.runecarved.RecipesScrollToStone;
-import com.minerarcana.runecarved.RenderUtil;
+import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
+import com.teamacronymcoders.base.util.TextureUtils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -26,7 +26,7 @@ public class TileEntitySimpleEnchanterRenderer extends TileEntitySpecialRenderer
 
     public TileEntitySimpleEnchanterRenderer() {
         super();
-        stack = new ItemStack(RecipesScrollToStone.scroll);
+        stack = new ItemStack(RunecarvedContent.scroll);
         Map<Enchantment, Integer> map = Maps.<Enchantment, Integer>newLinkedHashMap();
         map.put(Enchantments.AQUA_AFFINITY, Enchantment.getEnchantmentID(Enchantments.AQUA_AFFINITY));
         EnchantmentHelper.setEnchantments(map, stack);
@@ -38,7 +38,7 @@ public class TileEntitySimpleEnchanterRenderer extends TileEntitySpecialRenderer
             int destroyStage, float alpha) {
         // Stolen from TiCon :)
         if (!stack.isEmpty()) {
-            RenderUtil.pre(x, y, z);
+            TextureUtils.pre(x, y, z);
             int brightness = tile.getWorld().getCombinedLight(tile.getPos(), 0);
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 0x10000 / 1f,
                     brightness / 0x10000 / 1f);
@@ -52,7 +52,7 @@ public class TileEntitySimpleEnchanterRenderer extends TileEntitySpecialRenderer
                     tile.getWorld(), null);
             Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
             GL11.glDepthMask(true);
-            RenderUtil.post();
+            TextureUtils.post();
         }
     }
 }

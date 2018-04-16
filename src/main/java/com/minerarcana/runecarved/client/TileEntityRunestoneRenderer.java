@@ -1,7 +1,7 @@
 package com.minerarcana.runecarved.client;
 
+import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.block.BlockRunestone;
-import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 
@@ -34,9 +34,8 @@ public class TileEntityRunestoneRenderer extends FastTESR<TileEntityRunestone> {
             renderer.lightmap(lightX, lightY);
             renderer.setTranslation(x - pos.getX(), y - pos.getY(), z - pos.getZ());
             IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
-            mc.getBlockRendererDispatcher().renderBlock(
-                    ItemRunestone.runestone.getDefaultState().withProperty(BlockRunestone.DO_RENDER, true)/* TODO */,
-                    pos, world, renderer);
+            mc.getBlockRendererDispatcher().renderBlock(RunecarvedContent.runestoneBlock.getDefaultState()
+                    .withProperty(BlockRunestone.DO_RENDER, true)/* TODO */, pos, world, renderer);
 
         }
     }

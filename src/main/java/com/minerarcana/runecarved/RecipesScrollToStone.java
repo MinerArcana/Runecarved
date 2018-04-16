@@ -10,14 +10,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(Runecarved.MODID)
 public class RecipesScrollToStone extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
         implements IRecipe {
-
-    public static final Item scroll = null;
-    public static final Item runestone = null;
 
     @Override
     public boolean matches(InventoryCrafting inv, World worldIn) {
@@ -28,7 +23,7 @@ public class RecipesScrollToStone extends net.minecraftforge.registries.IForgeRe
             if (!itemstack.isEmpty()) {
                 Item item = itemstack.getItem();
 
-                if (item == scroll && itemstack.isItemEnchanted()) {
+                if (item == RunecarvedContent.scroll && itemstack.isItemEnchanted()) {
                     hasScroll = true;
                     continue;
                 } else if (item == Item.getItemFromBlock(Blocks.STONE_PRESSURE_PLATE)) {
@@ -47,7 +42,7 @@ public class RecipesScrollToStone extends net.minecraftforge.registries.IForgeRe
             if (!itemstack.isEmpty()) {
                 Item item = itemstack.getItem();
 
-                if (item == scroll) {
+                if (item == RunecarvedContent.scroll) {
                     for (Enchantment enchantment : EnchantmentHelper.getEnchantments(itemstack).keySet()) {
                         if (enchantment instanceof EnchantmentSpell) {
                             EnchantmentSpell spellEnchantment = (EnchantmentSpell) enchantment;

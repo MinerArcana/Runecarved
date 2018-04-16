@@ -4,13 +4,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.minerarcana.runecarved.Runecarved;
+import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.client.models.IHasModel;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -22,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -30,19 +28,17 @@ public class ItemRunestone extends ItemBlock implements IHasModel {
 
     private IBaseMod mod;
 
-    @ObjectHolder(value = Runecarved.MODID + ":runestone")
-    public static final Block runestone = null;
-
     private Spell spell;
 
     public ItemRunestone(Spell spell) {
-        super(runestone);
+        super(RunecarvedContent.runestoneBlock);
         this.setCreativeTab(CreativeTabs.MISC);
         this.setUnlocalizedName("runestone." + spell.getRegistryName().getResourcePath());
         this.spell = spell;
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new RunestoneDispenserBehavior());
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
@@ -67,6 +63,7 @@ public class ItemRunestone extends ItemBlock implements IHasModel {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         return I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath()).split("/")[0] + " "
