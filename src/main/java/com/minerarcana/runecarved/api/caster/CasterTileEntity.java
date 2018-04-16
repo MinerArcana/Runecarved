@@ -1,5 +1,7 @@
 package com.minerarcana.runecarved.api.caster;
 
+import javax.annotation.Nullable;
+
 import com.minerarcana.runecarved.Runecarved;
 
 import net.minecraft.item.ItemStack;
@@ -9,8 +11,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public class CasterTileEntity implements ICaster {
 

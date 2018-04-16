@@ -10,7 +10,6 @@ import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.client.registry.*;
 
 @SuppressWarnings("rawtypes")

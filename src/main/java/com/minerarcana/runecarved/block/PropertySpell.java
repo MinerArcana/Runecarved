@@ -23,8 +23,7 @@ public class PropertySpell implements IUnlistedProperty<Spell> {
     }
 
     @Override
-    public Class getType() {
-        // TODO Auto-generated method stub
+    public Class<Spell> getType() {
         return Spell.class;
     }
 

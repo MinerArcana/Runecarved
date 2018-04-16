@@ -1,11 +1,12 @@
 package com.minerarcana.runecarved.api.entity;
 
+import javax.annotation.Nonnull;
+
 import com.minerarcana.runecarved.api.spell.ProjectileSpell;
+
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class EntityProjectileSpell extends EntityThrowable {
     private ProjectileSpell projectileSpell;
