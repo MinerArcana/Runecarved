@@ -1,34 +1,32 @@
 package com.minerarcana.runecarved.block;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.caster.CasterTileEntity;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-
 public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 
     // public static final PropertySpell SPELL = new PropertySpell();
     public static final PropertyBool DO_RENDER = PropertyBool.create("render");
-    public static final AxisAlignedBB FLAT = new AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.0, 1.0);
+    public static final AxisAlignedBB TINY = new AxisAlignedBB(0.5D, 0.5D, 0.5D, 0.50001D, 0.50001D, 0.50001D);
+
     public BlockRunestone() {
         super(Material.ROCK, "runestone");
         this.setDefaultState(this.blockState.getBaseState().withProperty(DO_RENDER, false));
@@ -41,15 +39,24 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
         if (state.getValue(DO_RENDER)) {
             return EnumBlockRenderType.MODEL;
         }
-        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+        return EnumBlockRenderType.INVISIBLE;
     }
 
     @Override
-    @Nonnull
-    @SuppressWarnings("deprecation")
-    @ParametersAreNonnullByDefault
-    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
-        return FLAT;
+    public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
+        return state.getValue(DO_RENDER);
+    }
+
+    @Override
+    // Determines passability only, DOES NOT relate to firing
+    // onEntityCollidedWithBlock. Because Logic.
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return NULL_AABB;
+    }
+
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
     }
 
     @Override
@@ -98,7 +105,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     }
 
     private boolean canBePlacedOn(World world, BlockPos pos) {
-        return world.getBlockState(pos).isTopSolid() || world.getBlockState(pos).getBlock() instanceof BlockFence;
+        return world.getBlockState(pos).isTopSolid();
     }
 
     @Override
