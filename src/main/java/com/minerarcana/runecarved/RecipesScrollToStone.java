@@ -9,6 +9,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 public class RecipesScrollToStone extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>
@@ -36,6 +37,19 @@ public class RecipesScrollToStone extends net.minecraftforge.registries.IForgeRe
     }
 
     @Override
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+        NonNullList<ItemStack> ret = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        for (int i = 0; i < ret.size(); i++) {
+            ItemStack stack = inv.getStackInSlot(i).copy();
+            if (stack.getItem() == RunecarvedContent.scroll) {
+                stack.setItemDamage(stack.getItemDamage() + 1);
+                ret.set(i, stack);
+            }
+        }
+        return ret;
+    }
+
+    @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack itemstack = inv.getStackInSlot(i);
@@ -59,7 +73,7 @@ public class RecipesScrollToStone extends net.minecraftforge.registries.IForgeRe
 
     @Override
     public boolean canFit(int width, int height) {
-        return true;
+        return width > 1 || height > 1;
     }
 
     @Override
