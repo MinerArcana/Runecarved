@@ -28,7 +28,7 @@ public class ModelRunicArmor extends ModelBiped {
     public ModelRenderer FootL;
     public ModelRenderer Leg2L;
 
-    EntityEquipmentSlot slot;
+    private EntityEquipmentSlot slot;
 
     public ModelRunicArmor(EntityEquipmentSlot slot) {
         super(0f);

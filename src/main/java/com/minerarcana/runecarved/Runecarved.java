@@ -8,6 +8,7 @@ import com.minerarcana.runecarved.block.BlockRunestone;
 import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
 import com.minerarcana.runecarved.item.*;
 import com.teamacronymcoders.base.BaseModFoundation;
+import com.teamacronymcoders.base.creativetabs.CreativeTabBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 
@@ -41,10 +42,10 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public static final ToolMaterial MAGIC_TOOL = EnumHelper.addToolMaterial("TOOL_MAGIC", 2, -1, 12.0F, 3.0F, 0);
 
     @ObjectHolder(value = Runecarved.MODID + ":runestone.ice_burst")
-    public static final Item tabIcon = null;
+    public static Item tabIcon;
 
     public Runecarved() {
-        super(MODID, NAME, VERSION, new RunecarvedTab());
+        super(MODID, NAME, VERSION, new CreativeTabBase("runecarved", () -> new ItemStack(tabIcon)));
     }
 
     @Override
@@ -97,17 +98,5 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @Override
     public Runecarved getInstance() {
         return this;
-    }
-
-    public static class RunecarvedTab extends CreativeTabs {
-
-        public RunecarvedTab() {
-            super(MODID);
-        }
-
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(tabIcon);
-        }
     }
 }

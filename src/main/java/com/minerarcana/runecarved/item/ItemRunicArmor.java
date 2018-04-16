@@ -26,8 +26,8 @@ public class ItemRunicArmor extends ItemArmorBase {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     @Nullable
+    @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase living, ItemStack stack, EntityEquipmentSlot slot,
             ModelBiped defaultModel) {
         ModelBiped armorModel = Runecarved.proxy.getArmorModel(slot);

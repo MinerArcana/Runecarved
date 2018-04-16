@@ -2,6 +2,7 @@ package com.minerarcana.runecarved.item;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.teamacronymcoders.base.items.ItemBase;
@@ -46,11 +47,13 @@ public class ItemEmber extends ItemBase {
 
     @Override
     @SideOnly(Side.CLIENT)
+    @SuppressWarnings("deprecation")
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(TextFormatting.RED.toString() + I18n.translateToLocal("item.runecarved.ember.desc"));
     }
 
     @Override
+    @Nonnull
     public EnumRarity getRarity(ItemStack stack) {
         return EnumRarity.EPIC;
     }

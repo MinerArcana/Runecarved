@@ -20,6 +20,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 
     // public static final PropertySpell SPELL = new PropertySpell();
@@ -31,6 +35,8 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     }
 
     @Override
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public EnumBlockRenderType getRenderType(IBlockState state) {
         if (state.getValue(DO_RENDER)) {
             return EnumBlockRenderType.MODEL;
@@ -39,21 +45,27 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+    @Nullable
+    @SuppressWarnings("deprecation")
+    @ParametersAreNonnullByDefault
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World world, BlockPos pos) {
         return NULL_AABB;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isTranslucent(IBlockState state) {
         return true;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean isFullCube(IBlockState state) {
         return false;
     }
@@ -86,28 +98,29 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
      * etc.
      */
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if (!this.canBePlacedOn(worldIn, pos.down())) {
-            this.dropBlockAsItem(worldIn, pos, state, 0);// TODO
-            worldIn.setBlockToAir(pos);
+    @SuppressWarnings("deprecation")
+    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (!this.canBePlacedOn(world, pos.down())) {
+            this.dropBlockAsItem(world, pos, state, 0);// TODO
+            world.setBlockToAir(pos);
         }
     }
 
-    private boolean canBePlacedOn(World worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos).isTopSolid() || worldIn.getBlockState(pos).getBlock() instanceof BlockFence;
+    private boolean canBePlacedOn(World world, BlockPos pos) {
+        return world.getBlockState(pos).isTopSolid() || world.getBlockState(pos).getBlock() instanceof BlockFence;
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        if (!worldIn.isRemote) {
-            if (getTileEntity(worldIn, pos).isPresent()) {
-                TileEntityRunestone tile = getTileEntity(worldIn, pos).get();
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+        if (!world.isRemote) {
+            if (getTileEntity(world, pos).isPresent()) {
+                TileEntityRunestone tile = getTileEntity(world, pos).get();
                 if (tile.spell == null)
                     return;
                 Runecarved.instance.getLogger().devInfo(tile.spell.getRegistryName().toString());
                 tile.spell.cast(new CasterTileEntity(tile));
                 // TODO Change caster type
-                worldIn.setBlockToAir(pos);
+                world.setBlockToAir(pos);
             }
         }
     }
@@ -118,13 +131,16 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     }
 
     @Override
+    @Nonnull
+    @ParametersAreNonnullByDefault
     public TileEntity createTileEntity(World world, IBlockState blockState) {
         return new TileEntityRunestone();
     }
 
     @Override
+    @Nonnull
     public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] { DO_RENDER });
+        return new BlockStateContainer(this, DO_RENDER);
     }
 
     @Override
