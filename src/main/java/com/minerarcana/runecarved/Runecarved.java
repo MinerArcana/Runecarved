@@ -11,6 +11,7 @@ import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.creativetabs.CreativeTabBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
+import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -44,7 +45,8 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public static Item tabIcon;
 
     public Runecarved() {
-        super(MODID, NAME, VERSION, new CreativeTabBase("runecarved", () -> new ItemStack(tabIcon)));
+        super(MODID, NAME, VERSION, new CreativeTabBase("runecarved", () -> new ItemStack(tabIcon)),
+                Platform.isDevEnv());
     }
 
     @Override

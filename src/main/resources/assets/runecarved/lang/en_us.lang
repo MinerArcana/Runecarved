@@ -18,6 +18,11 @@ item.runecarved.magic_pickaxe.name=Manifested Tool (Pickaxe)
 item.runecarved.magic_shovel.name=Manifested Tool (Shovel)
 item.runecarved.magic_sworld.name=Manifested Tool (Sword)
 
+item.runecarved.runic_helmet.name=Runic Helmet
+item.runecarved.runic_chestplate.name=Runic Chestplate
+item.runecarved.runic_leggings.name=Runic Leggings
+item.runecarved.runic_boots.name=Runic Boots
+
 tile.runecarved.simple_enchanter.name=Elementary Enchanter
 
 potion.see_invisible=Omniscience
