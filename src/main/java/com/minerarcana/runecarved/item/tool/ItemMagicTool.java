@@ -9,10 +9,11 @@ import com.teamacronymcoders.base.items.ItemBase;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,21 +29,17 @@ public class ItemMagicTool extends ItemBase {
     }
 
     @Override
-    public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-        MagicToolHelper.convertToTool(stack, "sword", player);
-        return false;
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        MagicToolHelper.hitEntity(stack, target, attacker);
+        return super.hitEntity(stack, target, attacker);
     }
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, @Nonnull EnumHand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        if (Items.IRON_HOE.onItemRightClick(worldIn, player, hand) == new ActionResult<>(EnumActionResult.SUCCESS,
-                stack)) {
-            MagicToolHelper.convertToTool(stack, "hoe", player);
-            return new ActionResult<>(EnumActionResult.SUCCESS, stack);
-        }
-        return new ActionResult<>(EnumActionResult.PASS, stack);
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
+            EnumFacing facing, float hitX, float hitY, float hitZ) {
+        MagicToolHelper.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
@@ -55,7 +52,7 @@ public class ItemMagicTool extends ItemBase {
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         this.ticksExisted++;
-        if (ticksExisted == expiryTicks) {
+        if (ticksExisted >= expiryTicks) {
             stack.shrink(1);
         }
     }

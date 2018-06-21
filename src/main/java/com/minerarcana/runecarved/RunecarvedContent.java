@@ -25,4 +25,16 @@ public class RunecarvedContent {
     public static Item scroll;
     @ObjectHolder("runestone")
     public static Block runestoneBlock;
+    @ObjectHolder("magic_tool")
+    public static Item magicTool;
+    @ObjectHolder("magic_sword")
+    public static Item magicSword;
+    @ObjectHolder("magic_hoe")
+    public static Item magicHoe;
+    @ObjectHolder("magic_pickaxe")
+    public static Item magicPickaxe;
+    @ObjectHolder("magic_shovel")
+    public static Item magicShovel;
+    @ObjectHolder("magic_axe")
+    public static Item magicAxe;
 }

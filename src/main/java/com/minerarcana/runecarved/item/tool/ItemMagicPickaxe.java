@@ -13,7 +13,11 @@ import com.teamacronymcoders.base.client.models.IHasModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,6 +37,20 @@ public class ItemMagicPickaxe extends ItemPickaxe implements IHasModel, IModAwar
     }
 
     @Override
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        MagicToolHelper.hitEntity(stack, target, attacker);
+        return super.hitEntity(stack, target, attacker);
+    }
+
+    @Override
+    @Nonnull
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
+            EnumFacing facing, float hitX, float hitY, float hitZ) {
+        MagicToolHelper.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add("Seconds remaining: " + (expiryTicks - ticksExisted) / 20);
@@ -42,7 +60,7 @@ public class ItemMagicPickaxe extends ItemPickaxe implements IHasModel, IModAwar
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         this.ticksExisted++;
-        if (ticksExisted == expiryTicks) {
+        if (ticksExisted >= expiryTicks) {
             stack.shrink(1);
         }
     }

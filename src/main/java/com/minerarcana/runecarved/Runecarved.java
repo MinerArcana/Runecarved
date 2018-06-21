@@ -7,6 +7,7 @@ import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.block.BlockRunestone;
 import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
 import com.minerarcana.runecarved.item.*;
+import com.minerarcana.runecarved.item.tool.*;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.creativetabs.CreativeTabBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -81,13 +82,14 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public void registerItems(ItemRegistry registry) {
         registry.register(new ItemScroll());
         registry.register(new ItemEmber());
-        /*
-         * registry.register(new ItemMagicTool()); registry.register(new
-         * ItemMagicAxe("magic_axe")); registry.register(new ItemMagicHoe("magic_hoe"));
-         * registry.register(new ItemMagicPickaxe("magic_pickaxe"));
-         * registry.register(new ItemMagicShovel("magic_shovel")); registry.register(new
-         * ItemMagicSword("magic_sword"));
-         */
+
+        registry.register(new ItemMagicTool());
+        registry.register(new ItemMagicAxe("magic_axe"));
+        // registry.register(new ItemMagicHoe("magic_hoe"));
+        registry.register(new ItemMagicPickaxe("magic_pickaxe"));
+        registry.register(new ItemMagicShovel("magic_shovel"));
+        registry.register(new ItemMagicSword("magic_sword"));
+
         registry.register(new ItemRunicArmor(EntityEquipmentSlot.HEAD, "runic_helmet"));
         registry.register(new ItemRunicArmor(EntityEquipmentSlot.CHEST, "runic_chestplate"));
         registry.register(new ItemRunicArmor(EntityEquipmentSlot.LEGS, "runic_leggings"));

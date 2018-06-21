@@ -50,7 +50,7 @@ public class RegistryEventHandler {
         event.registerSpell(new IceBurst());
         event.registerSpell(new LightningBolt());
         event.registerSpell(new ManifestArmor());
-        // event.registerSpell(new ManifestTool());
+        event.registerSpell(new ManifestTool());
         event.registerSpell(new RaiseDead());
         event.registerSpell(new Sight());
     }
