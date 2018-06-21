@@ -20,18 +20,41 @@ public class EntityFlame extends EntityThrowable {
     }
 
     @Override
+    public void onUpdate() {
+        if (this.ticksExisted >= 80) {
+            this.setDead();
+        }
+        super.onUpdate();
+    }
+
+    @Override
     protected void onImpact(RayTraceResult result) {
         if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
-            result.entityHit.setFire(3);
+            if (!world.isRemote && result.entityHit != this.ignoreEntity) {
+                result.entityHit.setFire(3);
+                this.setDead();
+            }
         } else if (result.typeOfHit == RayTraceResult.Type.BLOCK)
             if (!world.isRemote) {
                 if (world.getTileEntity(result.getBlockPos()) instanceof TileEntityFurnace) {
                     TileEntityFurnace furnace = (TileEntityFurnace) world.getTileEntity(result.getBlockPos());
                     if (furnace.getStackInSlot(1).isEmpty()) {
                         furnace.setInventorySlotContents(1, new ItemStack(RunecarvedContent.ember));
+                        this.setDead();
                     }
+                    // } else {
+                    // if (world.isAirBlock(result.getBlockPos().up())) {
+                    // world.setBlockState(result.getBlockPos().up(),
+                    // Blocks.FIRE.getDefaultState());
+                    // this.setDead();
+                    // }
                 }
             }
+    }
+
+    @Override
+    protected float getGravityVelocity() {
+        return 0F;
     }
 
 }

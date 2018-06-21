@@ -44,6 +44,8 @@ public class Fireball extends ExtendedSpell {
                 projectile.motionY = vecDir.y * range;
                 projectile.motionZ = vecDir.z * range;
                 if (!playerEntity.getEntityWorld().isRemote) {
+                    projectile.ignoreEntity = playerEntity;
+                    projectile.setFire(10);
                     playerEntity.getEntityWorld().spawnEntity(projectile);
                 }
             }

@@ -22,15 +22,17 @@ public class EntityProjectileSpell extends EntityThrowable {
 
     @Override
     protected void onImpact(@Nonnull RayTraceResult result) {
+        if (world.isRemote)
+            return;
         switch (result.typeOfHit) {
-            case BLOCK:
-                projectileSpell.onImpact(this, result.getBlockPos(), result.sideHit);
-                break;
-            case ENTITY:
-                if (result.entityHit != null) {
-                    projectileSpell.onImpact(this, result.entityHit);
-                }
-                break;
+        case BLOCK:
+            projectileSpell.onImpact(this, result.getBlockPos(), result.sideHit);
+            break;
+        case ENTITY:
+            if (result.entityHit != null && result.entityHit != this.ignoreEntity) {
+                projectileSpell.onImpact(this, result.entityHit);
+            }
+            break;
         }
     }
 }

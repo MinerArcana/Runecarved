@@ -3,6 +3,7 @@ package com.minerarcana.runecarved.api.spell;
 import javax.annotation.Nonnull;
 
 import com.minerarcana.runecarved.Runecarved;
+import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
 
@@ -27,6 +28,9 @@ public abstract class ProjectileSpell extends Spell {
         entityProjectileSpell.motionX = castDirection.x;
         entityProjectileSpell.motionY = castDirection.y;
         entityProjectileSpell.motionZ = castDirection.z;
+        if (caster instanceof CasterEntityPlayer) {
+            entityProjectileSpell.ignoreEntity = ((CasterEntityPlayer) caster).getPlayer();
+        }
         caster.getWorld().spawnEntity(entityProjectileSpell);
         Runecarved.instance.getLogger().devInfo(entityProjectileSpell.toString());
         // entityProjectileSpell.shoot();

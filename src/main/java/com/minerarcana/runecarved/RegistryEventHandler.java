@@ -1,6 +1,7 @@
 package com.minerarcana.runecarved;
 
 import com.minerarcana.runecarved.api.RunecarvedAPI;
+import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
 import com.minerarcana.runecarved.entity.EntityBoundZombie;
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 @EventBusSubscriber(modid = Runecarved.MODID)
 public class RegistryEventHandler {
@@ -65,17 +66,27 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
         int networkID = 0;
-        // EntityEntry spell_projectile =
+        EntityRegistry.registerModEntity(new ResourceLocation(Runecarved.MODID, "projectile_spell"),
+                EntityProjectileSpell.class, "Generic Spell", networkID++, Runecarved.MODID, 64, 1, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(Runecarved.MODID, "flame"), EntityFlame.class, "Flame",
+                networkID++, Runecarved.MODID, 64, 1, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(Runecarved.MODID, "bound_zombie"),
+                EntityBoundZombie.class, "bound_zombie", networkID++, Runecarved.MODID, 64, 8, false, 0xFFFFFF,
+                0xAAAAAA);
+        // EntityEntry genericSpell =
         // EntityEntryBuilder.create().entity(EntityProjectileSpell.class)
         // .id(new ResourceLocation(Runecarved.MODID, "projectile_spell"),
         // networkID++).name("projectile_spell")
-        // .tracker(64, 4, true).build();
-        EntityEntry bound_zombie = EntityEntryBuilder.create().entity(EntityBoundZombie.class)
-                .id(new ResourceLocation(Runecarved.MODID, "bound_zombie"), networkID++).name("bound_zombie")
-                .egg(0xFFFFFF, 0xAAAAAA).tracker(64, 8, false).build();
-        EntityEntry flame = EntityEntryBuilder.create().entity(EntityFlame.class)
-                .id(new ResourceLocation(Runecarved.MODID, "flame"), networkID++).name("flame").tracker(64, 8, true)
-                .build();
-        event.getRegistry().registerAll(bound_zombie, flame);
+        // .tracker(64, 10, true).build();
+        // EntityEntry bound_zombie =
+        // EntityEntryBuilder.create().entity(EntityBoundZombie.class)
+        // .id(new ResourceLocation(Runecarved.MODID, "bound_zombie"),
+        // networkID++).name("bound_zombie")
+        // .egg(0xFFFFFF, 0xAAAAAA).tracker(64, 8, false).build();
+        // EntityEntry flame = EntityEntryBuilder.create().entity(EntityFlame.class)
+        // .id(new ResourceLocation(Runecarved.MODID, "flame"),
+        // networkID++).name("flame").tracker(64, 30, true)
+        // .build();
+        // event.getRegistry().registerAll(bound_zombie, genericSpell, flame);
     }
 }
