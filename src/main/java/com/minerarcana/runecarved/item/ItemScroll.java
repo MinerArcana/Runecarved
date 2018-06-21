@@ -3,13 +3,17 @@ package com.minerarcana.runecarved.item;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
+import com.minerarcana.runecarved.api.spell.ExtendedSpell;
+import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
 import com.teamacronymcoders.base.items.ItemBase;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
@@ -43,29 +47,62 @@ public class ItemScroll extends ItemBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        if (stack.isItemEnchanted()) {
-            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-                if (enchantment instanceof EnchantmentSpell) {
-                    EnchantmentSpell spellEnchantment = (EnchantmentSpell) enchantment;
-                    spellEnchantment.getEnchantmentSpell().cast(new CasterEntityPlayer(playerIn));
-                    // TODO
-                    if (stack.getItemDamage() == 1) {
-                        worldIn.spawnParticle(EnumParticleTypes.FLAME, playerIn.getPosition().getX() + 0.5F,
-                                playerIn.getPosition().getY(), playerIn.getPosition().getZ() + 0.5F, 0, 0, 0);
-                        for (int i = 0; i < 8; i++) {
-                            if (worldIn.rand.nextBoolean())
-                                worldIn.spawnParticle(EnumParticleTypes.FLAME, playerIn.getPosition().getX() + 0.5F,
-                                        playerIn.getPosition().getY(), playerIn.getPosition().getZ() + 0.5F, 0, 0, 0);
-                        }
-                    }
-                    if (!playerIn.capabilities.isCreativeMode) {
-                        stack.damageItem(1, playerIn);
-                    }
-                    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-                }
+        if (getSpellFromStack(stack) != null) {
+            if (!(getSpellFromStack(stack) instanceof ExtendedSpell)) {
+                getSpellFromStack(stack).cast(new CasterEntityPlayer(playerIn));
+                // TODO
+                onSpellCast(worldIn, playerIn, stack);
+            } else {
+                playerIn.setActiveHand(handIn);
+            }
+            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+
+        }
+        return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    private void onSpellCast(World worldIn, EntityPlayer playerIn, ItemStack stack) {
+        if (stack.getItemDamage() == 1) {
+            worldIn.spawnParticle(EnumParticleTypes.FLAME, playerIn.getPosition().getX() + 0.5F,
+                    playerIn.getPosition().getY(), playerIn.getPosition().getZ() + 0.5F, 0, 0, 0);
+            for (int i = 0; i < 8; i++) {
+                if (worldIn.rand.nextBoolean())
+                    worldIn.spawnParticle(EnumParticleTypes.FLAME, playerIn.getPosition().getX() + 0.5F,
+                            playerIn.getPosition().getY(), playerIn.getPosition().getZ() + 0.5F, 0, 0, 0);
             }
         }
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
+        if (!playerIn.capabilities.isCreativeMode) {
+            stack.damageItem(1, playerIn);
+        }
+    }
+
+    // FIXME Possibly unsafe casts
+    @Override
+    public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
+        ((ExtendedSpell) getSpellFromStack(stack)).duringCasting(new CasterEntityPlayer((EntityPlayer) player));
+        super.onUsingTick(stack, player, count);
+    }
+
+    @Override
+    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
+        onSpellCast(world, (EntityPlayer) player, stack);
+        super.onPlayerStoppedUsing(stack, world, player, timeLeft);
+    }
+
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+        getSpellFromStack(stack).cast(new CasterEntityPlayer((EntityPlayer) entityLiving));
+        onSpellCast(worldIn, ((EntityPlayer) entityLiving), stack);
+        return super.onItemUseFinish(stack, worldIn, entityLiving);
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack stack) {
+        if (getSpellFromStack(stack) != null && getSpellFromStack(stack) instanceof ExtendedSpell) {
+            Runecarved.instance.getLogger().devInfo("" + ((ExtendedSpell) getSpellFromStack(stack)).getCastDuration());
+            return ((ExtendedSpell) getSpellFromStack(stack)).getCastDuration();
+        }
+        return super.getMaxItemUseDuration(stack);
     }
 
     @Override
@@ -92,5 +129,17 @@ public class ItemScroll extends ItemBase {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
         return enchantment.type.equals(EnchantmentSpell.SPELL_TYPE);
+    }
+
+    public static Spell getSpellFromStack(ItemStack stack) {
+        if (stack.isItemEnchanted()) {
+            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+                if (enchantment instanceof EnchantmentSpell) {
+                    EnchantmentSpell spellEnchantment = (EnchantmentSpell) enchantment;
+                    return spellEnchantment.getEnchantmentSpell();
+                }
+            }
+        }
+        return null;
     }
 }

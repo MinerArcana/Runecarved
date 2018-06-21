@@ -2,42 +2,49 @@ package com.minerarcana.runecarved.spell;
 
 import static com.minerarcana.runecarved.Runecarved.MODID;
 
-import com.minerarcana.runecarved.RunecarvedContent;
-import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
-import com.minerarcana.runecarved.api.spell.ProjectileSpell;
+import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
+import com.minerarcana.runecarved.api.caster.ICaster;
+import com.minerarcana.runecarved.api.spell.ExtendedSpell;
+import com.minerarcana.runecarved.entity.EntityFlame;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.util.math.Vec3d;
 
-public class Fireball extends ProjectileSpell {
+public class Fireball extends ExtendedSpell {
 
     public Fireball() {
         super(new ResourceLocation(MODID, "fire"));
     }
 
     @Override
-    public EntityProjectileSpell getEntityProjectileSpell(World world) {
-        return new EntityProjectileSpell(world, this);
+    public void cast(ICaster caster) {
+        // NO-OP
     }
 
     @Override
-    public void onImpact(EntityProjectileSpell entitySpell, Entity entity) {
-        entity.setFire(10);
+    public int getCastDuration() {
+        return 1600;
     }
 
     @Override
-    public void onImpact(EntityProjectileSpell entitySpell, BlockPos pos, EnumFacing impactedSize) {
-        World world = entitySpell.getEntityWorld();
-        if (!world.isRemote) {
-            if (world.getTileEntity(pos) instanceof TileEntityFurnace) {
-                TileEntityFurnace furnace = (TileEntityFurnace) world.getTileEntity(pos);
-                if (furnace.getStackInSlot(1).isEmpty()) {
-                    furnace.setInventorySlotContents(1, new ItemStack(RunecarvedContent.ember));
+    public void duringCasting(ICaster caster) {
+        if (caster instanceof CasterEntityPlayer) {
+            CasterEntityPlayer playerCaster = (CasterEntityPlayer) caster;
+            EntityPlayer playerEntity = playerCaster.getPlayer();
+            Vec3d v = playerEntity.getLookVec();
+            int split = 8;
+            float scatter = .05f;
+            float range = 1f;
+            for (int i = 0; i < split; i++) {
+                Vec3d vecDir = v.addVector(playerEntity.getRNG().nextGaussian() * scatter,
+                        playerEntity.getRNG().nextGaussian() * scatter, playerEntity.getRNG().nextGaussian() * scatter);
+                EntityFlame projectile = new EntityFlame(playerEntity.getEntityWorld(), playerEntity);
+                projectile.motionX = vecDir.x * range;
+                projectile.motionY = vecDir.y * range;
+                projectile.motionZ = vecDir.z * range;
+                if (!playerEntity.getEntityWorld().isRemote) {
+                    playerEntity.getEntityWorld().spawnEntity(projectile);
                 }
             }
         }

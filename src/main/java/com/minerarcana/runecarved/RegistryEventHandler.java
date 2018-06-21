@@ -4,6 +4,7 @@ import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
 import com.minerarcana.runecarved.entity.EntityBoundZombie;
+import com.minerarcana.runecarved.entity.EntityFlame;
 import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 import com.minerarcana.runecarved.spell.*;
@@ -72,6 +73,9 @@ public class RegistryEventHandler {
         EntityEntry bound_zombie = EntityEntryBuilder.create().entity(EntityBoundZombie.class)
                 .id(new ResourceLocation(Runecarved.MODID, "bound_zombie"), networkID++).name("bound_zombie")
                 .egg(0xFFFFFF, 0xAAAAAA).tracker(64, 8, false).build();
-        event.getRegistry().registerAll(bound_zombie);
+        EntityEntry flame = EntityEntryBuilder.create().entity(EntityFlame.class)
+                .id(new ResourceLocation(Runecarved.MODID, "flame"), networkID++).name("flame").tracker(64, 8, true)
+                .build();
+        event.getRegistry().registerAll(bound_zombie, flame);
     }
 }
