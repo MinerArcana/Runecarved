@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemMagicShovel extends ItemSpade implements IHasModel, IModAware {
+public class ItemMagicShovel extends ItemSpade implements IHasModel, IModAware, IManifestedTool {
 
     public int ticksExisted = 0;
     public static final int expiryTicks = 2400;

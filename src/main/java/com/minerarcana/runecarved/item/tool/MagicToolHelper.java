@@ -63,13 +63,15 @@ public class MagicToolHelper {
     // Item
     @SubscribeEvent
     public static void onBlockLeftClicked(PlayerInteractEvent.LeftClickBlock event) {
-        IBlockState state = event.getWorld().getBlockState(event.getPos());
-        if (state.getBlock().isToolEffective("pickaxe", state)) {
-            convertToTool(event.getItemStack(), "pickaxe", event.getEntityLiving());
-        } else if (state.getBlock().isToolEffective("axe", state)) {
-            convertToTool(event.getItemStack(), "axe", event.getEntityLiving());
-        } else if (state.getBlock().isToolEffective("shovel", state)) {
-            convertToTool(event.getItemStack(), "shovel", event.getEntityLiving());
+        if (event.getEntityPlayer().getHeldItemMainhand().getItem() instanceof IManifestedTool) {
+            IBlockState state = event.getWorld().getBlockState(event.getPos());
+            if (state.getBlock().isToolEffective("pickaxe", state)) {
+                convertToTool(event.getItemStack(), "pickaxe", event.getEntityLiving());
+            } else if (state.getBlock().isToolEffective("axe", state)) {
+                convertToTool(event.getItemStack(), "axe", event.getEntityLiving());
+            } else if (state.getBlock().isToolEffective("shovel", state)) {
+                convertToTool(event.getItemStack(), "shovel", event.getEntityLiving());
+            }
         }
     }
 }
