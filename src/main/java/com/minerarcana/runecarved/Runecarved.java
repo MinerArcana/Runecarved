@@ -4,8 +4,7 @@ import static com.minerarcana.runecarved.Runecarved.*;
 
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
-import com.minerarcana.runecarved.block.BlockRunestone;
-import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
+import com.minerarcana.runecarved.block.*;
 import com.minerarcana.runecarved.item.*;
 import com.minerarcana.runecarved.item.tool.*;
 import com.teamacronymcoders.base.BaseModFoundation;
@@ -75,6 +74,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public void registerBlocks(BlockRegistry registry) {
         registry.register(new BlockSimpleEnchanter());
         registry.register(new BlockRunestone());
+        registry.register(new BlockRuneworkTable());
         super.registerBlocks(registry);
     }
 
