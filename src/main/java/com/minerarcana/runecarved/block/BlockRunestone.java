@@ -13,9 +13,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -144,6 +145,17 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
     @Override
     public int getMetaFromState(IBlockState state) {
         return 0;
+    }
+
+    @Override
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state,
+            int fortune) {
+        drops.clear();
+        if (world.getTileEntity(pos) instanceof TileEntityRunestone) {
+            TileEntityRunestone stone = (TileEntityRunestone) world.getTileEntity(pos);
+            drops.add(new ItemStack(
+                    Item.getByNameOrId("runecarved:runestone." + stone.spell.getRegistryName().getResourcePath())));
+        }
     }
 
 }
