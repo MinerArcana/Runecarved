@@ -17,12 +17,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiRuneworkTable extends GuiContainer {
+public class GuiInscriptionBench extends GuiContainer {
 
     private static final ResourceLocation GUI_TEX = new ResourceLocation(Runecarved.MODID,
-            "textures/gui/runework_table.png");
+            "textures/gui/rune_index.png");
 
-    public GuiRuneworkTable(Container inventorySlotsIn) {
+    public GuiInscriptionBench(Container inventorySlotsIn) {
         super(inventorySlotsIn);
     }
 

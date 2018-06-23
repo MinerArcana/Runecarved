@@ -1,6 +1,6 @@
 package com.minerarcana.runecarved.block;
 
-import com.minerarcana.runecarved.tileentity.TileEntityRuneworkTable;
+import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.guisystem.GuiOpener;
 
@@ -13,11 +13,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockRuneworkTable extends BlockTEBase<TileEntityRuneworkTable> {
+public class BlockCarvingTable extends BlockTEBase<TileEntityCarvingTable> {
 
-    public BlockRuneworkTable() {
-        super(Material.ROCK, "runework_table");
-        // TODO Auto-generated constructor stub
+    public BlockCarvingTable() {
+        super(Material.ROCK, "carving_table");
     }
 
     @Override
@@ -27,18 +26,19 @@ public class BlockRuneworkTable extends BlockTEBase<TileEntityRuneworkTable> {
             return true;
         } else {
             GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
+            this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.searchForIndex());
             return true;
         }
     }
 
     @Override
     public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntityRuneworkTable.class;
+        return TileEntityCarvingTable.class;
     }
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState blockState) {
-        return new TileEntityRuneworkTable();
+        return new TileEntityCarvingTable();
     }
 
 }

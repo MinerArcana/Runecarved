@@ -74,7 +74,8 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public void registerBlocks(BlockRegistry registry) {
         registry.register(new BlockSimpleEnchanter());
         registry.register(new BlockRunestone());
-        registry.register(new BlockRuneworkTable());
+        registry.register(new BlockRuneIndex());
+        registry.register(new BlockCarvingTable());
         super.registerBlocks(registry);
     }
 

@@ -37,4 +37,6 @@ public class RunecarvedContent {
     public static Item magicShovel;
     @ObjectHolder("magic_axe")
     public static Item magicAxe;
+    @ObjectHolder("rune_index")
+    public static Block runeIndex;
 }
