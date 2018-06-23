@@ -5,8 +5,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
-import com.minerarcana.runecarved.api.spell.ExtendedSpell;
-import com.minerarcana.runecarved.api.spell.Spell;
+import com.minerarcana.runecarved.api.spell.*;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
 import com.teamacronymcoders.base.items.ItemBase;
 
@@ -48,17 +47,29 @@ public class ItemScroll extends ItemBase {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (getSpellFromStack(stack) != null) {
-            if (!(getSpellFromStack(stack) instanceof ExtendedSpell)) {
+            if (getSpellFromStack(stack) instanceof ExtendedSpell) {
+                playerIn.setActiveHand(handIn);
+            } else if (getSpellFromStack(stack) instanceof EntityInteractionSpell) {
+                ((EntityInteractionSpell) getSpellFromStack(stack)).cast(new CasterEntityPlayer(playerIn), stack);
+            } else {
                 getSpellFromStack(stack).cast(new CasterEntityPlayer(playerIn));
                 // TODO
                 onSpellCast(worldIn, playerIn, stack);
-            } else {
-                playerIn.setActiveHand(handIn);
             }
             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    @Override
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity,
+            EnumHand hand) {
+        if (getSpellFromStack(stack) instanceof EntityInteractionSpell) {
+            ((EntityInteractionSpell) getSpellFromStack(stack)).castOnEntity(new CasterEntityPlayer(player), stack,
+                    entity);
+            return true;
+        }
+        return false;
     }
 
     private void onSpellCast(World worldIn, EntityPlayer playerIn, ItemStack stack) {

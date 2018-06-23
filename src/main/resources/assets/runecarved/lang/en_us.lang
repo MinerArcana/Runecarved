@@ -6,6 +6,7 @@ spell.manifest_armor=Gyfu/Rune of Armor/Magical protection
 spell.manifest_tool=Fehu/Rune of Tools/Use it for anything.../While it lasts
 spell.raise_dead=Ear/Rune of Undeath/Raise corpses/and bind them to your will!
 spell.sight=Tiwaz/Rune of Sight/See what's really there
+spell.summon=Ehwaz/Rune of Summoning/Ensnare entities within the stone
 
 item.runecarved.ember.name=Brightflame Ember
 item.runecarved.ember.desc=It radiates searing heat...

@@ -55,6 +55,7 @@ public class RegistryEventHandler {
         event.registerSpell(new ManifestTool());
         event.registerSpell(new RaiseDead());
         event.registerSpell(new Sight());
+        event.registerSpell(new Summon());
     }
 
     @SubscribeEvent
