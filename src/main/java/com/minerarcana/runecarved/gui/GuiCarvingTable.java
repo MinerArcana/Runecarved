@@ -15,6 +15,8 @@ import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,6 +39,36 @@ public class GuiCarvingTable extends GuiContainer {
     public GuiCarvingTable(ContainerCarvingTable inventorySlotsIn, TileEntityCarvingTable tile) {
         super(inventorySlotsIn);
         this.tileCarvingTable = tile;
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        GlStateManager.disableLighting();
+        GlStateManager.disableBlend();
+        this.fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
+
+        int i = 8453920;
+        boolean flag = true;
+        String s = I18n.format("container.repair.cost", 3);
+
+        if (flag) {
+            int j = -16777216 | (i & 16579836) >> 2 | i & -16777216;
+            int k = this.xSize - 8 - this.fontRenderer.getStringWidth(s);
+            int l = 67;
+
+            if (this.fontRenderer.getUnicodeFlag()) {
+                drawRect(k - 3, 65, this.xSize - 7, 77, -16777216);
+                drawRect(k - 2, 66, this.xSize - 8, 76, -12895429);
+            } else {
+                this.fontRenderer.drawString(s, k, 68, j);
+                this.fontRenderer.drawString(s, k + 1, 67, j);
+                this.fontRenderer.drawString(s, k + 1, 68, j);
+            }
+
+            this.fontRenderer.drawString(s, k, 67, i);
+        }
+
+        GlStateManager.enableLighting();
     }
 
     @Override

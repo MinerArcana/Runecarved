@@ -21,7 +21,7 @@ public class HandlerRuneButton implements IMessageHandler<PacketRuneButton, IMes
             BlockPos pos = message.pos;
             if (worldServer.isBlockLoaded(pos, false)) {
                 TileEntity te = worldServer.getTileEntity(message.pos);
-                ((TileEntityCarvingTable) te).handleButtonClick(message.name);
+                ((TileEntityCarvingTable) te).handleButtonClick(serverPlayer, message.name);
             }
         });
         return null;

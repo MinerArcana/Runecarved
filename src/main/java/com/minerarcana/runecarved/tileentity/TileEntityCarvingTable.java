@@ -79,9 +79,10 @@ public class TileEntityCarvingTable extends TileEntityInventoryBase implements I
         return indexPos;
     }
 
-    public void handleButtonClick(String spellName) {
+    public void handleButtonClick(EntityPlayer player, String spellName) {
         IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        if (handler.getStackInSlot(1).isEmpty()) {
+        if ((player.capabilities.isCreativeMode || player.experienceLevel >= 3)
+                && handler.getStackInSlot(1).isEmpty()) {
             if (handler.getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.STONE_PRESSURE_PLATE)) {
                 handler.insertItem(1, new ItemStack(Item.getByNameOrId("runecarved:runestone." + spellName)), false);
             } else if (handler.getStackInSlot(0).getItem() == RunecarvedContent.scroll) {
@@ -91,6 +92,7 @@ public class TileEntityCarvingTable extends TileEntityInventoryBase implements I
                 map.put(enchantment, Enchantment.getEnchantmentID(enchantment));
                 EnchantmentHelper.setEnchantments(map, scroll);
                 handler.insertItem(1, scroll, false);
+                player.addExperienceLevel(-3);
             }
             handler.extractItem(0, 1, false);
         }
