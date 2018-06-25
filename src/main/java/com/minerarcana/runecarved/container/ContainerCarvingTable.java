@@ -5,13 +5,19 @@ import com.teamacronymcoders.base.containers.ContainerBase;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerCarvingTable extends ContainerBase {
-    TileEntityCarvingTable tile;
+    TileEntityCarvingTable tileCarvingTable;
 
     public ContainerCarvingTable(EntityPlayer player, World world, TileEntityCarvingTable tile) {
+        this.addSlotToContainer(new SlotItemHandler(
+                tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 0, 100, 20));
+        this.addSlotToContainer(new SlotItemHandler(
+                tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 1, 120, 20));
         this.createPlayerSlots(player.inventory);
-        this.tile = tile;
+        this.tileCarvingTable = tile;
     }
 
     @Override

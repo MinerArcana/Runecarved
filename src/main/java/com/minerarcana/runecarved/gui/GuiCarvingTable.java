@@ -1,5 +1,6 @@
 package com.minerarcana.runecarved.gui;
 
+import java.io.IOException;
 import java.util.*;
 
 import com.minerarcana.runecarved.Runecarved;
@@ -53,7 +54,7 @@ public class GuiCarvingTable extends GuiContainer {
                     ItemStack stack = handler.getStackInSlot(i);
                     if (stack.getItem() instanceof ItemRunestone) {
                         String runeName = stack.getUnlocalizedName().split("\\.")[1];
-                        // TODO Removal
+                        // FIXME
                         Spell spell = RunecarvedAPI.getInstance().getSpellRegistry()
                                 .getSpell(new ResourceLocation(Runecarved.MODID, runeName));
                         this.buttonList.get(i).enabled = true;
@@ -83,6 +84,12 @@ public class GuiCarvingTable extends GuiContainer {
                 }
             }
         }
+    }
+
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+        Runecarved.instance.getPacketHandler().sendToServer(new PacketRuneButton(
+                ((GuiButtonRune) button).spell.getRegistryName().getResourcePath(), this.tileCarvingTable.getPos()));
     }
 
     @Override

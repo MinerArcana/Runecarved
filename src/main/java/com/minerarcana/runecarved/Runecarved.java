@@ -5,6 +5,8 @@ import static com.minerarcana.runecarved.Runecarved.*;
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.block.*;
+import com.minerarcana.runecarved.gui.HandlerRuneButton;
+import com.minerarcana.runecarved.gui.PacketRuneButton;
 import com.minerarcana.runecarved.item.*;
 import com.minerarcana.runecarved.item.tool.*;
 import com.teamacronymcoders.base.BaseModFoundation;
@@ -25,6 +27,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 public class Runecarved extends BaseModFoundation<Runecarved> {
@@ -55,6 +58,8 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
         super.preInit(event);
         proxy.bindEntityRenderers();
         MinecraftForge.EVENT_BUS.post(new SpellRegistryEvent(RunecarvedAPI.getInstance().getSpellRegistry()));
+        Runecarved.instance.getPacketHandler().registerPacket(HandlerRuneButton.class, PacketRuneButton.class,
+                Side.SERVER);
     }
 
     @Override
