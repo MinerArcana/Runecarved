@@ -1,5 +1,6 @@
 package com.minerarcana.runecarved.tileentity;
 
+import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.container.ContainerCarvingTable;
 import com.minerarcana.runecarved.gui.GuiCarvingTable;
@@ -15,8 +16,8 @@ import net.minecraft.world.World;
 
 public class TileEntityCarvingTable extends TileEntityBase implements IHasGui {
 
-    private int searchRadius;
-    private TileEntityRuneIndex index;
+    private int searchRadius = 3;
+    private BlockPos indexPos;
 
     public TileEntityCarvingTable() {
         super();
@@ -46,15 +47,25 @@ public class TileEntityCarvingTable extends TileEntityBase implements IHasGui {
     public void searchForIndex() {
         for (int x = 0; x < searchRadius; x++) {
             for (int z = 0; z < searchRadius; z++) {
-                if (this.getWorld().getBlockState(this.getPos().add(x, 0, z))
-                        .getBlock() == RunecarvedContent.runeIndex) {
-                    this.index = (TileEntityRuneIndex) this.getWorld().getTileEntity(getPos().add(x, 0, z));
+                BlockPos pos = this.getPos().add(x, 0, z);
+                if (this.getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
+                    Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
+                    this.indexPos = pos;
+                }
+            }
+        }
+        for (int x = 0; x < searchRadius; x++) {
+            for (int z = 0; z < searchRadius; z++) {
+                BlockPos pos = this.getPos().add(-x, 0, -z);
+                if (this.getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
+                    Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
+                    this.indexPos = pos;
                 }
             }
         }
     }
 
-    public TileEntityRuneIndex getIndex() {
-        return index;
+    public BlockPos getIndexPos() {
+        return indexPos;
     }
 }

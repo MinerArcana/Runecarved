@@ -22,11 +22,12 @@ public class BlockCarvingTable extends BlockTEBase<TileEntityCarvingTable> {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
             EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        // FIXME This will probably need packets to work proper
+        this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.searchForIndex());
         if (worldIn.isRemote) {
             return true;
         } else {
             GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
-            this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.searchForIndex());
             return true;
         }
     }

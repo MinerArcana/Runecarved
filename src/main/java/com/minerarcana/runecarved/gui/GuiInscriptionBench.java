@@ -5,13 +5,10 @@ import java.util.Map;
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.Spell;
+import com.minerarcana.runecarved.gui.GuiCarvingTable.GuiButtonRune;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,26 +44,6 @@ public class GuiInscriptionBench extends GuiContainer {
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, this.xSize, this.ySize);
-    }
-
-    public static class GuiButtonRune extends GuiButton {
-
-        Spell spell;
-
-        public GuiButtonRune(int buttonId, int x, int y, int widthIn, int heightIn, Spell spell) {
-            super(buttonId, x, y, widthIn, heightIn, "");
-            this.spell = spell;
-        }
-
-        @Override
-        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
-            if (this.visible) {
-                mc.getRenderItem().renderItemIntoGUI(
-                        new ItemStack(Item
-                                .getByNameOrId("runecarved:runestone." + spell.getRegistryName().getResourcePath())),
-                        this.x, this.y);
-            }
-        }
     }
 
 }
