@@ -1,4 +1,4 @@
-package com.minerarcana.runecarved.gui;
+package com.minerarcana.runecarved.container;
 
 import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
 

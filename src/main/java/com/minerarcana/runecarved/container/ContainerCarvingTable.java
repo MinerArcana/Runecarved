@@ -13,9 +13,9 @@ public class ContainerCarvingTable extends ContainerBase {
 
     public ContainerCarvingTable(EntityPlayer player, World world, TileEntityCarvingTable tile) {
         this.addSlotToContainer(new SlotItemHandler(
-                tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 0, 100, 20));
+                tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 0, 82, 35));
         this.addSlotToContainer(new SlotItemHandler(
-                tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 1, 120, 20));
+                tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 1, 145, 35));
         this.createPlayerSlots(player.inventory);
         this.tileCarvingTable = tile;
     }

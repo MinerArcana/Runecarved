@@ -15,11 +15,9 @@ public class ContainerRuneIndex extends ContainerBase {
     TileEntityRuneIndex tile;
 
     public ContainerRuneIndex(EntityPlayer player, World world, TileEntityRuneIndex tile) {
-        this.addSlotToContainer(
-                new SlotRune(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), 0, 25, 33));
         for (int i = 0; i < 9; i++) {
             this.addSlotToContainer(new SlotRune(
-                    tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 134 + (i * 10), 33));
+                    tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 8 + (i * 18), 34));
         }
         this.createPlayerSlots(player.inventory);
         this.tile = tile;

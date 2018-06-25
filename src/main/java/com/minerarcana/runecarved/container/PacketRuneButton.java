@@ -1,4 +1,4 @@
-package com.minerarcana.runecarved.gui;
+package com.minerarcana.runecarved.container;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;
