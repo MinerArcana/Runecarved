@@ -1,5 +1,8 @@
 package com.minerarcana.runecarved.tileentity;
 
+import java.util.Map;
+
+import com.google.common.collect.Maps;
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.container.ContainerCarvingTable;
@@ -8,6 +11,8 @@ import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
 
 import net.minecraft.client.gui.Gui;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
@@ -76,9 +81,18 @@ public class TileEntityCarvingTable extends TileEntityInventoryBase implements I
 
     public void handleButtonClick(String spellName) {
         IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        if (handler.getStackInSlot(1).isEmpty()
-                && handler.getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.STONE_PRESSURE_PLATE)) {
-            handler.insertItem(1, new ItemStack(Item.getByNameOrId("runecarved:runestone." + spellName)), false);
+        if (handler.getStackInSlot(1).isEmpty()) {
+            if (handler.getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.STONE_PRESSURE_PLATE)) {
+                handler.insertItem(1, new ItemStack(Item.getByNameOrId("runecarved:runestone." + spellName)), false);
+            } else if (handler.getStackInSlot(0).getItem() == RunecarvedContent.scroll) {
+                ItemStack scroll = new ItemStack(RunecarvedContent.scroll);
+                Map<Enchantment, Integer> map = Maps.<Enchantment, Integer>newLinkedHashMap();
+                Enchantment enchantment = Enchantment.getEnchantmentByLocation(Runecarved.MODID + ":" + spellName);
+                map.put(enchantment, Enchantment.getEnchantmentID(enchantment));
+                EnchantmentHelper.setEnchantments(map, scroll);
+                handler.insertItem(1, scroll, false);
+            }
+            handler.extractItem(0, 1, false);
         }
     }
 }
