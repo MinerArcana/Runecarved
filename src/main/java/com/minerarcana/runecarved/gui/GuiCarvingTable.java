@@ -45,7 +45,6 @@ public class GuiCarvingTable extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		GlStateManager.disableLighting();
 		GlStateManager.disableBlend();
-		this.fontRenderer.drawString(I18n.format("container.repair"), 60, 6, 4210752);
 
 		int i = 8453920;
 		boolean flag = true;
@@ -54,8 +53,6 @@ public class GuiCarvingTable extends GuiContainer {
 		if (flag) {
 			int j = -16777216 | (i & 16579836) >> 2 | i & -16777216;
 			int k = this.xSize - 8 - this.fontRenderer.getStringWidth(s);
-			int l = 67;
-
 			if (this.fontRenderer.getUnicodeFlag()) {
 				drawRect(k - 3, 65, this.xSize - 7, 77, -16777216);
 				drawRect(k - 2, 66, this.xSize - 8, 76, -12895429);
@@ -128,6 +125,7 @@ public class GuiCarvingTable extends GuiContainer {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		Runecarved.instance.getPacketHandler().sendToServer(new PacketRuneButton(
 				((GuiButtonRune) button).spell.getRegistryName().getResourcePath(), this.tileCarvingTable.getPos()));
+		super.actionPerformed(button);
 	}
 
 	@Override

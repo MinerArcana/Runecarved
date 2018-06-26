@@ -1,6 +1,6 @@
 package com.minerarcana.runecarved.block;
 
-import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
+import com.minerarcana.runecarved.tileentity.TileEntityMeldingAltar;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.guisystem.GuiOpener;
 
@@ -13,10 +13,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockCarvingTable extends BlockTEBase<TileEntityCarvingTable> {
+public class BlockMeldingAltar extends BlockTEBase<TileEntityMeldingAltar> {
 
-	public BlockCarvingTable() {
-		super(Material.ROCK, "carving_table");
+	public BlockMeldingAltar() {
+		super(Material.ROCK, "melding_altar");
+
 	}
 
 	@Override
@@ -33,12 +34,12 @@ public class BlockCarvingTable extends BlockTEBase<TileEntityCarvingTable> {
 
 	@Override
 	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityCarvingTable.class;
+		return TileEntityMeldingAltar.class;
 	}
 
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityCarvingTable();
+		return new TileEntityMeldingAltar();
 	}
 
 }

@@ -18,7 +18,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -43,15 +42,6 @@ public class TileEntityCarvingTable extends TileEntityInventoryBase implements I
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		// TODO Auto-generated method stub
 		return new ContainerCarvingTable(entityPlayer, world, this);
-	}
-
-	@Override
-	protected void readFromDisk(NBTTagCompound data) {
-	}
-
-	@Override
-	protected NBTTagCompound writeToDisk(NBTTagCompound data) {
-		return data;
 	}
 
 	public void searchForIndex() {

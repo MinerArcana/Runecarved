@@ -18,62 +18,58 @@ import net.minecraft.world.World;
 
 public class BlockSimpleEnchanter extends BlockTEBase<TileEntitySimpleEnchanter> {
 
-    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
+	protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
 
-    public BlockSimpleEnchanter() {
-        super(Material.ROCK, "simple_enchanter");
-    }
+	public BlockSimpleEnchanter() {
+		super(Material.ROCK, "simple_enchanter");
+	}
 
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else {
-            GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
-            return true;
-        }
-    }
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (worldIn.isRemote) {
+			return true;
+		} else {
+			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
+			return true;
+		}
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    @Nonnull
-    @SuppressWarnings("deprecation")
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
-    }
+	@Override
+	@Nonnull
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.MODEL;
+	}
 
-    @Override
-    @Nonnull
-    @SuppressWarnings("deprecation")
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return AABB;
-    }
+	@Override
+	@Nonnull
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return AABB;
+	}
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-    @Override
-    public boolean hasTileEntity(IBlockState blockState) {
-        return true;
-    }
+	@Override
+	public boolean hasTileEntity(IBlockState blockState) {
+		return true;
+	}
 
-    @Override
-    @Nonnull
-    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState blockState) {
-        return new TileEntitySimpleEnchanter();
-    }
+	@Override
+	@Nonnull
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState blockState) {
+		return new TileEntitySimpleEnchanter();
+	}
 
-    @Override
-    public Class<? extends TileEntity> getTileEntityClass() {
-        return TileEntitySimpleEnchanter.class;
-    }
+	@Override
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return TileEntitySimpleEnchanter.class;
+	}
 }
