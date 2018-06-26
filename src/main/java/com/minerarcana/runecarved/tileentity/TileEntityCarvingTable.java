@@ -26,75 +26,81 @@ import net.minecraftforge.items.IItemHandler;
 
 public class TileEntityCarvingTable extends TileEntityInventoryBase implements IHasGui {
 
-    private int searchRadius = 3;
-    private BlockPos indexPos;
+	private int searchRadius = 3;
+	private BlockPos indexPos;
 
-    public TileEntityCarvingTable() {
-        super(2);
-    }
+	public TileEntityCarvingTable() {
+		super(2);
+	}
 
-    @Override
-    public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
-        return new GuiCarvingTable(new ContainerCarvingTable(entityPlayer, world, this), this);
-    }
+	@Override
+	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new GuiCarvingTable(new ContainerCarvingTable(entityPlayer, world, this), this);
+	}
 
-    @Override
-    public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
-        return new ContainerCarvingTable(entityPlayer, world, this);
-    }
+	@Override
+	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
+		// TODO Auto-generated method stub
+		return new ContainerCarvingTable(entityPlayer, world, this);
+	}
 
-    @Override
-    protected void readFromDisk(NBTTagCompound data) {
-    }
+	@Override
+	protected void readFromDisk(NBTTagCompound data) {
+	}
 
-    @Override
-    protected NBTTagCompound writeToDisk(NBTTagCompound data) {
-        return data;
-    }
+	@Override
+	protected NBTTagCompound writeToDisk(NBTTagCompound data) {
+		return data;
+	}
 
-    public void searchForIndex() {
-        for (int x = 0; x < searchRadius; x++) {
-            for (int z = 0; z < searchRadius; z++) {
-                BlockPos pos = this.getPos().add(x, 0, z);
-                if (this.getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
-                    Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
-                    this.indexPos = pos;
-                }
-            }
-        }
-        for (int x = 0; x < searchRadius; x++) {
-            for (int z = 0; z < searchRadius; z++) {
-                BlockPos pos = this.getPos().add(-x, 0, -z);
-                if (this.getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
-                    Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
-                    this.indexPos = pos;
-                }
-            }
-        }
-    }
+	public void searchForIndex() {
+		for (int x = 0; x < searchRadius; x++) {
+			for (int z = 0; z < searchRadius; z++) {
+				BlockPos pos = getPos().add(x, 0, z);
+				if (getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
+					Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
+					indexPos = pos;
+				}
+			}
+		}
+		for (int x = 0; x < searchRadius; x++) {
+			for (int z = 0; z < searchRadius; z++) {
+				BlockPos pos = getPos().add(-x, 0, -z);
+				if (getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
+					Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
+					indexPos = pos;
+				}
+			}
+		}
+	}
 
-    public BlockPos getIndexPos() {
-        return indexPos;
-    }
+	public BlockPos getIndexPos() {
+		return indexPos;
+	}
 
-    public void handleButtonClick(EntityPlayer player, String spellName) {
-        IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        if ((player.capabilities.isCreativeMode || player.experienceLevel >= 3)
-                && handler.getStackInSlot(1).isEmpty()) {
-            if (handler.getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.STONE_PRESSURE_PLATE)) {
-                handler.insertItem(1, new ItemStack(Item.getByNameOrId("runecarved:runestone." + spellName)), false);
-            } else if (handler.getStackInSlot(0).getItem() == RunecarvedContent.scroll) {
-                ItemStack scroll = new ItemStack(RunecarvedContent.scroll);
-                Map<Enchantment, Integer> map = Maps.<Enchantment, Integer>newLinkedHashMap();
-                Enchantment enchantment = Enchantment.getEnchantmentByLocation(Runecarved.MODID + ":" + spellName);
-                map.put(enchantment, Enchantment.getEnchantmentID(enchantment));
-                EnchantmentHelper.setEnchantments(map, scroll);
-                handler.insertItem(1, scroll, false);
-                player.addExperienceLevel(-3);
-            }
-            handler.extractItem(0, 1, false);
-        }
-    }
+	public void handleButtonClick(EntityPlayer player, String spellName) {
+		IItemHandler handler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		if ((player.capabilities.isCreativeMode || player.experienceLevel >= 3)
+				&& handler.getStackInSlot(1).isEmpty()) {
+			if (handler.getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.STONE_PRESSURE_PLATE)) {
+				handler.insertItem(1, new ItemStack(Item.getByNameOrId("runecarved:runestone." + spellName)), false);
+			} else if (handler.getStackInSlot(0).getItem() == RunecarvedContent.scroll) {
+				ItemStack scroll = new ItemStack(RunecarvedContent.scroll);
+				Map<Enchantment, Integer> map = Maps.<Enchantment, Integer>newLinkedHashMap();
+				Enchantment enchantment = Enchantment.getEnchantmentByLocation(Runecarved.MODID + ":" + spellName);
+				map.put(enchantment, Enchantment.getEnchantmentID(enchantment));
+				EnchantmentHelper.setEnchantments(map, scroll);
+				handler.insertItem(1, scroll, false);
+			}
+			// player.addExperienceLevel(-3);
+			// if (getWorld().getTileEntity(getIndexPos()) instanceof TileEntityRuneIndex) {
+			// TileEntityRuneIndex index = (TileEntityRuneIndex)
+			// getWorld().getTileEntity(getIndexPos());
+			// index.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
+			// null).extractItem(0, 1, false);
+			// }
+			handler.extractItem(0, 1, false);
+		}
+	}
 }
