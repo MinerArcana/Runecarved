@@ -8,9 +8,9 @@ import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.container.ContainerCarvingTable;
 import com.minerarcana.runecarved.container.PacketRuneButton;
-import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
 import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex;
+import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex.ItemHandlerRunic;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -25,7 +25,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 
 @SideOnly(Side.CLIENT)
 public class GuiCarvingTable extends GuiContainer {
@@ -79,22 +78,11 @@ public class GuiCarvingTable extends GuiContainer {
 				// TODO We will have to manually sync the contents of the index whenever this is
 				// opened, since client won't know about index contents if it hasn't been opened
 				// that game
-				IItemHandler handler = indexTile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-				for (int i = 0; i < handler.getSlots(); i++) {
-					ItemStack stack = handler.getStackInSlot(i);
-					if (stack.getItem() instanceof ItemRunestone) {
-						String runeName = stack.getUnlocalizedName().split("\\.")[2];
-						Spell spell = RunecarvedAPI.getInstance().getSpellRegistry()
-								.getSpell(new ResourceLocation(Runecarved.MODID, runeName));
-						// TODO Loops are simple... but not efficient.
-						for (GuiButton button : this.buttonList) {
-							GuiButtonRune runeButton = (GuiButtonRune) button;
-							if (spell.compareTo(runeButton.spell) == 0) {
-								button.enabled = true;
-							}
-						}
-					}
-				}
+				ItemHandlerRunic handler = (ItemHandlerRunic) indexTile
+						.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				this.buttonList.stream().map(button -> (GuiButtonRune) button)
+						.filter(runeButton -> handler.getContainedSpells().containsKey(runeButton.spell))
+						.forEach(button -> button.enabled = true);
 			}
 		}
 	}
