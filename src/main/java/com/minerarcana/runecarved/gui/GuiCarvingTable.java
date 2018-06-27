@@ -16,8 +16,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -136,15 +136,37 @@ public class GuiCarvingTable extends GuiContainer {
 		@Override
 		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 			if (this.visible) {
-				mc.getRenderItem().renderItemIntoGUI(
-						new ItemStack(Item
-								.getByNameOrId("runecarved:runestone." + spell.getRegistryName().getResourcePath())),
-						this.x, this.y);
+				GlStateManager.pushMatrix();
+				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
+				GlStateManager.enableRescaleNormal();
+				GlStateManager.enableAlpha();
+				GlStateManager.alphaFunc(516, 0.1F);
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA,
+						GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+				GlStateManager.translate((float) this.x, (float) this.y, 100.0F + this.zLevel);
+				GlStateManager.translate(8.0F, 8.0F, 0.0F);
+				GlStateManager.scale(1.0F, -1.0F, 1.0F);
+				GlStateManager.scale(16.0F, 16.0F, 16.0F);
 				if (!this.enabled) {
-					mc.getRenderItem().renderItemIntoGUI(new ItemStack(Item.getItemFromBlock(Blocks.BARRIER)), this.x,
-							this.y);
+					GlStateManager.color(0.8F, 0.8F, 0.8F, 0.5F);
+					// TODO This is test...
+					GlStateManager.scale(0.5F, 0.5F, 0.5F);
+				} else {
+					GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 				}
+				ItemStack stack = new ItemStack(
+						Item.getByNameOrId("runecarved:runestone." + spell.getRegistryName().getResourcePath()));
+				mc.getRenderItem().renderItem(stack, mc.getRenderItem().getItemModelWithOverrides(stack, null, null));
+				GlStateManager.disableAlpha();
+				GlStateManager.disableRescaleNormal();
+				GlStateManager.disableLighting();
+				GlStateManager.popMatrix();
+				mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
 			}
 		}
 	}
+
 }
