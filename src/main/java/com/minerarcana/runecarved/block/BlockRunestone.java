@@ -8,7 +8,6 @@ import com.minerarcana.runecarved.api.caster.CasterTileEntity;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.*;
@@ -31,6 +30,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 	public BlockRunestone() {
 		super(Material.ROCK, "runestone");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(DO_RENDER, false));
+		// this.setBlockUnbreakable();
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 	@Override
 	// Determines passability only, DOES NOT relate to firing
 	// onEntityCollidedWithBlock. Because Logic.
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
 
@@ -88,24 +88,6 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World world, BlockPos pos) {
-		return this.canBePlacedOn(world, pos.down());
-	}
-
-	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if (!this.canBePlacedOn(world, pos.down())) {
-			this.dropBlockAsItem(world, pos, state, 0);// TODO
-			world.setBlockToAir(pos);
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	private boolean canBePlacedOn(World world, BlockPos pos) {
-		return world.getBlockState(pos).isTopSolid();
-	}
-
-	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
 		if (!world.isRemote) {
 			if (getTileEntity(world, pos).isPresent()) {
@@ -138,6 +120,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 		return new BlockStateContainer(this, DO_RENDER);
 	}
 
+	// Render state is never saved
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return 0;

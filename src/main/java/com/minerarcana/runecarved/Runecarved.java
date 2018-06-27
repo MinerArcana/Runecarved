@@ -17,23 +17,28 @@ import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 import com.teamacronymcoders.base.util.Platform;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.Mod.*;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
+@EventBusSubscriber
 public class Runecarved extends BaseModFoundation<Runecarved> {
 	public static final String MODID = "runecarved";
 	public static final String NAME = "Runecarved";
@@ -110,11 +115,27 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.LEGS, "runic_leggings"));
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.FEET, "runic_boots"));
 
+		registry.register(new ItemRunepick());
+
 		super.registerItems(registry);
 	}
 
 	@Override
 	public Runecarved getInstance() {
 		return this;
+	}
+
+	// TODO Move away from using an event if possible. It is currently necessary to
+	// work around bounding box trickery done in BlockRunestone
+	@SubscribeEvent
+	public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+		BlockPos pos = new BlockPos(event.getEntityPlayer().getPosition());
+		Runecarved.instance.getLogger().devInfo(pos.toString());
+		IBlockState blockState = event.getWorld().getBlockState(pos);
+		Block block = blockState.getBlock();
+		if (event.getItemStack().getItem() == RunecarvedContent.runepick && block == RunecarvedContent.runestoneBlock) {
+			block.dropBlockAsItem(event.getWorld(), pos, blockState, 0);
+			event.getWorld().setBlockToAir(pos);
+		}
 	}
 }
