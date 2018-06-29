@@ -38,17 +38,19 @@ public class GuiMeldingAltar extends GuiContainer {
 
 		ItemStackHandler altar = (ItemStackHandler) this.tile
 				.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		ItemHandlerRunic index = (ItemHandlerRunic) this.tile.getWorld().getTileEntity(this.tile.getIndexPos())
-				.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		if (tile.currentRecipe != null && !altar.getStackInSlot(9).isEmpty()) {
-			for (int i = 0; i < tile.currentRecipe.getRequiredSpells().length; i++) {
-				Spell spell = tile.currentRecipe.getRequiredSpells()[i].getSpell();
-				int yPos = this.guiTop + 25;
-				// if (i % 2 == 0) {
-				// xPos += 16;
-				// }
-				renderSpellIcon(spell, this.guiLeft + 15 + (i * 19), yPos,
-						index.getContainedSpells().containsKey(spell));
+		if (this.tile.getIndexPos() != null) {
+			ItemHandlerRunic index = (ItemHandlerRunic) this.tile.getWorld().getTileEntity(this.tile.getIndexPos())
+					.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+			if (tile.currentRecipe != null && !altar.getStackInSlot(9).isEmpty()) {
+				for (int i = 0; i < tile.currentRecipe.getRequiredSpells().length; i++) {
+					Spell spell = tile.currentRecipe.getRequiredSpells()[i].getSpell();
+					int yPos = this.guiTop + 25;
+					// if (i % 2 == 0) {
+					// xPos += 16;
+					// }
+					renderSpellIcon(spell, this.guiLeft + 15 + (i * 19), yPos,
+							index.getContainedSpells().containsKey(spell));
+				}
 			}
 		}
 	}

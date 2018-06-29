@@ -1,13 +1,15 @@
 package com.minerarcana.runecarved.block;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Random;
+
+import javax.annotation.*;
 
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.caster.CasterTileEntity;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.*;
@@ -90,15 +92,18 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 	@Override
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
 		if (!world.isRemote) {
-			if (getTileEntity(world, pos).isPresent()) {
-				TileEntityRunestone tile = getTileEntity(world, pos).get();
-				if (tile.spell == null)
-					return;
-				Runecarved.instance.getLogger().devInfo(tile.spell.getRegistryName().toString());
-				tile.spell.cast(new CasterTileEntity(tile));
-				// TODO Change caster type
-				world.setBlockToAir(pos);
-			}
+			triggerStone(world, pos);
+		}
+	}
+
+	private void triggerStone(World world, BlockPos pos) {
+		if (getTileEntity(world, pos).isPresent()) {
+			TileEntityRunestone tile = getTileEntity(world, pos).get();
+			if (tile.spell == null)
+				return;
+			Runecarved.instance.getLogger().devInfo(tile.spell.getRegistryName().toString());
+			tile.spell.cast(new CasterTileEntity(tile));
+			world.setBlockToAir(pos);
 		}
 	}
 
@@ -137,4 +142,29 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 		}
 	}
 
+	@Override
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+		if (!worldIn.isRemote && worldIn.isBlockPowered(pos)) {
+			triggerStone(worldIn, pos);
+		}
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if (!worldIn.isRemote && worldIn.isBlockPowered(pos)) {
+			triggerStone(worldIn, pos);
+		}
+	}
+
+	@Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		if (!worldIn.isRemote && worldIn.isBlockPowered(pos)) {
+			triggerStone(worldIn, pos);
+		}
+	}
+
+	@Override
+	public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EnumFacing side) {
+		return true;
+	}
 }
