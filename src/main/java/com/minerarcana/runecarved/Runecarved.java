@@ -3,13 +3,13 @@ package com.minerarcana.runecarved;
 import static com.minerarcana.runecarved.Runecarved.*;
 
 import com.minerarcana.runecarved.api.RunecarvedAPI;
-import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.block.*;
 import com.minerarcana.runecarved.container.HandlerRuneButton;
 import com.minerarcana.runecarved.container.PacketRuneButton;
 import com.minerarcana.runecarved.item.*;
 import com.minerarcana.runecarved.item.tool.*;
+import com.minerarcana.runecarved.tileentity.IngredientSpell;
 import com.minerarcana.runecarved.tileentity.RecipeMeldingAltar;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.creativetabs.CreativeTabBase;
@@ -19,11 +19,11 @@ import com.teamacronymcoders.base.util.Platform;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +36,7 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreIngredient;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 @EventBusSubscriber
@@ -82,10 +83,14 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
-		RecipeMeldingAltar.addRecipe(
-				new RecipeMeldingAltar(new ItemStack[] { new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.STICK) },
-						new ItemStack(Items.GOLDEN_APPLE), new Spell[] { RunecarvedAPI.getInstance().getSpellRegistry()
-								.getSpell(new ResourceLocation(Runecarved.MODID, "ice_burst")) }));
+		RecipeMeldingAltar.addRecipe(new RecipeMeldingAltar(
+				new Ingredient[] { new OreIngredient("ingotGold"), new OreIngredient("stickWood") },
+				new ItemStack(RunecarvedContent.runepick),
+				new IngredientSpell[] {
+						new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
+								.getSpell(new ResourceLocation(Runecarved.MODID, "sight"))),
+						new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
+								.getSpell(new ResourceLocation(Runecarved.MODID, "summon"))) }));
 	}
 
 	@Override

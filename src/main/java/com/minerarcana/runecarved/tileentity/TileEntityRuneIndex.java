@@ -58,7 +58,7 @@ public class TileEntityRuneIndex extends TileEntityInventoryBase implements IHas
 			for (int slotIndex = 0; slotIndex < this.getSlots(); slotIndex++) {
 				ItemStack stack = this.getStackInSlot(slotIndex);
 				if (stack.getItem() instanceof ItemRunestone) {
-					String runeName = stack.getUnlocalizedName().split("\\.")[1];
+					String runeName = stack.getUnlocalizedName().split("\\.")[2];
 					spells.put(RunecarvedAPI.getInstance().getSpellRegistry()
 							.getSpell(new ResourceLocation(Runecarved.MODID, runeName)), slotIndex);
 				}
