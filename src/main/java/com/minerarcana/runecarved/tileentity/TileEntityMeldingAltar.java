@@ -27,7 +27,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.RecipeMatcher;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -108,8 +107,8 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 			// Remove recipe ingredients when output is 'claimed'
 			handler.getStacks().clear(); // TODO This is lazy :D
 			for (IngredientSpell spell : currentRecipe.requiredRunes) {
-				Runecarved.instance.getLogger().devInfo(spell.getSpell().getRegistryName().toString());
-				indexHandler.extractItem(indexHandler.getContainedSpells().get(spell), 1, false);
+				// Runecarved.instance.getLogger().devInfo(spell.getSpell().getRegistryName().toString());
+				indexHandler.extractItem(indexHandler.getContainedSpells().get(spell.getSpell()), 1, false);
 				this.sendBlockUpdate();
 				this.markDirty();
 			}
@@ -127,11 +126,7 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 			}
 			for (RecipeMeldingAltar recipe : RecipeMeldingAltar.getRecipeList()) {
 				if (RecipeMatcher.findMatches(nonEmpty, Arrays.asList(recipe.inputs)) != null) {
-					FMLLog.warning(indexHandler.getContainedSpells().toString());
-					FMLLog.warning(indexHandler.getContainedSpells().keySet().toString());
 					if (Arrays.asList(recipe.requiredRunes).stream().map(ingredient -> ingredient.getSpell())
-							.peek(spell -> FMLLog.warning(spell.getRegistryName().toString()))
-
 							.allMatch(spell -> indexHandler.getContainedSpells().containsKey(spell))) {
 						if (handler.getStackInSlot(9).isEmpty()) {
 							handler.insertItem(9, recipe.getOutput(), false);
