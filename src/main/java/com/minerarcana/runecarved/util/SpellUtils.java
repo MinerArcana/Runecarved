@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 
 public class SpellUtils {
 
+	@SuppressWarnings("deprecation")
 	public static String getDisplayNameFromEnchantedStack(ItemStack stack) {
 		if (stack.isItemEnchanted()) {
 			for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {

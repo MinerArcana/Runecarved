@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-//FIXME Drops (i.e. there shouldn't be any)
 public class EntityBoundZombie extends EntityZombie {
 	EntityPlayer controller;
 
@@ -28,5 +27,10 @@ public class EntityBoundZombie extends EntityZombie {
 	protected void applyEntityAI() {
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class,
 				10, true, true, entity -> !(entity instanceof EntityBoundZombie)));
+	}
+
+	@Override
+	protected boolean canDropLoot() {
+		return false;
 	}
 }
