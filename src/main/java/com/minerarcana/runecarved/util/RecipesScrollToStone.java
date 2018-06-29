@@ -1,5 +1,6 @@
-package com.minerarcana.runecarved;
+package com.minerarcana.runecarved.util;
 
+import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
 
 import net.minecraft.enchantment.Enchantment;

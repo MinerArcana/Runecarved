@@ -2,6 +2,7 @@ package com.minerarcana.runecarved.item.tool;
 
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.RunecarvedContent;
+import com.minerarcana.runecarved.item.tool.manifested.IManifestedTool;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;

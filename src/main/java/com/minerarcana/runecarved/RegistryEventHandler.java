@@ -9,6 +9,7 @@ import com.minerarcana.runecarved.entity.EntityFlame;
 import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.potion.PotionSeeInvisible;
 import com.minerarcana.runecarved.spell.*;
+import com.minerarcana.runecarved.util.RecipesScrollToStone;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
 
 import net.minecraft.enchantment.Enchantment;

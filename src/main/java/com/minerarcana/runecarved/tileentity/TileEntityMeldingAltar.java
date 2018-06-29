@@ -6,11 +6,10 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import com.google.common.collect.Lists;
-import com.minerarcana.runecarved.Runecarved;
-import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.container.ContainerMeldingAltar;
 import com.minerarcana.runecarved.gui.GuiMeldingAltar;
 import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex.ItemHandlerRunic;
+import com.minerarcana.runecarved.util.IngredientSpell;
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
@@ -34,7 +33,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityMeldingAltar extends TileEntityInventoryBase implements IHasGui, IOnSlotChanged {
 
-	private int searchRadius = 3;
 	private BlockPos indexPos;
 	public RecipeMeldingAltar currentRecipe;
 
@@ -42,32 +40,11 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 		super(new ItemStackHandlerExposeInternal(10));
 	}
 
-	public void searchForIndex() {
-		for (int x = 0; x < searchRadius; x++) {
-			for (int z = 0; z < searchRadius; z++) {
-				BlockPos pos = getPos().add(x, 0, z);
-				if (getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
-					Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
-					setIndexPos(pos);
-				}
-			}
-		}
-		for (int x = 0; x < searchRadius; x++) {
-			for (int z = 0; z < searchRadius; z++) {
-				BlockPos pos = getPos().add(-x, 0, -z);
-				if (getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
-					Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
-					setIndexPos(pos);
-				}
-			}
-		}
-	}
-
 	public BlockPos getIndexPos() {
 		return indexPos;
 	}
 
-	private void setIndexPos(BlockPos indexPos) {
+	public void setIndexPos(BlockPos indexPos) {
 		this.indexPos = indexPos;
 	}
 

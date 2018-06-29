@@ -1,4 +1,4 @@
-package com.minerarcana.runecarved.item.tool;
+package com.minerarcana.runecarved.item.tool.manifested;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.minerarcana.runecarved.Runecarved;
+import com.minerarcana.runecarved.item.tool.MagicToolHelper;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
@@ -22,7 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemMagicSword extends ItemSword implements IHasModel, IModAware, IManifestedTool {
+public class ItemMagicPickaxe extends ItemPickaxe implements IHasModel, IModAware, IManifestedTool {
 
     public int ticksExisted = 0;
     public static final int expiryTicks = 2400;
@@ -30,7 +31,7 @@ public class ItemMagicSword extends ItemSword implements IHasModel, IModAware, I
     private IBaseMod mod;
     String name;
 
-    public ItemMagicSword(String name) {
+    public ItemMagicPickaxe(String name) {
         super(Runecarved.MAGIC_TOOL);
         this.setUnlocalizedName(name);
         this.name = name;

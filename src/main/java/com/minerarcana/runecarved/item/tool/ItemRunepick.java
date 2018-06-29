@@ -10,6 +10,7 @@ public class ItemRunepick extends ItemBase {
 
 	public ItemRunepick() {
 		super("runepick");
+		this.setMaxStackSize(1);
 	}
 
 	@Override

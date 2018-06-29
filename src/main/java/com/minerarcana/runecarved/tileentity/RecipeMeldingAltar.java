@@ -3,6 +3,7 @@ package com.minerarcana.runecarved.tileentity;
 import java.util.HashMap;
 
 import com.google.common.collect.Maps;
+import com.minerarcana.runecarved.util.IngredientSpell;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;

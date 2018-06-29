@@ -25,8 +25,11 @@ import net.minecraftforge.items.IItemHandler;
 
 public class TileEntityCarvingTable extends TileEntityInventoryBase implements IHasGui {
 
-	private int searchRadius = 3;
 	private BlockPos indexPos;
+
+	public void setIndexPos(BlockPos indexPos) {
+		this.indexPos = indexPos;
+	}
 
 	public TileEntityCarvingTable() {
 		super(2);
@@ -42,27 +45,6 @@ public class TileEntityCarvingTable extends TileEntityInventoryBase implements I
 	public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		// TODO Auto-generated method stub
 		return new ContainerCarvingTable(entityPlayer, world, this);
-	}
-
-	public void searchForIndex() {
-		for (int x = 0; x < searchRadius; x++) {
-			for (int z = 0; z < searchRadius; z++) {
-				BlockPos pos = getPos().add(x, 0, z);
-				if (getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
-					Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
-					indexPos = pos;
-				}
-			}
-		}
-		for (int x = 0; x < searchRadius; x++) {
-			for (int z = 0; z < searchRadius; z++) {
-				BlockPos pos = getPos().add(-x, 0, -z);
-				if (getWorld().getBlockState(pos).getBlock() == RunecarvedContent.runeIndex) {
-					Runecarved.instance.getLogger().devInfo("Found index at " + pos.toString());
-					indexPos = pos;
-				}
-			}
-		}
 	}
 
 	public BlockPos getIndexPos() {

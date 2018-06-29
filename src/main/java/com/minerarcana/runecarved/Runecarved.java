@@ -9,8 +9,9 @@ import com.minerarcana.runecarved.container.HandlerRuneButton;
 import com.minerarcana.runecarved.container.PacketRuneButton;
 import com.minerarcana.runecarved.item.*;
 import com.minerarcana.runecarved.item.tool.*;
-import com.minerarcana.runecarved.tileentity.IngredientSpell;
+import com.minerarcana.runecarved.item.tool.manifested.*;
 import com.minerarcana.runecarved.tileentity.RecipeMeldingAltar;
+import com.minerarcana.runecarved.util.IngredientSpell;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.creativetabs.CreativeTabBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -121,6 +122,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.FEET, "runic_boots"));
 
 		registry.register(new ItemRunepick());
+		registry.register(new ItemRunestaff());
 
 		super.registerItems(registry);
 	}

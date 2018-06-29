@@ -1,6 +1,7 @@
 package com.minerarcana.runecarved.block;
 
 import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
+import com.minerarcana.runecarved.util.TileUtils;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.guisystem.GuiOpener;
 
@@ -22,7 +23,7 @@ public class BlockCarvingTable extends BlockTEBase<TileEntityCarvingTable> {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.searchForIndex());
+		this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.setIndexPos(TileUtils.searchForIndex(pos, worldIn)));
 		if (worldIn.isRemote) {
 			return true;
 		} else {

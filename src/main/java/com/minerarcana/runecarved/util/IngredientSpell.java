@@ -1,4 +1,4 @@
-package com.minerarcana.runecarved.tileentity;
+package com.minerarcana.runecarved.util;
 
 import com.google.common.base.Predicate;
 import com.minerarcana.runecarved.api.spell.Spell;
