@@ -103,15 +103,13 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 		ItemHandlerRunic indexHandler = (ItemHandlerRunic) index
 				.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		// OUTPUT
-		if (slot.getSlotIndex() == 9) {
+		if (slot.getSlotIndex() == 9 && slot.getHasStack()) {
 			// Remove recipe ingredients when output is 'claimed'
 			handler.getStacks().clear(); // TODO This is lazy :D
 			for (IngredientSpell spell : currentRecipe.requiredRunes) {
 				// Runecarved.instance.getLogger().devInfo(spell.getSpell().getRegistryName().toString());
 				indexHandler.extractItem(indexHandler.getContainedSpells().get(spell.getSpell()), 1, false);
 				this.currentRecipe = null;
-				this.sendBlockUpdate();
-				this.markDirty();
 			}
 		}
 		// CRAFTING GRID
@@ -132,13 +130,21 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 						if (handler.getStackInSlot(9).isEmpty()) {
 							handler.insertItem(9, recipe.getOutput(), false);
 							this.currentRecipe = recipe;
-							this.sendBlockUpdate();
-							this.markDirty();
 						}
+					} else {
+						// TODO Index doesn't notify altar of inventory changes. Either fix this or move
+						// this validation to when item is removed.
+						handler.setStackInSlot(9, ItemStack.EMPTY);
+
 					}
+				} else {
+					handler.setStackInSlot(9, ItemStack.EMPTY);
 				}
 			}
 		}
+		// TODO
+		this.sendBlockUpdate();
+		this.markDirty();
 	}
 
 	@Override
