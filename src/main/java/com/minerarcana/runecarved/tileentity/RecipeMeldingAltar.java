@@ -1,18 +1,21 @@
 package com.minerarcana.runecarved.tileentity;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 public class RecipeMeldingAltar {
+	// For network purposes TODO use string, possibly autogen
+	final int id;
 	final Ingredient[] inputs;
 	final ItemStack output;
 	final IngredientSpell[] requiredRunes;
 
-	public RecipeMeldingAltar(Ingredient[] inputs, ItemStack output, IngredientSpell... requiredRunes) {
+	public RecipeMeldingAltar(int id, Ingredient[] inputs, ItemStack output, IngredientSpell... requiredRunes) {
+		this.id = id;
 		this.inputs = inputs;
 		this.output = output;
 		this.requiredRunes = requiredRunes;
@@ -22,15 +25,15 @@ public class RecipeMeldingAltar {
 		return output;
 	}
 
-	public static ArrayList<RecipeMeldingAltar> getRecipeList() {
+	public static HashMap<Integer, RecipeMeldingAltar> getRecipeList() {
 		return recipeList;
 	}
 
 	public static void addRecipe(RecipeMeldingAltar r) {
-		recipeList.add(r);
+		recipeList.put(r.id, r);
 	}
 
-	private static ArrayList<RecipeMeldingAltar> recipeList = Lists.newArrayList();
+	private static HashMap<Integer, RecipeMeldingAltar> recipeList = Maps.newHashMap();
 
 	public IngredientSpell[] getRequiredSpells() {
 		return requiredRunes;

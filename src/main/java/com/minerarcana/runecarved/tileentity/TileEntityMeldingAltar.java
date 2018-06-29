@@ -109,6 +109,7 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 			for (IngredientSpell spell : currentRecipe.requiredRunes) {
 				// Runecarved.instance.getLogger().devInfo(spell.getSpell().getRegistryName().toString());
 				indexHandler.extractItem(indexHandler.getContainedSpells().get(spell.getSpell()), 1, false);
+				this.currentRecipe = null;
 				this.sendBlockUpdate();
 				this.markDirty();
 			}
@@ -124,13 +125,13 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 					nonEmpty.add(stack);
 				}
 			}
-			for (RecipeMeldingAltar recipe : RecipeMeldingAltar.getRecipeList()) {
+			for (RecipeMeldingAltar recipe : RecipeMeldingAltar.getRecipeList().values()) {
 				if (RecipeMatcher.findMatches(nonEmpty, Arrays.asList(recipe.inputs)) != null) {
 					if (Arrays.asList(recipe.requiredRunes).stream().map(ingredient -> ingredient.getSpell())
 							.allMatch(spell -> indexHandler.getContainedSpells().containsKey(spell))) {
 						if (handler.getStackInSlot(9).isEmpty()) {
 							handler.insertItem(9, recipe.getOutput(), false);
-							currentRecipe = recipe;
+							this.currentRecipe = recipe;
 							this.sendBlockUpdate();
 							this.markDirty();
 						}
@@ -144,6 +145,9 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		this.writeToDisk(nbt);
+		if (currentRecipe != null) {
+			nbt.setInteger("curentRecipeID", currentRecipe.id);
+		}
 		return new SPacketUpdateTileEntity(pos, 3, nbt);
 	}
 
@@ -151,7 +155,9 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		NBTTagCompound nbt = super.writeToNBT(new NBTTagCompound());
-		this.writeToDisk(nbt);
+		if (currentRecipe != null) {
+			nbt.setInteger("curentRecipeID", currentRecipe.id);
+		}
 		return nbt;
 	}
 
@@ -159,5 +165,6 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
 	@SideOnly(Side.CLIENT)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		this.readFromDisk(pkt.getNbtCompound());
+		this.currentRecipe = RecipeMeldingAltar.getRecipeList().get(pkt.getNbtCompound().getInteger("currentRecipeID"));
 	}
 }

@@ -83,7 +83,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
-		RecipeMeldingAltar.addRecipe(new RecipeMeldingAltar(
+		RecipeMeldingAltar.addRecipe(new RecipeMeldingAltar(0,
 				new Ingredient[] { new OreIngredient("ingotGold"), new OreIngredient("stickWood") },
 				new ItemStack(RunecarvedContent.runepick),
 				new IngredientSpell[] {
