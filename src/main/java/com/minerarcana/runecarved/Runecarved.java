@@ -4,14 +4,12 @@ import static com.minerarcana.runecarved.Runecarved.*;
 
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
-import com.minerarcana.runecarved.block.*;
+import com.minerarcana.runecarved.block.BlockRunestone;
+import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
 import com.minerarcana.runecarved.container.HandlerRuneButton;
 import com.minerarcana.runecarved.container.PacketRuneButton;
 import com.minerarcana.runecarved.item.*;
-import com.minerarcana.runecarved.item.tool.*;
 import com.minerarcana.runecarved.item.tool.manifested.*;
-import com.minerarcana.runecarved.tileentity.RecipeMeldingAltar;
-import com.minerarcana.runecarved.util.IngredientSpell;
 import com.teamacronymcoders.base.BaseModFoundation;
 import com.teamacronymcoders.base.creativetabs.CreativeTabBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
@@ -24,8 +22,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
@@ -37,7 +33,6 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.oredict.OreIngredient;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 @EventBusSubscriber
@@ -84,23 +79,24 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
-		RecipeMeldingAltar.addRecipe(new RecipeMeldingAltar(0,
-				new Ingredient[] { new OreIngredient("ingotGold"), new OreIngredient("stickWood") },
-				new ItemStack(RunecarvedContent.runepick),
-				new IngredientSpell[] {
-						new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
-								.getSpell(new ResourceLocation(Runecarved.MODID, "sight"))),
-						new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
-								.getSpell(new ResourceLocation(Runecarved.MODID, "summon"))) }));
+		// RecipeMeldingAltar.addRecipe(new RecipeMeldingAltar(0,
+		// new Ingredient[] { new OreIngredient("ingotGold"), new
+		// OreIngredient("stickWood") },
+		// new ItemStack(RunecarvedContent.runepick),
+		// new IngredientSpell[] {
+		// new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
+		// .getSpell(new ResourceLocation(Runecarved.MODID, "sight"))),
+		// new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
+		// .getSpell(new ResourceLocation(Runecarved.MODID, "summon"))) }));
 	}
 
 	@Override
 	public void registerBlocks(BlockRegistry registry) {
 		registry.register(new BlockSimpleEnchanter());
 		registry.register(new BlockRunestone());
-		registry.register(new BlockRuneIndex());
-		registry.register(new BlockCarvingTable());
-		registry.register(new BlockMeldingAltar());
+		// registry.register(new BlockRuneIndex());
+		// registry.register(new BlockCarvingTable());
+		// registry.register(new BlockMeldingAltar());
 		super.registerBlocks(registry);
 	}
 
@@ -121,8 +117,8 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.LEGS, "runic_leggings"));
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.FEET, "runic_boots"));
 
-		registry.register(new ItemRunepick());
-		registry.register(new ItemRunestaff());
+		// registry.register(new ItemRunepick());
+		// registry.register(new ItemRunestaff());
 
 		super.registerItems(registry);
 	}

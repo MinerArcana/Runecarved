@@ -32,7 +32,7 @@ public class ItemScroll extends ItemBase {
 		if (tab == CreativeTabs.SEARCH || tab == this.getCreativeTab()) {
 			items.add(new ItemStack(this));
 			for (Enchantment enchantment : Enchantment.REGISTRY) {
-				if (enchantment.type != null && EnchantmentSpell.SPELL_TYPE.equals(enchantment.type)) {
+				if (EnchantmentSpell.SPELL_TYPE.equals(enchantment.type)) {
 					ItemStack stack = new ItemStack(this);
 					Map<Enchantment, Integer> map = Maps.<Enchantment, Integer>newLinkedHashMap();
 					map.put(enchantment, Enchantment.getEnchantmentID(enchantment));
