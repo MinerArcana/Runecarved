@@ -10,6 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntitySimpleEnchanter extends TileEntityInventoryBase implements IHasGui {
 
@@ -17,6 +19,7 @@ public class TileEntitySimpleEnchanter extends TileEntityInventoryBase implement
 		super(1);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
 		return new GuiSimpleEnchanter(entityPlayer.inventory, world, this);
