@@ -10,9 +10,8 @@
   },
   "variants": {
     "render": {
-    	"true": {},
-    	"false": {}
-    },
-    "inventory": [{}]
+      "true": {},
+      "false": {}
+    }
   }
 }
