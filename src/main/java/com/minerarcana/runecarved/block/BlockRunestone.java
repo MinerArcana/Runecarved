@@ -90,7 +90,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
 		if (!world.isRemote) {
 			triggerStone(world, pos);
 		}
@@ -138,7 +138,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 		if (world.getTileEntity(pos) instanceof TileEntityRunestone) {
 			TileEntityRunestone stone = (TileEntityRunestone) world.getTileEntity(pos);
 			drops.add(new ItemStack(
-					Item.getByNameOrId("runecarved:runestone." + stone.spell.getRegistryName().getResourcePath())));
+					Item.getByNameOrId("runecarved:runestone." + stone.spell.getRegistryName().getPath())));
 		}
 	}
 

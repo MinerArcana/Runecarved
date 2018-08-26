@@ -112,7 +112,7 @@ public class GuiCarvingTable extends GuiContainer {
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 		Runecarved.instance.getPacketHandler().sendToServer(new PacketRuneButton(
-				((GuiButtonRune) button).spell.getRegistryName().getResourcePath(), this.tileCarvingTable.getPos()));
+				((GuiButtonRune) button).spell.getRegistryName().getPath(), this.tileCarvingTable.getPos()));
 		super.actionPerformed(button);
 	}
 
@@ -157,7 +157,7 @@ public class GuiCarvingTable extends GuiContainer {
 					GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 				}
 				ItemStack stack = new ItemStack(
-						Item.getByNameOrId("runecarved:runestone." + spell.getRegistryName().getResourcePath()));
+						Item.getByNameOrId("runecarved:runestone." + spell.getRegistryName().getPath()));
 				mc.getRenderItem().renderItem(stack, mc.getRenderItem().getItemModelWithOverrides(stack, null, null));
 				GlStateManager.disableAlpha();
 				GlStateManager.disableRescaleNormal();

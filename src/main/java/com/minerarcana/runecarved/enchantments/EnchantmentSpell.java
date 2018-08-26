@@ -32,7 +32,7 @@ public class EnchantmentSpell extends Enchantment {
 
     @Override
     public String getTranslatedName(int level) {
-        String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath());
+        String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getPath());
         String[] splitTooltip = rawTooltip.split("/");
         return splitTooltip[1];
     }

@@ -33,7 +33,7 @@ public class ItemMagicSword extends ItemSword implements IHasModel, IModAware, I
 
     public ItemMagicSword(String name) {
         super(Runecarved.MAGIC_TOOL);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.name = name;
     }
 

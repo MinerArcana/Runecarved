@@ -33,7 +33,7 @@ public class ItemMagicPickaxe extends ItemPickaxe implements IHasModel, IModAwar
 
     public ItemMagicPickaxe(String name) {
         super(Runecarved.MAGIC_TOOL);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.name = name;
     }
 

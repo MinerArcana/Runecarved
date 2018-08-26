@@ -62,7 +62,7 @@ public class RecipesScrollToStone extends net.minecraftforge.registries.IForgeRe
                         if (enchantment instanceof EnchantmentSpell) {
                             EnchantmentSpell spellEnchantment = (EnchantmentSpell) enchantment;
                             return new ItemStack(Item.getByNameOrId("runecarved:runestone."
-                                    + spellEnchantment.getEnchantmentSpell().getRegistryName().getResourcePath()));
+                                    + spellEnchantment.getEnchantmentSpell().getRegistryName().getPath()));
                         }
                     }
 

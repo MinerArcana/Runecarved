@@ -72,7 +72,7 @@ public class GuiMeldingAltar extends GuiContainer {
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 		}
 		ItemStack stack = new ItemStack(
-				Item.getByNameOrId("runecarved:runestone." + spell.getRegistryName().getResourcePath()));
+				Item.getByNameOrId("runecarved:runestone." + spell.getRegistryName().getPath()));
 		mc.getRenderItem().renderItem(stack, mc.getRenderItem().getItemModelWithOverrides(stack, null, null));
 		GlStateManager.disableAlpha();
 		GlStateManager.disableRescaleNormal();

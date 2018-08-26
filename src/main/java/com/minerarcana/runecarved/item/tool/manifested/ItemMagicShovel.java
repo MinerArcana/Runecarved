@@ -33,7 +33,7 @@ public class ItemMagicShovel extends ItemSpade implements IHasModel, IModAware, 
 
     public ItemMagicShovel(String name) {
         super(Runecarved.MAGIC_TOOL);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.name = name;
     }
 

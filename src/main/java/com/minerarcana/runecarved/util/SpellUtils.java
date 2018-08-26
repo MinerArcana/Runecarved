@@ -21,7 +21,7 @@ public class SpellUtils {
 					EnchantmentSpell spellEnchantment = (EnchantmentSpell) enchantment;
 					return I18n
 							.translateToLocal("spell."
-									+ spellEnchantment.getEnchantmentSpell().getRegistryName().getResourcePath())
+									+ spellEnchantment.getEnchantmentSpell().getRegistryName().getPath())
 							.split("/")[0] + " " + I18n.translateToLocal("item.runecarved.scroll.name");
 				}
 			}

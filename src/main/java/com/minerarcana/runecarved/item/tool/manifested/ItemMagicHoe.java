@@ -33,7 +33,7 @@ public class ItemMagicHoe extends ItemHoe implements IHasModel, IModAware, IMani
 
     public ItemMagicHoe(String name) {
         super(Runecarved.MAGIC_TOOL);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.name = name;
     }
 

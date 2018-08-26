@@ -37,7 +37,7 @@ public class Fireball extends ExtendedSpell {
             float scatter = .05f;
             float range = 1f;
             for (int i = 0; i < split; i++) {
-                Vec3d vecDir = v.addVector(playerEntity.getRNG().nextGaussian() * scatter,
+                Vec3d vecDir = v.add(playerEntity.getRNG().nextGaussian() * scatter,
                         playerEntity.getRNG().nextGaussian() * scatter, playerEntity.getRNG().nextGaussian() * scatter);
                 EntityFlame projectile = new EntityFlame(playerEntity.getEntityWorld(), playerEntity);
                 projectile.motionX = vecDir.x * range;

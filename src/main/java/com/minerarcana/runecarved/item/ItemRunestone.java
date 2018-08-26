@@ -37,7 +37,7 @@ public class ItemRunestone extends ItemBlockModel<BlockRunestone> {
 
     public ItemRunestone(Spell spell) {
         super((BlockRunestone) RunecarvedContent.runestoneBlock);
-        this.setUnlocalizedName("runestone." + spell.getRegistryName().getResourcePath());
+        this.setTranslationKey("runestone." + spell.getRegistryName().getPath());
         this.spell = spell;
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new RunestoneDispenserBehavior());
     }
@@ -47,7 +47,7 @@ public class ItemRunestone extends ItemBlockModel<BlockRunestone> {
     @SideOnly(Side.CLIENT)
     @ParametersAreNonnullByDefault
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath());
+        String rawTooltip = I18n.translateToLocal("spell." + this.spell.getRegistryName().getPath());
         String[] splitTooltip = rawTooltip.split("/");
         for (int i = 1; i < splitTooltip.length; i++) {
             String format = "";
@@ -74,26 +74,26 @@ public class ItemRunestone extends ItemBlockModel<BlockRunestone> {
     @Nonnull
     @ParametersAreNonnullByDefault
     public String getItemStackDisplayName(ItemStack stack) {
-        return I18n.translateToLocal("spell." + this.spell.getRegistryName().getResourcePath()).split("/")[0] + " "
+        return I18n.translateToLocal("spell." + this.spell.getRegistryName().getPath()).split("/")[0] + " "
                 + I18n.translateToLocal("item.runecarved.runestone.name");
     }
 
     @Override
     @Nonnull
-    public String getUnlocalizedName(ItemStack stack) {
-        return this.getUnlocalizedName();
+    public String getTranslationKey(ItemStack stack) {
+        return this.getTranslationKey();
     }
 
     @Override
     @Nonnull
-    public String getUnlocalizedName() {
-        return "item.runestone." + spell.getRegistryName().getResourcePath();
+    public String getTranslationKey() {
+        return "item.runestone." + spell.getRegistryName().getPath();
     }
 
     @Override
     public List<ResourceLocation> getResourceLocations(List<ResourceLocation> resourceLocations) {
-        resourceLocations.add(new ResourceLocation(spell.getRegistryName().getResourceDomain(),
-                "runes/" + spell.getRegistryName().getResourcePath()));
+        resourceLocations.add(new ResourceLocation(spell.getRegistryName().getNamespace(),
+                "runes/" + spell.getRegistryName().getPath()));
         return resourceLocations;
     }
 

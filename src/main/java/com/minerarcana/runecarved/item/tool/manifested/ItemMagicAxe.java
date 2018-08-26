@@ -33,7 +33,7 @@ public class ItemMagicAxe extends ItemAxe implements IHasModel, IModAware, IMani
 
     public ItemMagicAxe(String name) {
         super(Runecarved.MAGIC_TOOL, Runecarved.MAGIC_TOOL.getAttackDamage(), -3.0F);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.name = name;
     }
 

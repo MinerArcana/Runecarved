@@ -58,7 +58,7 @@ public class TileEntityRuneIndex extends TileEntityInventoryBase implements IHas
 			for (int slotIndex = 0; slotIndex < this.getSlots(); slotIndex++) {
 				ItemStack stack = this.getStackInSlot(slotIndex);
 				if (stack.getItem() instanceof ItemRunestone) {
-					String runeName = stack.getUnlocalizedName().split("\\.")[2];
+					String runeName = stack.getTranslationKey().split("\\.")[2];
 					spells.put(RunecarvedAPI.getInstance().getSpellRegistry()
 							.getSpell(new ResourceLocation(Runecarved.MODID, runeName)), slotIndex);
 				}
@@ -69,7 +69,7 @@ public class TileEntityRuneIndex extends TileEntityInventoryBase implements IHas
 		protected void onContentsChanged(int slotIndex) {
 			ItemStack stack = this.getStackInSlot(slotIndex);
 			if (stack.getItem() instanceof ItemRunestone) {
-				String runeName = stack.getUnlocalizedName().split("\\.")[2];
+				String runeName = stack.getTranslationKey().split("\\.")[2];
 				spells.put(RunecarvedAPI.getInstance().getSpellRegistry()
 						.getSpell(new ResourceLocation(Runecarved.MODID, runeName)), slotIndex);
 			}
@@ -94,7 +94,7 @@ public class TileEntityRuneIndex extends TileEntityInventoryBase implements IHas
 
 			if (existing.getCount() <= toExtract) {
 				if (!simulate) {
-					String runeName = existing.getUnlocalizedName().split("\\.")[2];
+					String runeName = existing.getTranslationKey().split("\\.")[2];
 					this.spells.remove(RunecarvedAPI.getInstance().getSpellRegistry()
 							.getSpell(new ResourceLocation(Runecarved.MODID, runeName)));
 					this.stacks.set(slot, ItemStack.EMPTY);
@@ -105,7 +105,7 @@ public class TileEntityRuneIndex extends TileEntityInventoryBase implements IHas
 				if (!simulate) {
 					this.stacks.set(slot,
 							ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
-					String runeName = existing.getUnlocalizedName().split("\\.")[2];
+					String runeName = existing.getTranslationKey().split("\\.")[2];
 					this.spells.remove(RunecarvedAPI.getInstance().getSpellRegistry()
 							.getSpell(new ResourceLocation(Runecarved.MODID, runeName)));
 					onContentsChanged(slot);
