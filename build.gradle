@@ -19,7 +19,7 @@ group = "${group_name}"
 archivesBaseName = "${mod_name}"
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
+    version = "${forge_version}"
 
     mappings = "${mappings_version}"
     runDir = "run/"
@@ -53,7 +53,7 @@ repositories {
 dependencies {
     deobfCompile "com.teamacronymcoders.base:base:${minecraft_version}-${base_version}-SNAPSHOT.+"
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"
-    deobfCompile "team.chisel.ctm:CTM:MC1.12.2-0.3.2.17"
+    deobfCompile "team.chisel.ctm:CTM:${ctm_version}"
 }
 
 processResources {
