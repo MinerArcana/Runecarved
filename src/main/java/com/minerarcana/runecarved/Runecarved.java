@@ -19,7 +19,6 @@ import com.teamacronymcoders.base.util.Platform;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +30,6 @@ import net.minecraftforge.fml.common.Mod.*;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
@@ -50,12 +48,13 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 
 	public static final ToolMaterial MAGIC_TOOL = EnumHelper.addToolMaterial("TOOL_MAGIC", 2, -1, 12.0F, 3.0F, 0);
 
-	@ObjectHolder(value = Runecarved.MODID + ":runestone.ice_burst")
-	public static Item tabIcon;
-
 	public Runecarved() {
-		super(MODID, NAME, VERSION, new CreativeTabBase("runecarved", () -> new ItemStack(tabIcon)),
-				Platform.isDevEnv());
+		super(MODID, NAME, VERSION, new CreativeTabBase("runecarved", null) {
+			@Override
+			public ItemStack createIcon() {
+				return new ItemStack(RunecarvedContent.ember);
+			}
+		}, Platform.isDevEnv());
 	}
 
 	@Override
@@ -116,6 +115,9 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.CHEST, "runic_chestplate"));
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.LEGS, "runic_leggings"));
 		registry.register(new ItemRunicArmor(EntityEquipmentSlot.FEET, "runic_boots"));
+
+		RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values()
+				.forEach(item -> registry.register(new ItemRunestone(item)));
 
 		// registry.register(new ItemRunepick());
 		// registry.register(new ItemRunestaff());

@@ -32,7 +32,7 @@ public class BlockRunestone extends BlockTEBase<TileEntityRunestone> {
 	public BlockRunestone() {
 		super(Material.ROCK, "runestone");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(DO_RENDER, false));
-		// this.setBlockUnbreakable();
+		this.setCreativeTab(null);
 	}
 
 	@Override

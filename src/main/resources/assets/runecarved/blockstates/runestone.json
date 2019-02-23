@@ -12,6 +12,7 @@
     "render": {
       "true": {},
       "false": {}
-    }
+    },
+    "inventory": [{}]
   }
 }
