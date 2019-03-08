@@ -1,18 +1,17 @@
 package com.minerarcana.runecarved.api.spell;
 
-import javax.annotation.Nonnull;
-
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public abstract class ProjectileSpell extends Spell {
     public ProjectileSpell(@Nonnull ResourceLocation name) {

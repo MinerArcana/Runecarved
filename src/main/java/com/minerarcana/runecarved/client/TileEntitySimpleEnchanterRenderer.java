@@ -1,14 +1,9 @@
 package com.minerarcana.runecarved.client;
 
-import java.util.Map;
-
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.collect.Maps;
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
 import com.teamacronymcoders.base.util.TextureUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -18,6 +13,9 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
+
+import java.util.Map;
 
 public class TileEntitySimpleEnchanterRenderer extends TileEntitySpecialRenderer<TileEntitySimpleEnchanter> {
 
@@ -27,7 +25,7 @@ public class TileEntitySimpleEnchanterRenderer extends TileEntitySpecialRenderer
     public TileEntitySimpleEnchanterRenderer() {
         super();
         stack = new ItemStack(RunecarvedContent.scroll);
-        Map<Enchantment, Integer> map = Maps.<Enchantment, Integer>newLinkedHashMap();
+        Map<Enchantment, Integer> map = Maps.newLinkedHashMap();
         map.put(Enchantments.AQUA_AFFINITY, Enchantment.getEnchantmentID(Enchantments.AQUA_AFFINITY));
         EnchantmentHelper.setEnchantments(map, stack);
     }
@@ -35,7 +33,7 @@ public class TileEntitySimpleEnchanterRenderer extends TileEntitySpecialRenderer
     // TODO Scaling
     @Override
     public void render(TileEntitySimpleEnchanter tile, double x, double y, double z, float partialTicks,
-            int destroyStage, float alpha) {
+                       int destroyStage, float alpha) {
         // Stolen from TiCon :)
         if (!stack.isEmpty()) {
             TextureUtils.pre(x, y, z);

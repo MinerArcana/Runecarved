@@ -2,7 +2,6 @@ package com.minerarcana.runecarved.util;
 
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.enchantments.EnchantmentSpell;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Blocks;

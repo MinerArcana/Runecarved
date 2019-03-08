@@ -3,7 +3,6 @@ package com.minerarcana.runecarved.block;
 import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.guisystem.GuiOpener;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +20,7 @@ public class BlockRuneIndex extends BlockTEBase<TileEntityRuneIndex> {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-            EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+                                    EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote) {
             return true;
         } else {

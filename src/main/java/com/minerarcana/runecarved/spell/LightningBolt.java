@@ -1,10 +1,7 @@
 package com.minerarcana.runecarved.spell;
 
-import static com.minerarcana.runecarved.Runecarved.MODID;
-
 import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
 import com.minerarcana.runecarved.api.spell.ProjectileSpell;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
@@ -13,6 +10,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import static com.minerarcana.runecarved.Runecarved.MODID;
 
 public class LightningBolt extends ProjectileSpell {
     public LightningBolt() {

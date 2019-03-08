@@ -6,19 +6,19 @@ import com.minerarcana.runecarved.api.spell.Spell;
 //We could implement Predicate on Spell directly, but I am using a wrapper class for consistency
 public class IngredientSpell implements Predicate<Spell> {
 
-	private Spell spell;
+    private Spell spell;
 
-	public IngredientSpell(Spell spell) {
-		this.spell = spell;
-	}
+    public IngredientSpell(Spell spell) {
+        this.spell = spell;
+    }
 
-	@Override
-	public boolean apply(Spell input) {
-		return spell.equals(input);
-	}
+    @Override
+    public boolean apply(Spell input) {
+        return spell.equals(input);
+    }
 
-	public Spell getSpell() {
-		return spell;
-	}
+    public Spell getSpell() {
+        return spell;
+    }
 
 }

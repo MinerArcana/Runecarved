@@ -11,14 +11,14 @@ public class RunecarvedAPI {
         spellRegistry = new SpellRegistry();
     }
 
-    public SpellRegistry getSpellRegistry() {
-        return spellRegistry;
-    }
-
     public static RunecarvedAPI getInstance() {
         if (instance == null) {
             instance = new RunecarvedAPI();
         }
         return instance;
+    }
+
+    public SpellRegistry getSpellRegistry() {
+        return spellRegistry;
     }
 }

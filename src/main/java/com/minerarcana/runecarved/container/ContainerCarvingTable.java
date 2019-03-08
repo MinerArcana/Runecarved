@@ -2,7 +2,6 @@ package com.minerarcana.runecarved.container;
 
 import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
 import com.teamacronymcoders.base.containers.ContainerBase;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;

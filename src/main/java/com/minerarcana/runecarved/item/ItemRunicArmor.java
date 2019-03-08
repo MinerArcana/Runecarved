@@ -1,13 +1,8 @@
 package com.minerarcana.runecarved.item;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.client.ModelRunicArmor;
 import com.teamacronymcoders.base.items.ItemArmorBase;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -21,15 +16,16 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class ItemRunicArmor extends ItemArmorBase {
 
     public static final ArmorMaterial RUNIC = EnumHelper.addArmorMaterial("runic", Runecarved.MODID, -1,
-            new int[] { 2, 6, 5, 2 }, 0, SoundEvents.BLOCK_ANVIL_PLACE, ArmorMaterial.DIAMOND.getToughness());
-
+            new int[]{2, 6, 5, 2}, 0, SoundEvents.BLOCK_ANVIL_PLACE, ArmorMaterial.DIAMOND.getToughness());
+    public static final int expiryTicks = 3600;
     @SideOnly(Side.CLIENT)
     private ModelRunicArmor modelRunicArmor;
-
-    public static final int expiryTicks = 3600;
 
     public ItemRunicArmor(EntityEquipmentSlot equipmentSlotIn, String name) {
         super(RUNIC, equipmentSlotIn, name);
@@ -66,7 +62,7 @@ public class ItemRunicArmor extends ItemArmorBase {
     @Nullable
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase living, ItemStack stack, EntityEquipmentSlot slot,
-            ModelBiped defaultModel) {
+                                    ModelBiped defaultModel) {
         if (modelRunicArmor == null) {
             modelRunicArmor = new ModelRunicArmor(slot);
         }

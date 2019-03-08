@@ -3,7 +3,6 @@ package com.minerarcana.runecarved.item.tool;
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.item.tool.manifested.IManifestedTool;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,24 +22,24 @@ public class MagicToolHelper {
     public static void convertToTool(ItemStack existing, String target, EntityLivingBase user) {
         Item toolItem = null;
         switch (target) {
-        case "sword":
-            toolItem = RunecarvedContent.magicSword;
-            break;
-        // case "hoe":
-        // toolItem = RunecarvedContent.magicHoe;
-        // break;
-        case "pickaxe":
-            toolItem = RunecarvedContent.magicPickaxe;
-            break;
-        case "shovel":
-            toolItem = RunecarvedContent.magicShovel;
-            break;
-        case "axe":
-            toolItem = RunecarvedContent.magicAxe;
-            break;
-        default:
-            Runecarved.instance.getLogger().devError("Maigc tool got confused");
-            break;
+            case "sword":
+                toolItem = RunecarvedContent.magicSword;
+                break;
+            // case "hoe":
+            // toolItem = RunecarvedContent.magicHoe;
+            // break;
+            case "pickaxe":
+                toolItem = RunecarvedContent.magicPickaxe;
+                break;
+            case "shovel":
+                toolItem = RunecarvedContent.magicShovel;
+                break;
+            case "axe":
+                toolItem = RunecarvedContent.magicAxe;
+                break;
+            default:
+                Runecarved.instance.getLogger().devError("Maigc tool got confused");
+                break;
         }
         ItemStack newStack = new ItemStack(toolItem);
         newStack.setTagCompound(existing.getTagCompound());
@@ -52,7 +51,7 @@ public class MagicToolHelper {
     }
 
     public static void onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing,
-            float hitX, float hitY, float hitZ) {
+                                 float hitX, float hitY, float hitZ) {
         // ItemStack stack = player.getHeldItem(hand);
         // if (Items.IRON_HOE.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY,
         // hitZ) == EnumActionResult.SUCCESS) {

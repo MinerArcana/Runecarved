@@ -1,12 +1,6 @@
 package com.minerarcana.runecarved.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.teamacronymcoders.base.items.ItemBase;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumRarity;
@@ -18,44 +12,48 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class ItemEmber extends ItemBase {
-	public ItemEmber() {
-		super("ember");
-	}
+    public ItemEmber() {
+        super("ember");
+    }
 
-	@Override
-	public boolean hasCustomEntity(ItemStack stack) {
-		return true;
-	}
+    @Override
+    public boolean hasCustomEntity(ItemStack stack) {
+        return true;
+    }
 
-	@Override
-	@Nullable
-	// Feeding the item entity back to itself means the vanilla handling destroys it
-	public Entity createEntity(World world, Entity location, ItemStack itemstack) {
-		return location;
-	}
+    @Override
+    @Nullable
+    // Feeding the item entity back to itself means the vanilla handling destroys it
+    public Entity createEntity(World world, Entity location, ItemStack itemstack) {
+        return location;
+    }
 
-	@Override
-	public int getItemBurnTime(ItemStack itemStack) {
-		return 200;
-	}
+    @Override
+    public int getItemBurnTime(ItemStack itemStack) {
+        return 200;
+    }
 
-	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		entityIn.attackEntityFrom(DamageSource.ON_FIRE, 10f);
-	}
+    @Override
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+        entityIn.attackEntityFrom(DamageSource.ON_FIRE, 10f);
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	@SuppressWarnings("deprecation")
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(TextFormatting.RED.toString() + I18n.translateToLocal("item.runecarved.ember.desc"));
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("deprecation")
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(TextFormatting.RED.toString() + I18n.translateToLocal("item.runecarved.ember.desc"));
+    }
 
-	@Override
-	@Nonnull
-	public EnumRarity getRarity(ItemStack stack) {
-		return EnumRarity.EPIC;
-	}
+    @Override
+    @Nonnull
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.EPIC;
+    }
 
 }

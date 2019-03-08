@@ -1,19 +1,19 @@
 package com.minerarcana.runecarved.container;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
 import com.teamacronymcoders.base.containers.ContainerBase;
-
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.enchantment.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -22,7 +22,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
 
 public class ContainerSimpleEnchanter extends ContainerBase {
     /**
@@ -50,8 +56,8 @@ public class ContainerSimpleEnchanter extends ContainerBase {
                 .cast(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
         this.rand = new Random();
         this.enchantLevels = new int[3];
-        this.enchantClue = new int[] { -1, -1, -1 };
-        this.worldClue = new int[] { -1, -1, -1 };
+        this.enchantClue = new int[]{-1, -1, -1};
+        this.worldClue = new int[]{-1, -1, -1};
         this.worldPointer = world;
         this.position = tile.getPos();
         this.xpSeed = playerInv.player.getXPSeed();
@@ -182,7 +188,7 @@ public class ContainerSimpleEnchanter extends ContainerBase {
 
         if (this.enchantLevels[id] > 0 && !itemstack.isEmpty()
                 && (playerIn.experienceLevel >= i && playerIn.experienceLevel >= this.enchantLevels[id]
-                        || playerIn.capabilities.isCreativeMode)) {
+                || playerIn.capabilities.isCreativeMode)) {
             if (!this.worldPointer.isRemote) {
                 List<EnchantmentData> list = this.getEnchantmentList(itemstack, id, this.enchantLevels[id]);
 

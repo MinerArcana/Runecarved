@@ -1,20 +1,21 @@
 package com.minerarcana.runecarved.spell;
 
-import static com.minerarcana.runecarved.Runecarved.MODID;
-
-import java.util.*;
-
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.spell.Spell;
-
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static com.minerarcana.runecarved.Runecarved.MODID;
 
 public class ManifestArmor extends Spell {
 
@@ -47,16 +48,16 @@ public class ManifestArmor extends Spell {
 
     private ItemStack getArmorStack(EntityEquipmentSlot entityEquipmentSlot) {
         switch (entityEquipmentSlot) {
-        case HEAD:
-            return new ItemStack(RunecarvedContent.runicHelmet);
-        case CHEST:
-            return new ItemStack(RunecarvedContent.runicChestplate);
-        case LEGS:
-            return new ItemStack(RunecarvedContent.runicLeggings);
-        case FEET:
-            return new ItemStack(RunecarvedContent.runicBoots);
-        default:
-            return ItemStack.EMPTY;
+            case HEAD:
+                return new ItemStack(RunecarvedContent.runicHelmet);
+            case CHEST:
+                return new ItemStack(RunecarvedContent.runicChestplate);
+            case LEGS:
+                return new ItemStack(RunecarvedContent.runicLeggings);
+            case FEET:
+                return new ItemStack(RunecarvedContent.runicBoots);
+            default:
+                return ItemStack.EMPTY;
         }
     }
 }

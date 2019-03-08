@@ -2,16 +2,21 @@ package com.minerarcana.runecarved.client;
 
 import com.minerarcana.runecarved.CommonProxy;
 import com.minerarcana.runecarved.api.entity.EntityProjectileSpell;
-import com.minerarcana.runecarved.entity.*;
+import com.minerarcana.runecarved.entity.EntityBoundZombie;
+import com.minerarcana.runecarved.entity.EntityFlame;
+import com.minerarcana.runecarved.entity.RenderBoundZombie;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.client.registry.*;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 @SuppressWarnings("rawtypes")
 public class ClientProxy extends CommonProxy {

@@ -1,14 +1,13 @@
 package com.minerarcana.runecarved.spell;
 
-import static com.minerarcana.runecarved.Runecarved.MODID;
-
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.spell.Spell;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
+import static com.minerarcana.runecarved.Runecarved.MODID;
 
 public class ManifestTool extends Spell {
 

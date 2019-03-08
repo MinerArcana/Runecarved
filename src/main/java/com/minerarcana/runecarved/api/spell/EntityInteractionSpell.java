@@ -1,7 +1,6 @@
 package com.minerarcana.runecarved.api.spell;
 
 import com.minerarcana.runecarved.api.caster.ICaster;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

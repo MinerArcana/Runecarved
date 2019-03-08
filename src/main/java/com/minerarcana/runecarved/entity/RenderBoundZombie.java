@@ -1,7 +1,6 @@
 package com.minerarcana.runecarved.entity;
 
 import com.minerarcana.runecarved.Runecarved;
-
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;

@@ -1,15 +1,16 @@
 package com.minerarcana.runecarved.container;
 
-import javax.annotation.Nonnull;
-
 import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex;
 import com.teamacronymcoders.base.containers.ContainerBase;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
+
+import javax.annotation.Nonnull;
 
 public class ContainerRuneIndex extends ContainerBase {
     TileEntityRuneIndex tile;

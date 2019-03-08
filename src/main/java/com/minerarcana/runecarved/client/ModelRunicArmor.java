@@ -152,7 +152,7 @@ public class ModelRunicArmor extends ModelBiped {
 
     @Override
     public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-            float headPitch, float scale) {
+                       float headPitch, float scale) {
         this.bipedHead.showModel = slot == EntityEquipmentSlot.HEAD;
 
         this.bipedBody.showModel = slot == EntityEquipmentSlot.CHEST;

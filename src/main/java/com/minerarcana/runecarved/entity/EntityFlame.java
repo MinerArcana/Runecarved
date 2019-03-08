@@ -1,7 +1,6 @@
 package com.minerarcana.runecarved.entity;
 
 import com.minerarcana.runecarved.RunecarvedContent;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;

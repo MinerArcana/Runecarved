@@ -1,16 +1,9 @@
 package com.minerarcana.runecarved.gui;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-
-import org.lwjgl.util.glu.Project;
-
 import com.google.common.collect.Lists;
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.container.ContainerSimpleEnchanter;
 import com.minerarcana.runecarved.tileentity.TileEntitySimpleEnchanter;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -28,6 +21,11 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.util.glu.Project;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class GuiSimpleEnchanter extends GuiContainer {

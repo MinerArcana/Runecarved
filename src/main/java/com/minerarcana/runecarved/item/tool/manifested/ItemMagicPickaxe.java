@@ -1,35 +1,37 @@
 package com.minerarcana.runecarved.item.tool.manifested;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.item.tool.MagicToolHelper;
 import com.teamacronymcoders.base.IBaseMod;
 import com.teamacronymcoders.base.IModAware;
 import com.teamacronymcoders.base.client.models.IHasModel;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class ItemMagicPickaxe extends ItemPickaxe implements IHasModel, IModAware, IManifestedTool {
 
-    public int ticksExisted = 0;
     public static final int expiryTicks = 2400;
+    public int ticksExisted = 0;
     boolean creativeTabSet = false;
-    private IBaseMod mod;
     String name;
+    private IBaseMod mod;
 
     public ItemMagicPickaxe(String name) {
         super(Runecarved.MAGIC_TOOL);
@@ -46,7 +48,7 @@ public class ItemMagicPickaxe extends ItemPickaxe implements IHasModel, IModAwar
     @Override
     @Nonnull
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
-            EnumFacing facing, float hitX, float hitY, float hitZ) {
+                                      EnumFacing facing, float hitX, float hitY, float hitZ) {
         MagicToolHelper.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }

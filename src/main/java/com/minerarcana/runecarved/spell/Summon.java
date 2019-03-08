@@ -1,18 +1,17 @@
 package com.minerarcana.runecarved.spell;
 
-import static com.minerarcana.runecarved.Runecarved.MODID;
-
-import java.lang.reflect.InvocationTargetException;
-
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.spell.EntityInteractionSpell;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
+import java.lang.reflect.InvocationTargetException;
+
+import static com.minerarcana.runecarved.Runecarved.MODID;
 
 public class Summon extends EntityInteractionSpell {
     public Summon() {

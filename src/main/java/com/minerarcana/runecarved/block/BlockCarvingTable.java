@@ -4,7 +4,6 @@ import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
 import com.minerarcana.runecarved.util.TileUtils;
 import com.teamacronymcoders.base.blocks.BlockTEBase;
 import com.teamacronymcoders.base.guisystem.GuiOpener;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,30 +15,30 @@ import net.minecraft.world.World;
 
 public class BlockCarvingTable extends BlockTEBase<TileEntityCarvingTable> {
 
-	public BlockCarvingTable() {
-		super(Material.ROCK, "carving_table");
-	}
+    public BlockCarvingTable() {
+        super(Material.ROCK, "carving_table");
+    }
 
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.setIndexPos(TileUtils.searchForIndex(pos, worldIn)));
-		if (worldIn.isRemote) {
-			return true;
-		} else {
-			GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
-			return true;
-		}
-	}
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+                                    EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.setIndexPos(TileUtils.searchForIndex(pos, worldIn)));
+        if (worldIn.isRemote) {
+            return true;
+        } else {
+            GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
+            return true;
+        }
+    }
 
-	@Override
-	public Class<? extends TileEntity> getTileEntityClass() {
-		return TileEntityCarvingTable.class;
-	}
+    @Override
+    public Class<? extends TileEntity> getTileEntityClass() {
+        return TileEntityCarvingTable.class;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState blockState) {
-		return new TileEntityCarvingTable();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState blockState) {
+        return new TileEntityCarvingTable();
+    }
 
 }

@@ -2,7 +2,6 @@ package com.minerarcana.runecarved.enchantments;
 
 import com.minerarcana.runecarved.RunecarvedContent;
 import com.minerarcana.runecarved.api.spell.Spell;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -16,7 +15,7 @@ public class EnchantmentSpell extends Enchantment {
     private Spell spell;
 
     public EnchantmentSpell(Spell spell) {
-        super(Enchantment.Rarity.RARE, SPELL_TYPE, new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
+        super(Enchantment.Rarity.RARE, SPELL_TYPE, new EntityEquipmentSlot[]{EntityEquipmentSlot.MAINHAND});
         this.spell = spell;
     }
 

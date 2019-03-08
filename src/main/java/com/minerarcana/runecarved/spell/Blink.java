@@ -1,14 +1,13 @@
 package com.minerarcana.runecarved.spell;
 
-import static com.minerarcana.runecarved.Runecarved.MODID;
-
 import com.minerarcana.runecarved.api.caster.CasterEntityPlayer;
 import com.minerarcana.runecarved.api.caster.ICaster;
 import com.minerarcana.runecarved.api.spell.Spell;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
+
+import static com.minerarcana.runecarved.Runecarved.MODID;
 
 public class Blink extends Spell {
     public Blink() {

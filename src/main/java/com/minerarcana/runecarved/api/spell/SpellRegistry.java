@@ -1,11 +1,10 @@
 package com.minerarcana.runecarved.api.spell;
 
-import java.util.Map;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Map;
 
 public class SpellRegistry {
     private Map<ResourceLocation, Spell> spells;

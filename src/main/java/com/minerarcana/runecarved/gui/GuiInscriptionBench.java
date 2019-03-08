@@ -1,17 +1,16 @@
 package com.minerarcana.runecarved.gui;
 
-import java.util.Map;
-
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.gui.GuiCarvingTable.GuiButtonRune;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class GuiInscriptionBench extends GuiContainer {
