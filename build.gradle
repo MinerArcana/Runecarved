@@ -19,7 +19,7 @@ group = "${group_name}"
 archivesBaseName = "${mod_name}"
 
 minecraft {
-    version = "${forge_version}"
+    version = "${minecraft_version}-${forge_version}"
 
     mappings = "${mappings_version}"
     runDir = "run/"
