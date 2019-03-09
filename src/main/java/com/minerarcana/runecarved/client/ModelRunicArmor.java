@@ -5,10 +5,14 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
+import javax.annotation.Nonnull;
+
 /**
  * ModelPlayer - Either Mojang or a mod author Created using Tabula 6.0.0
  */
 public class ModelRunicArmor extends ModelBiped {
+    private static final ModelRunicArmor[] MODELS = new ModelRunicArmor[EntityEquipmentSlot.values().length];
+
     public ModelRenderer FacePlateL;
     public ModelRenderer FacePlateR;
     public ModelRenderer FaceBar;
@@ -151,8 +155,8 @@ public class ModelRunicArmor extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw,
-                       float headPitch, float scale) {
+    public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount,
+                       float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         this.bipedHead.showModel = slot == EntityEquipmentSlot.HEAD;
 
         this.bipedBody.showModel = slot == EntityEquipmentSlot.CHEST;
@@ -167,8 +171,6 @@ public class ModelRunicArmor extends ModelBiped {
         this.FootL.showModel = slot == EntityEquipmentSlot.FEET;
         this.FootR.showModel = slot == EntityEquipmentSlot.FEET;
         super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        // setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw,
-        // headPitch, scale, entity);
     }
 
     /**
@@ -178,5 +180,14 @@ public class ModelRunicArmor extends ModelBiped {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
+    }
+
+    public static ModelRunicArmor getForSlot(EntityEquipmentSlot slot) {
+        ModelRunicArmor model = MODELS[slot.ordinal()];
+        if (model == null) {
+            model = new ModelRunicArmor(slot);
+            MODELS[slot.ordinal()] = model;
+        }
+        return model;
     }
 }

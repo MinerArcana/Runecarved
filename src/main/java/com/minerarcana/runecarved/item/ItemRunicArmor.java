@@ -16,6 +16,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -24,8 +25,6 @@ public class ItemRunicArmor extends ItemArmorBase {
     public static final ArmorMaterial RUNIC = EnumHelper.addArmorMaterial("runic", Runecarved.MODID, -1,
             new int[]{2, 6, 5, 2}, 0, SoundEvents.BLOCK_ANVIL_PLACE, ArmorMaterial.DIAMOND.getToughness());
     public static final int expiryTicks = 3600;
-    @SideOnly(Side.CLIENT)
-    private ModelRunicArmor modelRunicArmor;
 
     public ItemRunicArmor(EntityEquipmentSlot equipmentSlotIn, String name) {
         super(RUNIC, equipmentSlotIn, name);
@@ -34,10 +33,15 @@ public class ItemRunicArmor extends ItemArmorBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if (stack.hasTagCompound()) {
+        if (!stack.isEmpty() && stack.getTagCompound() != null) {
             tooltip.add("Seconds remaining: " + (expiryTicks - stack.getTagCompound().getInteger("existed")) / 20);
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
+        return false;
     }
 
     @Override
@@ -47,14 +51,16 @@ public class ItemRunicArmor extends ItemArmorBase {
             tag.setInteger("existed", 0);
             stack.setTagCompound(tag);
         } else {
-            int ticksExisted = stack.getTagCompound().getInteger("existed");
-            if (ticksExisted == expiryTicks) {
-                stack.shrink(1);
-            } else {
-                NBTTagCompound tag = stack.getTagCompound();
-                tag.setInteger("existed", tag.getInteger("existed") + 1);
-                stack.setTagCompound(tag);
+            NBTTagCompound stackNBT = stack.getTagCompound();
+            if (stackNBT != null) {
+                int ticksExisted = stackNBT.getInteger("existed");
+                if (ticksExisted == expiryTicks) {
+                    stack.shrink(1);
+                } else {
+                    stackNBT.setInteger("existed", stackNBT.getInteger("existed") + 1);
+                }
             }
+
         }
     }
 
@@ -63,11 +69,7 @@ public class ItemRunicArmor extends ItemArmorBase {
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase living, ItemStack stack, EntityEquipmentSlot slot,
                                     ModelBiped defaultModel) {
-        if (modelRunicArmor == null) {
-            modelRunicArmor = new ModelRunicArmor(slot);
-        }
-        modelRunicArmor.setModelAttributes(defaultModel);
-        return modelRunicArmor;
+        return ModelRunicArmor.getForSlot(slot);
     }
 
     @Nullable
