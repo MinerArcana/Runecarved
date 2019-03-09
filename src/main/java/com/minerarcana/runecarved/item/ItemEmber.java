@@ -1,13 +1,13 @@
 package com.minerarcana.runecarved.item;
 
 import com.teamacronymcoders.base.items.ItemBase;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -45,9 +45,8 @@ public class ItemEmber extends ItemBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    @SuppressWarnings("deprecation")
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(TextFormatting.RED.toString() + I18n.translateToLocal("item.runecarved.ember.desc"));
+        tooltip.add(TextFormatting.RED.toString() + I18n.format("item.runecarved.ember.desc"));
     }
 
     @Override

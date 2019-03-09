@@ -36,6 +36,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nonnull;
+
 import static com.minerarcana.runecarved.Runecarved.*;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
@@ -54,6 +56,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public Runecarved() {
         super(MODID, NAME, VERSION, new CreativeTabBase("runecarved", null) {
             @Override
+            @Nonnull
             public ItemStack createIcon() {
                 return new ItemStack(RunecarvedContent.ember);
             }
@@ -95,24 +98,13 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
-        // RecipeMeldingAltar.addRecipe(new RecipeMeldingAltar(0,
-        // new Ingredient[] { new OreIngredient("ingotGold"), new
-        // OreIngredient("stickWood") },
-        // new ItemStack(RunecarvedContent.runepick),
-        // new IngredientSpell[] {
-        // new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
-        // .getSpell(new ResourceLocation(Runecarved.MODID, "sight"))),
-        // new IngredientSpell(RunecarvedAPI.getInstance().getSpellRegistry()
-        // .getSpell(new ResourceLocation(Runecarved.MODID, "summon"))) }));
+
     }
 
     @Override
     public void registerBlocks(BlockRegistry registry) {
         registry.register(new BlockSimpleEnchanter());
         registry.register(new BlockRunestone());
-        // registry.register(new BlockRuneIndex());
-        // registry.register(new BlockCarvingTable());
-        // registry.register(new BlockMeldingAltar());
         super.registerBlocks(registry);
     }
 
@@ -123,7 +115,6 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 
         registry.register(new ItemMagicTool());
         registry.register(new ItemMagicAxe("magic_axe"));
-        // registry.register(new ItemMagicHoe("magic_hoe"));
         registry.register(new ItemMagicPickaxe("magic_pickaxe"));
         registry.register(new ItemMagicShovel("magic_shovel"));
         registry.register(new ItemMagicSword("magic_sword"));
@@ -135,9 +126,6 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
 
         RunecarvedAPI.getInstance().getSpellRegistry().getSpells().values()
                 .forEach(item -> registry.register(new ItemRunestone(item)));
-
-        // registry.register(new ItemRunepick());
-        // registry.register(new ItemRunestaff());
 
         super.registerItems(registry);
     }
