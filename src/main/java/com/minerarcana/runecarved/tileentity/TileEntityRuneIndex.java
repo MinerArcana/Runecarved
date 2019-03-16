@@ -30,13 +30,11 @@ public class TileEntityRuneIndex extends TileEntityInventoryBase implements IHas
 
     @Override
     public Gui getGui(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
         return new GuiRuneIndex(new ContainerRuneIndex(entityPlayer, world, this));
     }
 
     @Override
     public Container getContainer(EntityPlayer entityPlayer, World world, BlockPos blockPos) {
-        // TODO Auto-generated method stub
         return new ContainerRuneIndex(entityPlayer, world, this);
     }
 

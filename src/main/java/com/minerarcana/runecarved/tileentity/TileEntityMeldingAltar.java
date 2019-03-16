@@ -90,7 +90,7 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
             }
             for (RecipeMeldingAltar recipe : RecipeMeldingAltar.getRecipeList().values()) {
                 if (RecipeMatcher.findMatches(nonEmpty, Arrays.asList(recipe.inputs)) != null) {
-                    if (Arrays.asList(recipe.requiredRunes).stream().map(ingredient -> ingredient.getSpell())
+                    if (Arrays.stream(recipe.requiredRunes).map(IngredientSpell::getSpell)
                             .allMatch(spell -> indexHandler.getContainedSpells().containsKey(spell))) {
                         if (handler.getStackInSlot(9).isEmpty()) {
                             handler.insertItem(9, recipe.getOutput(), false);

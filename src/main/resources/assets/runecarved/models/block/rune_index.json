@@ -1,12 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "particle": "runecarved:blocks/simple_enchanter_bottom",
-    "bottom": "runecarved:blocks/simple_enchanter_top",
-    "top": "runecarved:blocks/simple_enchanter_top",
-    "side": "runecarved:blocks/simple_enchanter_side",
-    "glow_top": "runecarved:blocks/simple_enchanter_top_glow",
-    "glow_side": "runecarved:blocks/simple_enchanter_side_glow"
+    "particle": "runecarved:blocks/rune_index_bottom",
+    "bottom": "runecarved:blocks/rune_index_top",
+    "top": "runecarved:blocks/rune_index_top",
+    "side": "runecarved:blocks/rune_index_side"
   },
   "elements": [
     {

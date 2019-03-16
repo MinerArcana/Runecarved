@@ -1,6 +1,8 @@
 package com.minerarcana.runecarved.item;
 
+import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.RunecarvedContent;
+import com.minerarcana.runecarved.api.spell.ISpellItem;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.tileentity.TileEntityRunestone;
 import com.teamacronymcoders.base.items.ItemBase;
@@ -11,10 +13,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -34,7 +35,7 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-public class ItemRunestone extends ItemBase {
+public class ItemRunestone extends ItemBase implements ISpellItem {
     private final Spell spell;
 
     public ItemRunestone(Spell spell) {
@@ -138,6 +139,8 @@ public class ItemRunestone extends ItemBase {
     /**
      * Called when a Block is right-clicked with this Item
      */
+    @Override
+    @Nonnull
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
                                       EnumFacing facing, float hitX, float hitY, float hitZ) {
         IBlockState iblockstate = worldIn.getBlockState(pos);
@@ -155,7 +158,7 @@ public class ItemRunestone extends ItemBase {
             IBlockState iblockstate1 = RunecarvedContent.runestoneBlock.getStateForPlacement(worldIn, pos, facing, hitX,
                     hitY, hitZ, i, player, hand);
 
-            if (placeBlockAt(itemstack, player, worldIn, pos, facing, hitX, hitY, hitZ, iblockstate1)) {
+            if (placeBlockAt(itemstack, player, worldIn, pos, iblockstate1)) {
                 iblockstate1 = worldIn.getBlockState(pos);
                 SoundType soundtype = iblockstate1.getBlock().getSoundType(iblockstate1, worldIn, pos, player);
                 worldIn.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS,
@@ -169,22 +172,8 @@ public class ItemRunestone extends ItemBase {
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player,
-                                       ItemStack stack) {
-        Block block = worldIn.getBlockState(pos).getBlock();
-
-        if (block == Blocks.SNOW_LAYER && block.isReplaceable(worldIn, pos)) {
-            side = EnumFacing.UP;
-        } else if (!block.isReplaceable(worldIn, pos)) {
-            pos = pos.offset(side);
-        }
-
-        return worldIn.mayPlace(RunecarvedContent.runestoneBlock, pos, false, side, null);
-    }
-
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side,
-                                float hitX, float hitY, float hitZ, IBlockState newState) {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos,
+                                IBlockState newState) {
         if (!world.setBlockState(pos, newState, 11))
             return false;
 
@@ -193,8 +182,9 @@ public class ItemRunestone extends ItemBase {
             setTileEntityNBT(world, player, pos, stack);
             RunecarvedContent.runestoneBlock.onBlockPlacedBy(world, pos, state, player, stack);
 
-            if (player instanceof EntityPlayerMP)
+            if (player instanceof EntityPlayerMP) {
                 CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) player, pos, stack);
+            }
         }
 
         TileEntity tileEntity = world.getTileEntity(pos);
@@ -223,8 +213,19 @@ public class ItemRunestone extends ItemBase {
         return this;
     }
 
+    @Override
     public Spell getSpell() {
         return spell;
     }
 
+    public static ItemStack getRunestoneItemStackForSpell(Spell spell, int stackSize) {
+        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(Runecarved.MODID,
+                "runestone." + spell.getRegistryName().getPath()));
+
+        if (item instanceof ItemRunestone) {
+            return new ItemStack(item, stackSize);
+        }
+
+        return ItemStack.EMPTY;
+    }
 }

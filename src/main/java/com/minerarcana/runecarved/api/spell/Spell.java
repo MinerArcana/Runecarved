@@ -20,12 +20,13 @@ public abstract class Spell implements Comparable<Spell> {
     }
 
     @Override
-    public int compareTo(Spell compare) {
+    public int compareTo(@Nonnull Spell compare) {
         return getRegistryName().compareTo(compare.getRegistryName());
     }
 
     @Override
     public boolean equals(Object compare) {
-        return getRegistryName().equals(((Spell) compare).getRegistryName());
+        return this.getClass() == compare.getClass() &&
+                getRegistryName().equals(((Spell) compare).getRegistryName());
     }
 }

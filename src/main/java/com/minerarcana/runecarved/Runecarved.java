@@ -2,6 +2,7 @@ package com.minerarcana.runecarved;
 
 import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
+import com.minerarcana.runecarved.block.BlockRuneIndex;
 import com.minerarcana.runecarved.block.BlockRunestone;
 import com.minerarcana.runecarved.block.BlockSimpleEnchanter;
 import com.minerarcana.runecarved.container.HandlerRuneButton;
@@ -60,7 +61,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
             public ItemStack createIcon() {
                 return new ItemStack(RunecarvedContent.ember);
             }
-        }, Platform.isDevEnv());
+        }, false);
     }
 
     // TODO Move away from using an event if possible. It is currently necessary to
@@ -105,6 +106,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
     public void registerBlocks(BlockRegistry registry) {
         registry.register(new BlockSimpleEnchanter());
         registry.register(new BlockRunestone());
+        registry.register(new BlockRuneIndex());
         super.registerBlocks(registry);
     }
 

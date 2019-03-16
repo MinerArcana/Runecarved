@@ -12,6 +12,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BlockRuneIndex extends BlockTEBase<TileEntityRuneIndex> {
 
     public BlockRuneIndex() {
@@ -19,14 +21,12 @@ public class BlockRuneIndex extends BlockTEBase<TileEntityRuneIndex> {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
                                     EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote) {
-            return true;
-        } else {
-            GuiOpener.openTileEntityGui(getMod(), playerIn, worldIn, pos);
-            return true;
+        if (!world.isRemote) {
+            GuiOpener.openTileEntityGui(getMod(), player, world, pos);
         }
+        return true;
     }
 
     @Override
@@ -35,7 +35,8 @@ public class BlockRuneIndex extends BlockTEBase<TileEntityRuneIndex> {
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState blockState) {
+    @Nonnull
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState blockState) {
         return new TileEntityRuneIndex();
     }
 
