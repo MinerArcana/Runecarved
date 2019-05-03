@@ -1,12 +1,9 @@
 package com.minerarcana.runecarved.tileentity;
 
 import java.util.HashMap;
-
-import javax.annotation.Nonnull;
+import java.util.Optional;
 
 import com.google.common.collect.Maps;
-import com.minerarcana.runecarved.Runecarved;
-import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.capability.IRuneIndex;
 import com.minerarcana.runecarved.api.capability.RuneIndexImpl;
 import com.minerarcana.runecarved.api.runestack.RuneStack;
@@ -15,95 +12,26 @@ import com.minerarcana.runecarved.item.ItemRunestone;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
-public class ItemHandlerRunic extends ItemStackHandler {
+//Wrapper for IRuneIndex to expose inventory to automation
+public class ItemHandlerRunic implements IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
 
 	IRuneIndex index;
-    // Store spells and what slots they are in TODO Fallback to index instead
 	@Deprecated
     protected HashMap<Spell, Integer> spells = Maps.newHashMap();
 
     public ItemHandlerRunic(int size) {
-        super(size);
-        this.index = new RuneIndexImpl(9);
+        super();
+        this.index = new RuneIndexImpl(size);
     }
     
     public IRuneIndex getIndex() {
     	return index;
     }
 
-    // TODO This could be where we ensure it is always synced to client?
-    // Build list on load instead of saving/loading to NBT
-    @Override
-    protected void onLoad() {
-    	setSize(9);//TODO
-    	for (int slotIndex = 0; slotIndex < 9; slotIndex++) {
-    		//Build inventory from index storage
-    		RuneStack rStack = this.index.getStackInSlot(slotIndex);
-    		this.setStackInSlot(slotIndex, ItemRunestone.getRunestoneItemStackForSpell(rStack.getSpell(), rStack.getSize()));
-    		//Build lookup map
-            ItemStack stack = this.getStackInSlot(slotIndex);
-            if (stack.getItem() instanceof ItemRunestone) {
-                String runeName = stack.getTranslationKey().split("\\.")[2];
-                spells.put(RunecarvedAPI.getInstance().getSpellRegistry()
-                        .getSpell(new ResourceLocation(Runecarved.MODID, runeName)), slotIndex);
-            }
-        }
-    }
-
-    @Override
-    protected void onContentsChanged(int slotIndex) {
-        ItemStack stack = this.getStackInSlot(slotIndex);
-        if (stack.getItem() instanceof ItemRunestone) {
-            String runeName = stack.getTranslationKey().split("\\.")[2];
-            spells.put(RunecarvedAPI.getInstance().getSpellRegistry()
-                    .getSpell(new ResourceLocation(Runecarved.MODID, runeName)), slotIndex);
-        }
-    }
-
-    // Necessary because onContentsChanged is normally called after the stack is
-    // already removed
-    @Override
-    @Nonnull
-    public ItemStack extractItem(int slot, int amount, boolean simulate) {
-        if (amount == 0)
-            return ItemStack.EMPTY;
-
-        validateSlotIndex(slot);
-
-        ItemStack existing = this.stacks.get(slot);
-
-        if (existing.isEmpty())
-            return ItemStack.EMPTY;
-
-        int toExtract = Math.min(amount, existing.getMaxStackSize());
-
-        if (existing.getCount() <= toExtract) {
-            if (!simulate) {
-                String runeName = existing.getTranslationKey().split("\\.")[2];
-                this.spells.remove(RunecarvedAPI.getInstance().getSpellRegistry()
-                        .getSpell(new ResourceLocation(Runecarved.MODID, runeName)));
-                this.stacks.set(slot, ItemStack.EMPTY);
-                onContentsChanged(slot);
-            }
-            return existing;
-        } else {
-            if (!simulate) {
-                this.stacks.set(slot,
-                        ItemHandlerHelper.copyStackWithSize(existing, existing.getCount() - toExtract));
-                String runeName = existing.getTranslationKey().split("\\.")[2];
-                this.spells.remove(RunecarvedAPI.getInstance().getSpellRegistry()
-                        .getSpell(new ResourceLocation(Runecarved.MODID, runeName)));
-                onContentsChanged(slot);
-            }
-
-            return ItemHandlerHelper.copyStackWithSize(existing, toExtract);
-        }
-    }
-
+    @Deprecated
     public HashMap<Spell, Integer> getContainedSpells() {
         return spells;
     }
@@ -111,15 +39,64 @@ public class ItemHandlerRunic extends ItemStackHandler {
     @Override
     public NBTTagCompound serializeNBT()
     {
-    	NBTTagCompound tag = super.serializeNBT();
-    	tag.setTag("index", index.serializeNBT());
-    	return tag;
+    	return index.serializeNBT();
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt)
     {
     	index.deserializeNBT(nbt.getCompoundTag("index"));
-    	super.deserializeNBT(nbt);
     }
+
+	@Override
+	public int getSlots() {
+		return index.getSlots();
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		RuneStack rStack = index.getStackInSlot(slot);
+		return ItemRunestone.getRunestoneItemStackForSpell(rStack.getSpell(), rStack.getSize());
+	}
+
+	@Override
+	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+		Optional<RuneStack> opt = RuneStack.convertToRuneStack(stack);
+		if(opt.isPresent()) {
+			RuneStack rStack = opt.get();
+			//TODO allow combining
+			if(this.index.getStackInSlot(slot) == null) {
+				this.index.setStackInSlot(slot, rStack);
+				return ItemStack.EMPTY;
+			}
+		}
+		return stack;
+	}
+
+	@Override
+	public ItemStack extractItem(int slot, int amount, boolean simulate) {
+		if(this.index.getStackInSlot(slot) != null) {
+			RuneStack inSlot = index.getStackInSlot(slot);
+			if(inSlot.getSize() >= amount) {
+				inSlot.decreaseSize(amount);
+				return ItemRunestone.getRunestoneItemStackForSpell(inSlot.getSpell(), amount);
+			}
+		}
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public int getSlotLimit(int slot) {
+		//TODO
+		return 64;
+	}
+
+	@Override
+	public void setStackInSlot(int slot, ItemStack stack) {
+		Optional<RuneStack> opt = RuneStack.convertToRuneStack(stack);
+		if(opt.isPresent()) {
+			RuneStack rStack = opt.get();
+			this.index.setStackInSlot(slot, rStack);
+		}
+	}
 }

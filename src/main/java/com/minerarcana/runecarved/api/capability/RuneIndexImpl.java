@@ -37,14 +37,12 @@ public class RuneIndexImpl implements IRuneIndex {
         }
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setTag("Stacks", nbtTagList);
-        nbt.setInteger("Size", stacks.size());
         return nbt;
     }
 
     @Override
     public void deserializeNBT(NBTTagCompound nbt)
     {
-    	stacks = new ArrayList<>(nbt.getInteger("Size"));
         NBTTagList tagList = nbt.getTagList("Stacks", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < tagList.tagCount(); i++)
         {
@@ -60,6 +58,9 @@ public class RuneIndexImpl implements IRuneIndex {
     
 	@Override
 	public RuneStack getStackInSlot(int slot) {
+		if(stacks.size() < slot) {
+			return null;
+		}
 		return stacks.get(slot);
 	}
 
