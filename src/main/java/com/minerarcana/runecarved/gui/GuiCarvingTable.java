@@ -5,9 +5,10 @@ import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.container.ContainerCarvingTable;
 import com.minerarcana.runecarved.container.PacketRuneButton;
+import com.minerarcana.runecarved.tileentity.ItemHandlerRunic;
 import com.minerarcana.runecarved.tileentity.TileEntityCarvingTable;
 import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex;
-import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex.ItemHandlerRunic;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;

@@ -1,13 +1,19 @@
 package com.minerarcana.runecarved.tileentity;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.Lists;
+import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.container.ContainerMeldingAltar;
 import com.minerarcana.runecarved.gui.GuiMeldingAltar;
-import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex.ItemHandlerRunic;
 import com.minerarcana.runecarved.util.IngredientSpell;
 import com.teamacronymcoders.base.guisystem.IHasGui;
 import com.teamacronymcoders.base.tileentities.IOnSlotChanged;
 import com.teamacronymcoders.base.tileentities.TileEntityInventoryBase;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -24,10 +30,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.List;
 
 public class TileEntityMeldingAltar extends TileEntityInventoryBase implements IHasGui, IOnSlotChanged {
 
@@ -66,7 +68,7 @@ public class TileEntityMeldingAltar extends TileEntityInventoryBase implements I
                 .getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         TileEntityRuneIndex index = ((TileEntityRuneIndex) this.getWorld().getTileEntity(this.getIndexPos()));
         ItemHandlerRunic indexHandler = (ItemHandlerRunic) index
-                .getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+                .getCapability(RunecarvedAPI.RUNE_INDEX, null);
         // OUTPUT
         if (slot.getSlotIndex() == 9 && slot.getHasStack()) {
             // Remove recipe ingredients when output is 'claimed'

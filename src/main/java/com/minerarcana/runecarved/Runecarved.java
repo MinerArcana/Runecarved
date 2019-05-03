@@ -1,6 +1,14 @@
 package com.minerarcana.runecarved;
 
+import static com.minerarcana.runecarved.Runecarved.DEPENDENCIES;
+import static com.minerarcana.runecarved.Runecarved.MODID;
+import static com.minerarcana.runecarved.Runecarved.NAME;
+import static com.minerarcana.runecarved.Runecarved.VERSION;
+
+import javax.annotation.Nonnull;
+
 import com.minerarcana.runecarved.api.RunecarvedAPI;
+import com.minerarcana.runecarved.api.capability.IRuneIndex;
 import com.minerarcana.runecarved.api.spell.SpellRegistryEvent;
 import com.minerarcana.runecarved.block.BlockRuneIndex;
 import com.minerarcana.runecarved.block.BlockRunestone;
@@ -11,12 +19,17 @@ import com.minerarcana.runecarved.item.ItemEmber;
 import com.minerarcana.runecarved.item.ItemRunestone;
 import com.minerarcana.runecarved.item.ItemRunicArmor;
 import com.minerarcana.runecarved.item.ItemScroll;
-import com.minerarcana.runecarved.item.tool.manifested.*;
+import com.minerarcana.runecarved.item.tool.manifested.ItemMagicAxe;
+import com.minerarcana.runecarved.item.tool.manifested.ItemMagicPickaxe;
+import com.minerarcana.runecarved.item.tool.manifested.ItemMagicShovel;
+import com.minerarcana.runecarved.item.tool.manifested.ItemMagicSword;
+import com.minerarcana.runecarved.item.tool.manifested.ItemMagicTool;
 import com.teamacronymcoders.base.BaseModFoundation;
+import com.teamacronymcoders.base.capability.NBTCapStorage;
 import com.teamacronymcoders.base.creativetabs.CreativeTabBase;
 import com.teamacronymcoders.base.registrysystem.BlockRegistry;
 import com.teamacronymcoders.base.registrysystem.ItemRegistry;
-import com.teamacronymcoders.base.util.Platform;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -24,6 +37,7 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -36,10 +50,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
-
-import javax.annotation.Nonnull;
-
-import static com.minerarcana.runecarved.Runecarved.*;
 
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES)
 @EventBusSubscriber
@@ -86,6 +96,7 @@ public class Runecarved extends BaseModFoundation<Runecarved> {
         MinecraftForge.EVENT_BUS.post(new SpellRegistryEvent(RunecarvedAPI.getInstance().getSpellRegistry()));
         Runecarved.instance.getPacketHandler().registerPacket(HandlerRuneButton.class, PacketRuneButton.class,
                 Side.SERVER);
+        CapabilityManager.INSTANCE.register(IRuneIndex.class, new NBTCapStorage<IRuneIndex>(), IRuneIndex.class);
     }
 
     @Override

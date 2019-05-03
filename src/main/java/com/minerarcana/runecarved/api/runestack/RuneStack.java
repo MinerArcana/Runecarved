@@ -1,17 +1,17 @@
 package com.minerarcana.runecarved.api.runestack;
 
-import com.minerarcana.runecarved.RunecarvedContent;
+import java.util.Optional;
+
+import com.minerarcana.runecarved.api.RunecarvedAPI;
 import com.minerarcana.runecarved.api.spell.ISpellItem;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.item.ItemRunestone;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
-import java.util.Optional;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 
 public class RuneStack {
-    private final Item itemRunestone = Items.AIR;
     private int size;
     private final Spell spell;
 
@@ -70,4 +70,13 @@ public class RuneStack {
         }
         return Optional.empty();
     }
+
+	public void writeToNBT(NBTTagCompound tag) {
+		tag.setString("Spell", this.spell.getRegistryName().toString());
+		tag.setInteger("Count", this.size);
+	}
+
+	public static RuneStack readFromNBT(NBTTagCompound nbt) {
+		return new RuneStack(RunecarvedAPI.getInstance().getSpellRegistry().getSpell(new ResourceLocation(nbt.getString("Spell"))), nbt.getInteger("Count"));
+	}
 }

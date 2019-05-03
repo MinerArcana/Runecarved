@@ -19,6 +19,7 @@ public class GuiRuneIndex extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    	this.drawDefaultBackground();
         this.mc.renderEngine.bindTexture(GUI_TEX);
         int x = (this.width - this.xSize) / 2;
         int y = (this.height - this.ySize) / 2;

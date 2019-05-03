@@ -3,8 +3,9 @@ package com.minerarcana.runecarved.gui;
 import com.minerarcana.runecarved.Runecarved;
 import com.minerarcana.runecarved.api.spell.Spell;
 import com.minerarcana.runecarved.container.ContainerMeldingAltar;
+import com.minerarcana.runecarved.tileentity.ItemHandlerRunic;
 import com.minerarcana.runecarved.tileentity.TileEntityMeldingAltar;
-import com.minerarcana.runecarved.tileentity.TileEntityRuneIndex.ItemHandlerRunic;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
