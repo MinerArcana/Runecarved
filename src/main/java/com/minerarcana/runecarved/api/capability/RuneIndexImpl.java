@@ -1,20 +1,18 @@
 package com.minerarcana.runecarved.api.capability;
 
-import java.util.ArrayList;
-
 import com.minerarcana.runecarved.api.runestack.RuneStack;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.FMLLog;
 
 public class RuneIndexImpl implements IRuneIndex {
 
-    protected ArrayList<RuneStack> stacks;
+    protected NonNullList<RuneStack> stacks;
     
     public RuneIndexImpl(int size) {
-    	this.stacks = new ArrayList<>(size);
+    	this.stacks = NonNullList.withSize(size, RuneStack.EMPTY);
     }
 	
 	@Override

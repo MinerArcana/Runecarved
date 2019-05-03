@@ -56,20 +56,20 @@ public class ItemHandlerRunic implements IItemHandlerModifiable, INBTSerializabl
 	@Override
 	public ItemStack getStackInSlot(int slot) {
 		RuneStack rStack = index.getStackInSlot(slot);
+		if(rStack.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
 		return ItemRunestone.getRunestoneItemStackForSpell(rStack.getSpell(), rStack.getSize());
 	}
 
 	@Override
 	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		Optional<RuneStack> opt = RuneStack.convertToRuneStack(stack);
-		if(opt.isPresent()) {
-			RuneStack rStack = opt.get();
+			RuneStack rStack = RuneStack.convertToRuneStack(stack);
 			//TODO allow combining
-			if(this.index.getStackInSlot(slot) == null) {
+			if(!rStack.isEmpty() && this.index.getStackInSlot(slot) == null) {
 				this.index.setStackInSlot(slot, rStack);
 				return ItemStack.EMPTY;
 			}
-		}
 		return stack;
 	}
 
@@ -93,9 +93,8 @@ public class ItemHandlerRunic implements IItemHandlerModifiable, INBTSerializabl
 
 	@Override
 	public void setStackInSlot(int slot, ItemStack stack) {
-		Optional<RuneStack> opt = RuneStack.convertToRuneStack(stack);
-		if(opt.isPresent()) {
-			RuneStack rStack = opt.get();
+		RuneStack rStack = RuneStack.convertToRuneStack(stack);
+		if(!rStack.isEmpty()) {
 			this.index.setStackInSlot(slot, rStack);
 		}
 	}
