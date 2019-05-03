@@ -56,9 +56,6 @@ public class RuneIndexImpl implements IRuneIndex {
     
 	@Override
 	public RuneStack getStackInSlot(int slot) {
-		if(stacks.size() < slot) {
-			return null;
-		}
 		return stacks.get(slot);
 	}
 

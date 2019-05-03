@@ -10,6 +10,7 @@ import com.minerarcana.runecarved.item.ItemRunestone;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class RuneStack {
 	public static final RuneStack EMPTY = new RuneStack((Spell)null, 0);

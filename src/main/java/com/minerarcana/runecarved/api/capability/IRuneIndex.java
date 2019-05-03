@@ -1,6 +1,6 @@
 package com.minerarcana.runecarved.api.capability;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 import com.minerarcana.runecarved.api.runestack.RuneStack;
 
@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 public interface IRuneIndex extends INBTSerializable<NBTTagCompound> {
 	int getSlots();
 	
-	@Nullable
+	@Nonnull
 	RuneStack getStackInSlot(int slot);
 	
 	void setStackInSlot(int slot, RuneStack stack);
